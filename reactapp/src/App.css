@@ -1,0 +1,19 @@
+/* src/components/App.css */
+.app {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    color: #333;
+  }
+body{
+    background-color: ghostwhite;
+}
+#heading{
+  background-color: coral;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+  
