@@ -25,7 +25,7 @@ const Login = () => {
   };
   return (
     <div className={styles.logincontainer}>
-      <h1 className={styles.heading}>Login</h1>
+      <h2 className={styles.heading}>Login</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.formlabel}>Username: </label>
         <input className={styles.forminput} onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username' required></input>

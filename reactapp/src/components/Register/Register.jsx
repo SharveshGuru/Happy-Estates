@@ -20,7 +20,7 @@ const Register = () => {
   };
   return (
     <div className={styles.registercontainer}>
-      <h1 className={styles.heading}>REGISTER</h1>
+      <h2 className={styles.heading}>REGISTER</h2>
       <br></br>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.formlabel}>Name: </label>
