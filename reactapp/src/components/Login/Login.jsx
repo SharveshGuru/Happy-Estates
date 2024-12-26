@@ -24,16 +24,16 @@ const Login = () => {
     }
   };
   return (
-    <div className="register-container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Username: </label>
-        <input onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username' required></input>
+    <div className={styles.logincontainer}>
+      <h1 className={styles.heading}>Login</h1>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <label className={styles.formlabel}>Username: </label>
+        <input className={styles.forminput} onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username' required></input>
         <br/>
-        <label>Password: </label>
-        <input onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Set your Password' required></input>
+        <label className={styles.formlabel}>Password: </label>
+        <input className={styles.forminput} onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Set your Password' required></input>
         <br/>
-        <button type='submit'>Login</button>
+        <button className={styles.submit} type='submit'>Login</button>
       </form>
       {error && <p style={{color:"red"}}>{error}</p>}
     </div>

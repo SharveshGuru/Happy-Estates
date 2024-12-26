@@ -20,31 +20,31 @@ const Register = () => {
   };
   return (
     <div className={styles.registercontainer}>
-      <h1>Register</h1>
+      <h1 className={styles.heading}>REGISTER</h1>
       <br></br>
-      <form onSubmit={handleSubmit}>
-        <label>Name: </label>
-        <input onChange={handleChange} type="text" name='name' value={formData.name} placeholder='Enter your Name' required></input>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <label className={styles.formlabel}>Name: </label>
+        <input className={styles.forminput} onChange={handleChange} type="text" name='name' value={formData.name} placeholder='Enter your Name' required></input>
         <br/>
-        <label>Email ID: </label>
-        <input onChange={handleChange} type="email" name='email' value={formData.email} placeholder='Enter your Email ID' required></input>
+        <label className={styles.formlabel}>Email ID: </label>
+        <input className={styles.forminput} onChange={handleChange} type="email" name='email' value={formData.email} placeholder='Enter your Email ID' required></input>
         <br/>
-        <label>Phone Number: </label>
-        <input onChange={handleChange} type="tel" name='phoneno' value={formData.phoneno} placeholder='Enter your Phone Number' required></input>
+        <label className={styles.formlabel}>Phone Number: </label>
+        <input className={styles.forminput} onChange={handleChange} type="tel" name='phoneno' value={formData.phoneno} placeholder='Enter your Phone Number' required></input>
         <br/>
-        <label>User Type: </label>
-        <select onChange={handleChange} value={formData.usertype} name="usertype" required>
+        <label className={styles.formlabel}>User Type: </label>
+        <select className={styles.forminput} onChange={handleChange} value={formData.usertype} name="usertype" required>
           <option name='tenant'>Tenant</option>
           <option name='owner'>Owner</option>
         </select>
         <br></br>
-        <label>Username: </label>
-        <input onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username' required></input>
+        <label className={styles.formlabel}>Username: </label>
+        <input className={styles.forminput} onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username' required></input>
         <br/>
-        <label>Password: </label>
-        <input onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Set your Password' required></input>
+        <label className={styles.formlabel}>Password: </label>
+        <input className={styles.forminput} onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Set your Password' required></input>
         <br/>
-        <button className={styles.submit}type='submit'>Register</button>
+        <button className={styles.submit} type='submit'>Register</button>
       </form>
     </div>
   );
