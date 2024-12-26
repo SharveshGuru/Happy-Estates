@@ -1,0 +1,21 @@
+.registercontainer{
+    margin: auto;
+    display: flex;
+    
+    background-color: aliceblue;
+    border-radius: .25rem;
+    width: 20rem;
+    box-shadow: 0.25rem 0.25rem 0.3rem #888888;
+    padding: 1rem 1rem 2rem 1rem ;
+    
+}
+
+.submit{
+    background-color: rgb(68, 160, 246);
+    width: 5rem;
+    height: 1.5rem;
+    color: white;
+    border-radius: 0.5rem;
+    border-color: rgb(0, 102, 255);
+
+}

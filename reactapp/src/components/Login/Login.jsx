@@ -28,12 +28,12 @@ const Login = () => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label>Username: </label>
-        <input onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username'></input>
+        <input onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username' required></input>
         <br/>
         <label>Password: </label>
-        <input onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Set your Password'></input>
+        <input onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Set your Password' required></input>
         <br/>
-        <button type='submit'>Register</button>
+        <button type='submit'>Login</button>
       </form>
       {error && <p style={{color:"red"}}>{error}</p>}
     </div>
