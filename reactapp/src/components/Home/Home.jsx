@@ -9,8 +9,6 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { CiSquareQuestion } from "react-icons/ci";
 import { FaUser } from "react-icons/fa";
 
-
-
 const Home = () => {
 
   const {user}=useContext(UserContext)
