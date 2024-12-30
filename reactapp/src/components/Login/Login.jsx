@@ -12,7 +12,7 @@ const Login = () => {
 
   function handleChange(e){
     setFormData({...formData, [e.target.name]:e.target.value})
-    console.log(formData[e.target.name]);
+    // console.log(formData[e.target.name]);
   }
   function handleSubmit(e){
     e.preventDefault();
@@ -24,18 +24,20 @@ const Login = () => {
     }
   };
   return (
-    <div className={styles.logincontainer}>
-      <h2 className={styles.heading}>Login</h2>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <label className={styles.formlabel}>Username: </label>
-        <input className={styles.forminput} onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Set your Username' required></input>
-        <br/>
-        <label className={styles.formlabel}>Password: </label>
-        <input className={styles.forminput} onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Set your Password' required></input>
-        <br/>
-        <button className={styles.submit} type='submit'>Login</button>
-      </form>
-      {error && <p style={{color:"red"}}>{error}</p>}
+    <div className={styles.page}>
+      <div className={styles.logincontainer}>
+        <h2 className={styles.heading}>Login</h2>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <label className={styles.formlabel}>Username: </label>
+          <input className={styles.forminput} onChange={handleChange} type="text" value={formData.username} name='username' placeholder='Enter your Username' required></input>
+          <br/>
+          <label className={styles.formlabel}>Password: </label>
+          <input className={styles.forminput} onChange={handleChange} type="password" value={formData.password} name='password' placeholder='Enter your Password' required></input>
+          <br/>
+          <button className={styles.submit} type='submit'>Login</button>
+        </form>
+        {error && <p style={{color:"red"}}>{error}</p>}
+      </div>
     </div>
   );
 };
