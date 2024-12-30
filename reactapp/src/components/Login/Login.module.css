@@ -14,10 +14,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: aliceblue;
+    background-color: rgb(253, 234, 193);
     border-radius: .25rem;
     width: 25rem;
-    box-shadow: 0.25rem 0.25rem 0.3rem #888888;
+    box-shadow: 0.25rem 0.25rem  rgb(212, 158, 39);
     padding: 1rem 1rem 2rem 1rem ;
     
 }
