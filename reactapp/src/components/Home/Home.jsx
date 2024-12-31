@@ -6,8 +6,9 @@ import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import { BiSolidBuildingHouse } from "react-icons/bi";
 import { HiHome } from "react-icons/hi2";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-import { CiSquareQuestion } from "react-icons/ci";
+import { TbHelpSquareFilled } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
+import { IoPeopleSharp } from "react-icons/io5";
 import Logout from '../Login/Logout';
 
 
@@ -15,6 +16,14 @@ const Home = () => {
 
   const {user}=useContext(UserContext)
   const navigate=useNavigate();
+
+  function toTitleCase(str) {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }  
   function redirectRegister(){
     navigate("/register");
   }
@@ -27,16 +36,22 @@ const Home = () => {
   function redirectMyProperty(){
     navigate("/my-property");
   }
-  function redirectPayRent(){
-    navigate("/pay-rent");
+  function redirectPayments(){
+    navigate("/payments");
   }
-  function redirectRaiseRequest(){
-    navigate("/raise-request");
+  function redirectRequests(){
+    navigate("/requests");
   }
   function redirectProfile(){
     navigate("/profile")
   }
-  
+  function redirectManageProperties(){
+    navigate("/manage-properties");
+  }
+  function redirectManageTenants(){
+    navigate("/manage-tenants");
+  }
+
   return (
     <div className="home-container">
       {!user &&
@@ -50,16 +65,18 @@ const Home = () => {
         </div>
       </div>
       }
-      {user &&
+      {user && 
       <div className={styles.homepage}>
         <h1 className={styles.heading}>Happy Estates</h1>
         <div className={styles.welcomeHeader}>
-          <h1 className={styles.name}>Welcome {user.name}</h1>
+          <h1 className={styles.name}>Welcome {toTitleCase(user.name)}!</h1>
           <Logout bs="homeLogout"/>
         </div>
         <br></br>
+        
+        {user.usertype==="Tenant" && 
         <div className={styles.cards}>
-          
+        
           <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
             <CardActionArea onClick={redirectPropertyListings}>
               <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
@@ -83,22 +100,22 @@ const Home = () => {
           </Card>
 
           <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
-            <CardActionArea onClick={redirectPayRent}>
+            <CardActionArea onClick={redirectPayments}>
               <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
                 <RiMoneyRupeeCircleFill size={50} color="rgb(212, 158, 39)" />
                   <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
-                    Pay Rent
+                    Payments
                   </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
 
           <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
-            <CardActionArea onClick={redirectRaiseRequest}>
+            <CardActionArea onClick={redirectRequests}>
               <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
-                <CiSquareQuestion  size={50} color="rgb(212, 158, 39)" />
+                <TbHelpSquareFilled  size={50} color="rgb(212, 158, 39)" />
                   <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
-                    Raise Request
+                    Requests
                   </Typography>
               </CardContent>
             </CardActionArea>
@@ -116,6 +133,67 @@ const Home = () => {
           </Card>
 
         </div>
+        }
+        {user.usertype==="Owner" && 
+        <div className={styles.cards}>
+        
+          <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
+            <CardActionArea onClick={redirectManageProperties}>
+              <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
+                <BiSolidBuildingHouse size={50} color="rgb(212, 158, 39)" />
+                <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
+                  Manage Properties
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+
+          <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
+            <CardActionArea onClick={redirectManageTenants}>
+              <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
+                <IoPeopleSharp  size={50} color="rgb(212, 158, 39)" />
+                  <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
+                    Manage Tenants
+                  </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+
+          <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
+            <CardActionArea onClick={redirectPayments}>
+              <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
+                <RiMoneyRupeeCircleFill size={50} color="rgb(212, 158, 39)" />
+                  <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
+                    Payments
+                  </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+
+          <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
+            <CardActionArea onClick={redirectRequests}>
+              <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
+                <TbHelpSquareFilled size={50} color="rgb(212, 158, 39)" />
+                  <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
+                    Requests
+                  </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+
+          <Card sx={{ minWidth: 250, margin: "auto", boxShadow: 3,backgroundColor:"rgb(253, 234, 193)" }}>
+            <CardActionArea onClick={redirectProfile}>
+              <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
+                <FaUser size={50} color="rgb(212, 158, 39)" />
+                  <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
+                    Profile
+                  </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+
+        </div>
+        }
       </div>
       }
     </div>
