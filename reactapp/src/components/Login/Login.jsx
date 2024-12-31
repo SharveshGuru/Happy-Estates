@@ -7,6 +7,7 @@ const Login = () => {
 
   const [formData,setFormData]=useState({name:"",email:"",phoneno:"",username:"",password:""});
   const {user}=useContext(UserContext);
+  const {setLoggedIn}=useContext(UserContext);
   const [error,setError]=useState("");
   const navigate=useNavigate()
 
@@ -17,7 +18,8 @@ const Login = () => {
   function handleSubmit(e){
     e.preventDefault();
     if(user && user.username===formData.username && user.password===formData.password){
-        navigate("/home");
+      setLoggedIn(true);
+      navigate("/home");
     }
     else{
         setError("Invalid credentials!")

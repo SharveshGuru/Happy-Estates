@@ -8,6 +8,11 @@ import { HiHome } from "react-icons/hi2";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { CiSquareQuestion } from "react-icons/ci";
 import { FaUser } from "react-icons/fa";
+<<<<<<< HEAD
+=======
+import Logout from '../Login/Logout';
+
+>>>>>>> 9b5fe4cbb1d1a9bb098933f732c39e841a11c10d
 
 const Home = () => {
 
@@ -51,7 +56,10 @@ const Home = () => {
       {user &&
       <div className={styles.homepage}>
         <h1 className={styles.heading}>Happy Estates</h1>
-        <h1 className={styles.name}>Welcome {user.name}</h1>
+        <div className={styles.welcomeHeader}>
+          <h1 className={styles.name}>Welcome {user.name}</h1>
+          <Logout bs="homeLogout"/>
+        </div>
         <br></br>
         <div className={styles.cards}>
           
