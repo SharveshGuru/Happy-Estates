@@ -39,10 +39,11 @@
     background-color: rgb(212, 158, 39);
 }
 .name{
-    text-align: right;
-    margin-top: 2rem;
+    text-align: left;
+    margin:0;
+    /* margin-top: 2rem;
     margin-bottom: 2rem;
-    margin-right: 0.5rem;
+    margin-left: 0.5rem; */
     font-size: 2.5rem;
     color: white;
     font-weight: 400;
@@ -52,4 +53,12 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+.welcomeHeader{
+    display: flex;
+    flex-direction: row;
+    min-width: 100vh;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    margin-top: 1rem;
 }

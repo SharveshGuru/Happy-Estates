@@ -13,7 +13,7 @@ import RaiseRequest from './components/RaiseRequest/RaiseRequest';
 import Profile from './components/Profile/Profile';
 import Temp from './components/Temp';
 import { UserProvider } from './components/UserContext';
-
+import { ProtectedRoute } from './components/ProtectedRoute';
 function App() {
   return (
     <div className={styles.app}>
@@ -25,11 +25,11 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/home" element={<Home/>}/>
-          <Route path="/property-listings" element={<PropertyListings/>}/>
-          <Route path="/my-property" element={<MyProperty/>}/>
-          <Route path="/pay-rent" element={<PayRent/>}/>
-          <Route path="/raise-request" element={<RaiseRequest/>}/>
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/property-listings" element={<ProtectedRoute><PropertyListings/></ProtectedRoute>}/>
+          <Route path="/my-property" element={<ProtectedRoute><MyProperty/></ProtectedRoute>}/>
+          <Route path="/pay-rent" element={<ProtectedRoute><PayRent/></ProtectedRoute>}/>
+          <Route path="/raise-request" element={<ProtectedRoute><RaiseRequest/></ProtectedRoute>}/>
+          <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
           <Route path="/temp" element={<Temp/>}/>
         </Routes>
       </Router>
