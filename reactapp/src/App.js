@@ -9,7 +9,7 @@ import Login from './components/Login/Login';
 import PropertyListings from './components/PropertyListings/PropertyListings';
 import MyProperty from './components/MyProperty/MyProperty';
 import PayRent from './components/Payments/PayRent';
-import RaiseRequest from './components/RaiseRequest/Requests';
+import RaiseRequest from './components/Requests/Requests';
 import Profile from './components/Profile/Profile';
 import Temp from './components/Temp';
 import { UserProvider } from './components/UserContext';
