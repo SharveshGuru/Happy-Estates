@@ -38,7 +38,7 @@
 .forminput{
     height: 1.7rem;
     width:100%;
-    /* padding: .25rem; */
+    padding: .25rem;
     border-radius: 0.25rem;
     border-width: 0.05rem;
 }

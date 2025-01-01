@@ -23,3 +23,11 @@
     background-color: rgb(236, 198, 116);
     cursor:pointer;
 }
+.navLogout {
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-family: "Jost", serif;
+}
