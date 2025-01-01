@@ -6,12 +6,13 @@ import { UserContext } from "../UserContext";
 
 const Navbar=()=>{
     
-    const {user}=useContext(UserContext)
+    const {user,loggedIn}=useContext(UserContext)
     const location=useLocation();
     const isActive = (path) => location.pathname.startsWith(path);
       
     return(
-        <nav className={styles.navbar}>
+        <>
+        {loggedIn && <nav className={styles.navbar}>
             <div className={styles.navbarLeft}>
                 <Link to="/" className={styles.navbarBrand}>Happy Estates</Link>
             </div>
@@ -43,7 +44,7 @@ const Navbar=()=>{
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav>}</>
     )
 }
 export default Navbar;
