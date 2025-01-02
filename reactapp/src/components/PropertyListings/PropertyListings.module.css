@@ -65,7 +65,7 @@
     background: url("../../../public/assets/images/home_background_image.jpg");
     /* background-repeat: no-repeat; */
     background-size: cover;
-    min-height: 93vh;
+    min-height: 93.1vh;
     display: flex;
     /* justify-content: center; */
     flex-direction:column;
