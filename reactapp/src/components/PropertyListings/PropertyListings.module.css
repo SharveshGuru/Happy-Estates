@@ -1,3 +1,5 @@
+
+
 .heading{
     text-align: center;
     color: rgb(255, 183, 0);
@@ -13,8 +15,8 @@
     border-radius: 0.25rem;
     padding: 0.5rem;
     max-height: 78vh;
-    /* overflow-y: auto;
-    scrollbar-width: thin; */
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 .listing{
@@ -62,12 +64,12 @@
 }
 
 .homepage{
-    background: url("../../../public/assets/images/home_background_image.jpg");
+    background: url("../../../public/assets/images/home_background_image.jpg") no-repeat center center;
     /* background-repeat: no-repeat; */
+    background-attachment: fixed;
     background-size: cover;
-    min-height: 93.1vh;
+    min-height: 100vh;
     display: flex;
-    /* justify-content: center; */
     flex-direction:column;
     background-position: center;
 }
