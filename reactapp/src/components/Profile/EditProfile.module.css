@@ -36,11 +36,8 @@
 
 .submit{
     background-color: rgb(236, 198, 116);
-    /* width: 5rem;
-    height: 1.5rem; */
     color: BLACK;
     border-radius: 0.5rem;
-    /* border-color: rgb(0, 102, 255); */
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor:pointer;
