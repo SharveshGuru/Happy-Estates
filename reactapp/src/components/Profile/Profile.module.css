@@ -1,3 +1,14 @@
+.homepage{
+    background: url("../../../public/assets/images/home_background_image.jpg") no-repeat center center;
+    /* background-repeat: no-repeat; */
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction:column;
+    background-position: center;
+}
+
 .heading{
     text-align: center;
     color: rgb(255, 183, 0);
@@ -17,32 +28,17 @@
     scrollbar-width: thin;
 }
 
-.listing{
+.content{
     margin: 0.5rem;
     background-color: rgb(253, 234, 193);
     padding: 0.5rem;
     border-radius: 0.5rem;
     position: relative;
     border: 2px solid rgb(208, 178, 113);
+    font-size: 1.5rem;
+    text-align: center;
 }
-
-.listingHeader{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.listingContent{
-    font-size: 1.2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.viewButton{
-    position: absolute;   
-    bottom: 0.7rem;         
-    right: 0.7rem;          
+.buttons{
     padding: 0.6rem 1rem;   
     background-color: rgb(153, 109, 14); 
     color: white;         
@@ -51,23 +47,5 @@
     border-radius: 0.3rem;   
     font-family: 'Jost',serif;
     font-size: 1rem;
-}
-
-.viewButton:hover{  
-    background-color: rgb(60, 51, 31);  
-}
-
-.listing:hover{
-    background-color: rgb(246, 210, 139);
-}
-
-.homepage{
-    background: url("../../../public/assets/images/home_background_image.jpg") no-repeat center center;
-    /* background-repeat: no-repeat; */
-    background-attachment: fixed;
-    background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    flex-direction:column;
-    background-position: center;
+    margin: 1rem;
 }
