@@ -9,7 +9,7 @@ const PropertyListings = () =>{
         price:"₹50000",
     };
     return(
-        <div className={styles.homepage}>
+        <div className={styles.page}>
             <h1 className={styles.heading}>Property Listings</h1>
             <div className={styles.container}>
                 <div className={styles.listing}>

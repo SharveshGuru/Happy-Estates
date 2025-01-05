@@ -31,7 +31,7 @@
 .content{
     margin: 0.5rem;
     background-color: rgb(253, 234, 193);
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 0.5rem;
     position: relative;
     border: 2px solid rgb(208, 178, 113);
@@ -48,4 +48,8 @@
     font-family: 'Jost',serif;
     font-size: 1rem;
     margin: 1rem;
+}
+
+.buttons:hover{  
+    background-color: rgb(60, 51, 31);  
 }

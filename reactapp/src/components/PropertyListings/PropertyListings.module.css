@@ -20,7 +20,7 @@
 .listing{
     margin: 0.5rem;
     background-color: rgb(253, 234, 193);
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 0.5rem;
     position: relative;
     border: 2px solid rgb(208, 178, 113);
@@ -41,8 +41,8 @@
 
 .viewButton{
     position: absolute;   
-    bottom: 0.7rem;         
-    right: 0.7rem;          
+    bottom: 1rem;         
+    right: 1rem;          
     padding: 0.6rem 1rem;   
     background-color: rgb(153, 109, 14); 
     color: white;         
@@ -61,7 +61,7 @@
     background-color: rgb(246, 210, 139);
 }
 
-.homepage{
+.page{
     background: url("../../../public/assets/images/home_background_image.jpg") no-repeat center center;
     /* background-repeat: no-repeat; */
     background-attachment: fixed;
