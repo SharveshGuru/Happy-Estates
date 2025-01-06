@@ -5,6 +5,7 @@
     background-color: rgb(208, 178, 113);
     padding: 0.2rem 0.7rem;
     color: white;
+    overflow: auto;
 }
 
 .navbarLeft .navbarBrand {
