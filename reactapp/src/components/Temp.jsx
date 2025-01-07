@@ -7,43 +7,33 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { CiSquareQuestion } from "react-icons/ci";
 import { FaUser } from "react-icons/fa";
 import Logout from './Login/Logout';
-import styles from "./Navbar/Navbar.module.css";
+import styles from "../components/Home/Home.module.css";
 import { Link, useLocation } from "react-router-dom";
 const Temp=()=>{
     const location=useLocation();
     const isActive = (path) => location.pathname.startsWith(path);
       
     return(
-        <nav className={styles.navbar}>
-            <div className={styles.navbarLeft}>
-                <Link to="/" className={styles.navbarBrand}>Happy Estates</Link>
-            </div>
-            <div className={styles.navbarRight}>
-                <ul className={styles.navbarNav}>
-                    <li>
-                        <Link to="/temp" className={isActive("/temp")?`${styles.navLink} ${styles.active}`:styles.navLink}>Temp</Link>
-                    </li>
-                    <li>
-                        <Link to="/property-listings" className={isActive("/property-listings")?`${styles.navLink} ${styles.active}`:styles.navLink}>Property Listings</Link>
-                    </li>
-                    <li>
-                        <Link to="/my-property" className={isActive("/my-property")?`${styles.navLink} ${styles.active}`:styles.navLink}>My Property</Link>
-                    </li>
-                    <li>
-                        <Link to="/payments" className={isActive("/payments")?`${styles.navLink} ${styles.active}`:styles.navLink}>Payments</Link>
-                    </li>
-                    <li>
-                        <Link to="/requests" className={isActive("/requests")?`${styles.navLink} ${styles.active}`:styles.navLink}>Requests</Link>
-                    </li>
-                    <li>
-                        <Link to="/profile" className={isActive("/profile")?`${styles.navLink} ${styles.active}`:styles.navLink}>Profile</Link>
-                    </li>
-                    <li>
-                        <Logout bs="navLogout" />
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <div className={styles.cards}>
+        <Card sx={{ minWidth: "16.5vw",
+                    margin: "auto",
+                    boxShadow: 3,backgroundColor:"rgb(253, 234, 193)",
+                    transition:'transform 0.3s ease, box-shadow 0.3s ease',
+                    '&:hover':{
+                      transform:'scale(1.05)',
+                      backgroundColor:'white',
+                    },
+                     }}>
+                    <CardActionArea onClick={isActive}>
+                      <CardContent sx={{ textAlign: "center",fontFamily: "'Jost', serif" }}>
+                        <BiSolidBuildingHouse size={50} color="rgb(60, 51, 31)" />
+                        <Typography variant="h6" component="div" sx={{ marginTop: 2, fontFamily: "'Jost', serif" }}>
+                          Property Listings
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                  </div>
     )
 }
 export default Temp;

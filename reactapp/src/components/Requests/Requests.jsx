@@ -1,11 +1,11 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 import styles from "./Requests.module.css";
 import Popup from "../Popup/Popup";
 import CreateRequest from "./CreateRequest";
-
+import { UserContext } from "../UserContext";
 const Requests = () =>{
     const [open,setOpen]=useState(false);
-
+    const {user}=useContext(UserContext);
     const [tableData,setTableData]=
     useState([
         {
@@ -77,11 +77,19 @@ const Requests = () =>{
                                     <td className={styles.td}>{request.description}</td>
                                     <td className={styles.td}>{request.date}</td>
                                     <td className={styles.td}>{request.remarks}</td>
-                                    {request.status==="new" && request.madeBy==="Tenant" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                    {user.usertype==="Tenant" && request.status==="new" && request.madeBy==="Tenant" && <td className={styles.td+ " "+ styles.buttonRow}>
                                         <button onClick={()=>markCompleted(index)} className={styles.approveButton}>Mark as Completed</button>    
                                         </td>
                                     }
-                                    {request.status==="new" && request.madeBy==="Owner" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                    {user.usertype==="Tenant" && request.status==="new" && request.madeBy==="Owner" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                        <button onClick={()=>markAcknowledged(index)} className={styles.actionButton}>Acknowledge</button>    
+                                        </td>
+                                    }
+                                    {user.usertype==="Owner" && request.status==="new" && request.madeBy==="Owner" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                        <button onClick={()=>markCompleted(index)} className={styles.approveButton}>Mark as Completed</button>    
+                                        </td>
+                                    }
+                                    {user.usertype==="Owner" && request.status==="new" && request.madeBy==="Tenant" && <td className={styles.td+ " "+ styles.buttonRow}>
                                         <button onClick={()=>markAcknowledged(index)} className={styles.actionButton}>Acknowledge</button>    
                                         </td>
                                     }
