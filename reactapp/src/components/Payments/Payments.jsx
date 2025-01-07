@@ -19,56 +19,60 @@ const Payments = () =>{
                         <button onClick={handlePay} className={styles.makePaymentButton}>Make Payment</button>
                     </div><br />
                     <table className={styles.table}>
-                        <tr className={styles.headerRow}>
-                            <th className={styles.th}>Made By</th>
-                            <th className={styles.th}>Description</th>
-                            <th className={styles.th}>Date</th>
-                            <th className={styles.th}>Remarks</th>
-                            <th className={styles.th}>Proof</th>
-                            <th className={styles.th}>Invoice</th>
-                        </tr>
-                        <tr className={styles.row}>
-                            <td className={styles.td}>Tenant</td>
-                            <td className={styles.td}>Lease Payment</td>
-                            <td className={styles.td}>1 January 2025</td>
-                            <td className={styles.td}>payment for 2025</td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                        </tr>
-                        <tr className={styles.row}>
-                            <td className={styles.td}>Tenant</td>
-                            <td className={styles.td}>Lease Payment</td>
-                            <td className={styles.td}>1 January 2024</td>
-                            <td className={styles.td}>payment for 2024</td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                        </tr>
-                        <tr className={styles.row}>
-                            <td className={styles.td}>Tenant</td>
-                            <td className={styles.td}>Lease Payment</td>
-                            <td className={styles.td}>1 January 2023</td>
-                            <td className={styles.td}>payment for 2023</td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                        </tr>
+                        <thead>
+                            <tr className={styles.headerRow}>
+                                <th className={styles.th}>Made By</th>
+                                <th className={styles.th}>Description</th>
+                                <th className={styles.th}>Date</th>
+                                <th className={styles.th}>Remarks</th>
+                                <th className={styles.th}>Proof</th>
+                                <th className={styles.th}>Invoice</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className={styles.row}>
+                                <td className={styles.td}>Tenant</td>
+                                <td className={styles.td}>Lease Payment</td>
+                                <td className={styles.td}>1 January 2025</td>
+                                <td className={styles.td}>payment for 2025</td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                            </tr>
+                            <tr className={styles.row}>
+                                <td className={styles.td}>Tenant</td>
+                                <td className={styles.td}>Lease Payment</td>
+                                <td className={styles.td}>1 January 2024</td>
+                                <td className={styles.td}>payment for 2024</td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                            </tr>
+                            <tr className={styles.row}>
+                                <td className={styles.td}>Tenant</td>
+                                <td className={styles.td}>Lease Payment</td>
+                                <td className={styles.td}>1 January 2023</td>
+                                <td className={styles.td}>payment for 2023</td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

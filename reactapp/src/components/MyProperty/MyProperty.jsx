@@ -54,31 +54,35 @@ const MyProperty = () =>{
                     <h2>Property Documents:</h2>
                     <br></br>
                     <table className={styles.table}>
-                        <tr className={styles.headerRow}>
-                            <th className={styles.th}>Document Name</th>
-                            <th className={styles.th}>Actions</th>
-                        </tr>
-                        <tr className={styles.row}>
-                            <td className={styles.td}>Lease Agreement 2025</td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                        </tr>
-                        <tr className={styles.row}>
-                            <td className={styles.td}>Lease Agreement 2024</td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                        </tr>
-                        <tr className={styles.row}>
-                            <td className={styles.td}>Lease Agreement 2023</td>
-                            <td className={styles.td + " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View</button>    
-                                <button className={styles.actionButton}>Download</button>
-                            </td>
-                        </tr>
+                        <thead>
+                            <tr className={styles.headerRow}>
+                                <th className={styles.th}>Document Name</th>
+                                <th className={styles.th}>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className={styles.row}>
+                                <td className={styles.td}>Lease Agreement 2025</td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                            </tr>
+                            <tr className={styles.row}>
+                                <td className={styles.td}>Lease Agreement 2024</td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                            </tr>
+                            <tr className={styles.row}>
+                                <td className={styles.td}>Lease Agreement 2023</td>
+                                <td className={styles.td + " "+ styles.buttonRow}>
+                                    <button className={styles.actionButton}>View</button>    
+                                    <button className={styles.actionButton}>Download</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
