@@ -2,8 +2,6 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Register from './components/Register/Register';
-import EmployeeManagement from './components/EmployeeManagement/EmployeeManagement';
-import ShiftManagement from './components/ShiftManagement/ShiftManagement';
 import styles from './App.module.css';
 import Login from './components/Login/Login';
 import PropertyListings from './components/PropertyListings/PropertyListings';
