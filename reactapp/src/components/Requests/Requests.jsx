@@ -52,7 +52,6 @@ const Requests = () =>{
     
     return(
         <div className={styles.page}>
-            {console.log(tableData)}
             <h1 className={styles.heading}>Requests</h1>
             <div className={styles.container}>
                 <div className={styles.listing}>

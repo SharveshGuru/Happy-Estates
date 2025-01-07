@@ -1,11 +1,11 @@
 import React, { useState,useContext, useEffect } from 'react';
 import styles from './MakePayment.module.css';
-
+import { UserContext } from '../UserContext';
 const MakePayment = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [formData,setFormData]=useState({description:"Lease Payment", date:currentDate.toDateString(), remarks:"" });
     const [updated,setUpdated]=useState(false);
-
+    const {user}=useContext(UserContext);
     useEffect(()=>{
         const interval=setInterval(()=>{
             setCurrentDate(new Date());
@@ -32,8 +32,8 @@ const MakePayment = () => {
             </div><br />
             <label className={styles.formlabel}>Description: </label>
             <select className={styles.forminput} value={formData.description} name="description" onChange={handleChange} required >
-                <option value="Lease Payment">Lease Payment</option>
-                <option value="Maintenance Payment">Maintenance Payment</option>
+                {user.usertype==="Tenant" && <option value="Lease Payment">Lease Payment</option>}
+                {user.usertype==="Owner" && <option value="Repair & Maintenance">Repair & Maintenance</option>}
                 <option value="Others">Others</option>
             </select>
             <br/>
