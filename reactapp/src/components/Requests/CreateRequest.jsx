@@ -32,7 +32,7 @@ const CreateRequest = () => {
             </div><br />
             <label className={styles.formlabel}>Description: </label>
             <select className={styles.forminput} value={formData.description} name="description" onChange={handleChange} required >
-                <option value="Lease Payment">Lease Payment</option>
+                <option value="Payment Reminder">Payment Reminder</option>
                 <option value="Repair & Maintenance">Repair & Maintenance</option>
                 <option value="Others">Others</option>
             </select>

@@ -12,7 +12,7 @@
     margin:1rem;
     border-radius: 0.25rem;
     padding: 0.5rem;
-    max-height: 75vh;
+    max-height: 78vh;
     overflow-y: auto;
     scrollbar-width: thin;
 }
@@ -77,7 +77,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    margin: 1rem;
+    margin: 0rem 1rem 0rem 1rem;
 }
 
 .addProperty{
@@ -92,7 +92,7 @@
     cursor: pointer;      
     border-radius: 0.3rem;   
     font-family: 'Jost',serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .addProperty:hover{  
