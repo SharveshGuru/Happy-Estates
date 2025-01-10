@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ManageTenants.module.css"
 import { useNavigate } from "react-router-dom";
+import Popup from "../Popup/Popup";
+import LeaseApplications from "./LeaseApplications";
 
 const ManageTenants = () =>{
 
+    const [open,setOpen]=useState(false);
     const navigate=useNavigate();
     const tenants=[
         {
@@ -32,6 +35,10 @@ const ManageTenants = () =>{
 
     ];
 
+    function handleOpen(){
+        setOpen(!open);
+    }
+
     const handleRequest=()=>{
         navigate("/requests")
     }
@@ -44,7 +51,7 @@ const ManageTenants = () =>{
         <div className={styles.page}>
             <div className={styles.header}>
                 <h1 className={styles.heading}>Manage Tenants</h1>
-                <button onClick={()=>console.log("hi")} className={styles.leaseApplications}>Lease Applications</button>
+                <button onClick={handleOpen} className={styles.leaseApplications}>Lease Applications</button>
             </div>
             <div className={styles.container}>
                 {tenants.map((data,index)=>(
@@ -69,6 +76,10 @@ const ManageTenants = () =>{
                 ))}
                 
             </div>
+
+            <Popup isOpen={open} onClose={handleOpen}>
+                <LeaseApplications />
+            </Popup>
         </div>
     )
 }
