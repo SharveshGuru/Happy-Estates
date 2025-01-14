@@ -15,7 +15,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String phoneNumber;
+    private String phone;
 
     @Column(length = 255)
     private String userType;

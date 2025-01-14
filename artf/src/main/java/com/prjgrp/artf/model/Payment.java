@@ -21,4 +21,11 @@ public class Payment {
     private String remarks;
 
     private String description;
+
+    @ManyToOne
+    private Document proof;
+
+    @ManyToOne
+    private Document invoice;
+
 }
