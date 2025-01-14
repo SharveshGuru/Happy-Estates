@@ -8,6 +8,7 @@ public class ArtfApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ArtfApplication.class, args);
+		
 	}
 
 }
