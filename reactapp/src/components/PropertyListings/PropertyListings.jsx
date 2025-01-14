@@ -26,7 +26,7 @@ const PropertyListings = () =>{
                                 <p>Number of Rooms: {property.bhk}</p>
                                 <p>Plot Area: {property.area}</p>
                                 <p>Address: {property.address}</p>
-                                <p>Price: {property.price}</p>
+                                <p>Price: ₹{property.price}</p>
                             </div>
                             <div>
                                 <button className={styles.viewButton}>View Property</button>
