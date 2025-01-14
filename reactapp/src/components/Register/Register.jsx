@@ -21,7 +21,10 @@ const Register = () => {
       window.alert("User Registered Successfully!")
       navigate("/login");
     })
-    .catch(error=>{window.alert("There was a trouble in User Registration!")})
+    .catch(error=>{
+      // console.log(error);
+      window.alert("There was a trouble in User Registration!")
+    })
     
   };
   return (

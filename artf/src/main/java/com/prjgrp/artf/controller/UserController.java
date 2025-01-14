@@ -1,9 +1,12 @@
 package com.prjgrp.artf.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prjgrp.artf.model.PropertyListingsModel;
 import com.prjgrp.artf.model.User;
 import com.prjgrp.artf.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class UserController {
     @Autowired
     UserService service;
+
+    @GetMapping("/user")
+    public List<User> getAllUsers(){
+        return service.getUsers();
+    }
 
     @GetMapping("/user/{username}")
     public User getUserByUsername(@PathVariable String username) {
