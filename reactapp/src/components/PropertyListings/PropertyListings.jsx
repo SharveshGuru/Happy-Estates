@@ -2,18 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import styles from "./PropertyListings.module.css";
 const PropertyListings = () =>{
-    const property={
-        name:"Gopal Housing",
-        id:"PROP-001",
-        type:"Apartment",
-        bhk:"3BHK",
-        area:"1800 sqft",
-        address:"St. Thomas Mount, Chennai, Tamil Nadu",
-        owner:"Dummy Bro",
-        price:"₹50000",
-    };
 
-    const [properties,setProperties]=useState(null);
+    const [properties,setProperties]=useState([]);
 
     useEffect(()=>{
         axios.get("http://localhost:8080/propertylistings")
