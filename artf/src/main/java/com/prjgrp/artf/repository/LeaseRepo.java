@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.prjgrp.artf.model.Lease;
 
 @Repository
-public interface LeaseRepo extends JpaRepository<Lease, Integer> {
+public interface LeaseRepo extends JpaRepository<Lease, Long> {
 
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.prjgrp.artf.model.User;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Integer> {
-
+public interface UserRepo extends JpaRepository<User, Long> {
+    User findByUsername(String username); 
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.prjgrp.artf.model.Document;
 
 @Repository
-public interface DocumentRepo extends JpaRepository<Document, Integer> {
+public interface DocumentRepo extends JpaRepository<Document, Long> {
 
 }

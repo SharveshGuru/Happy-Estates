@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.prjgrp.artf.model.Request;
 
 @Repository
-public interface RequestRepo extends JpaRepository<Request, Integer> {
+public interface RequestRepo extends JpaRepository<Request, Long> {
 
 }
