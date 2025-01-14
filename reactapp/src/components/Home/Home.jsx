@@ -74,7 +74,7 @@ const Home = () => {
         </div>
         <br></br>
         
-        {user.usertype==="Tenant" && 
+        {user.userType==="Tenant" && 
         <div className={styles.cards}>
         
           <Card sx={{ 
@@ -179,7 +179,7 @@ const Home = () => {
 
         </div>
         }
-        {user.usertype==="Owner" && 
+        {user.userType==="Owner" && 
         <div className={styles.cards}>
         
           <Card sx={{ 

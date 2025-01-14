@@ -18,16 +18,16 @@ const Navbar=()=>{
             </div>
             <div className={styles.navbarRight}>
                 <ul className={styles.navbarNav}>
-                    {user.usertype==="Tenant" && <li>
+                    {user.userType==="Tenant" && <li>
                         <Link to="/property-listings" className={isActive("/property-listings")?`${styles.navLink} ${styles.active}`:styles.navLink}>Property Listings</Link>
                     </li>}
-                    {user.usertype==="Tenant" && <li>
+                    {user.userType==="Tenant" && <li>
                         <Link to="/my-property" className={isActive("/my-property")?`${styles.navLink} ${styles.active}`:styles.navLink}>My Property</Link>
                     </li>}
-                    {user.usertype==="Owner" && <li>
+                    {user.userType==="Owner" && <li>
                         <Link to="/manage-properties" className={isActive("/manage-properties")?`${styles.navLink} ${styles.active}`:styles.navLink}>Manage Properties</Link>
                     </li>}
-                    {user.usertype==="Owner" && <li>
+                    {user.userType==="Owner" && <li>
                         <Link to="/manage-tenants" className={isActive("/manage-tenants")?`${styles.navLink} ${styles.active}`:styles.navLink}>Manage Tenants</Link>
                     </li>}
                     <li>

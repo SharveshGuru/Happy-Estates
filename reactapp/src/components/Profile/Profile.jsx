@@ -25,7 +25,7 @@ const Profile = () =>{
                         <p>Name: {user.name}</p>
                         <p>Email: {user.email}</p>
                         <p>Phone Number: {user.phoneno}</p>
-                        <p>User Type: {user.usertype}</p>
+                        <p>User Type: {user.userType}</p>
                         <p>Username: {user.username}</p>
                         <div>
                             <button onClick={handleEdit} className={styles.buttons}>Edit Profile</button>

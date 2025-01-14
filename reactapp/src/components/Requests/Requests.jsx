@@ -76,19 +76,19 @@ const Requests = () =>{
                                     <td className={styles.td}>{request.description}</td>
                                     <td className={styles.td}>{request.date}</td>
                                     <td className={styles.td}>{request.remarks}</td>
-                                    {user.usertype==="Tenant" && request.status==="new" && request.madeBy==="Tenant" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                    {user.userType==="Tenant" && request.status==="new" && request.madeBy==="Tenant" && <td className={styles.td+ " "+ styles.buttonRow}>
                                         <button onClick={()=>markCompleted(index)} className={styles.approveButton}>Mark as Completed</button>    
                                         </td>
                                     }
-                                    {user.usertype==="Tenant" && request.status==="new" && request.madeBy==="Owner" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                    {user.userType==="Tenant" && request.status==="new" && request.madeBy==="Owner" && <td className={styles.td+ " "+ styles.buttonRow}>
                                         <button onClick={()=>markAcknowledged(index)} className={styles.actionButton}>Acknowledge</button>    
                                         </td>
                                     }
-                                    {user.usertype==="Owner" && request.status==="new" && request.madeBy==="Owner" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                    {user.userType==="Owner" && request.status==="new" && request.madeBy==="Owner" && <td className={styles.td+ " "+ styles.buttonRow}>
                                         <button onClick={()=>markCompleted(index)} className={styles.approveButton}>Mark as Completed</button>    
                                         </td>
                                     }
-                                    {user.usertype==="Owner" && request.status==="new" && request.madeBy==="Tenant" && <td className={styles.td+ " "+ styles.buttonRow}>
+                                    {user.userType==="Owner" && request.status==="new" && request.madeBy==="Tenant" && <td className={styles.td+ " "+ styles.buttonRow}>
                                         <button onClick={()=>markAcknowledged(index)} className={styles.actionButton}>Acknowledge</button>    
                                         </td>
                                     }

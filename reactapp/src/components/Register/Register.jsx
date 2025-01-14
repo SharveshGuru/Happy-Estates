@@ -2,10 +2,10 @@ import React, { useState,useContext } from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './Register.module.css';
 import { UserContext } from '../UserContext';
-
+import axios from 'axios';
 const Register = () => {
   
-  const [formData,setFormData]=useState({name:"", email:"", phoneno:"", username:"", password:"", usertype:"Tenant"});
+  const [formData,setFormData]=useState({name:"", email:"", phone:"", username:"", password:"", userType:"Tenant"});
   const {setUser}=useContext(UserContext);
   const navigate=useNavigate()
 
@@ -15,8 +15,14 @@ const Register = () => {
   }
   function handleSubmit(e){
     e.preventDefault();
-    setUser(formData);
-    navigate("/login");
+    axios.post("http://localhost:8080/user",formData)
+    .then(response=>{
+      setUser(formData);
+      window.prompt("User Registered Successfully!")
+      navigate("/login");
+    })
+    .catch(error=>{window.prompt("There was a trouble in User Registration!")})
+    
   };
   return (
     <div className={styles.page}>
@@ -31,10 +37,10 @@ const Register = () => {
           <input className={styles.forminput} onChange={handleChange} type="email" name='email' value={formData.email} placeholder='Enter your Email ID' required></input>
           <br/>
           <label className={styles.formlabel}>Phone Number: </label>
-          <input className={styles.forminput} onChange={handleChange} type="tel" name='phoneno' value={formData.phoneno} placeholder='Enter your Phone Number' required></input>
+          <input className={styles.forminput} onChange={handleChange} type="tel" name='phone' value={formData.phone} placeholder='Enter your Phone Number' required></input>
           <br/>
           <label className={styles.formlabel}>User Type: </label>
-          <select className={styles.forminput} onChange={handleChange} value={formData.usertype} name="usertype" required>
+          <select className={styles.forminput} onChange={handleChange} value={formData.userType} name="userType" required>
             <option name='tenant'>Tenant</option>
             <option name='owner'>Owner</option>
           </select>
