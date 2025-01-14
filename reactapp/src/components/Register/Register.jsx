@@ -18,10 +18,10 @@ const Register = () => {
     axios.post("http://localhost:8080/user",formData)
     .then(response=>{
       setUser(formData);
-      window.prompt("User Registered Successfully!")
+      window.alert("User Registered Successfully!")
       navigate("/login");
     })
-    .catch(error=>{window.prompt("There was a trouble in User Registration!")})
+    .catch(error=>{window.alert("There was a trouble in User Registration!")})
     
   };
   return (
