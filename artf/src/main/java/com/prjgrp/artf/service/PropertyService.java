@@ -24,7 +24,9 @@ public class PropertyService {
     }
 
 
-    public void addProperty(Property data){
+    public void addProperty(String owner,Property data){
+        User un=user.findByUsername(owner);
+        data.setOwner(un);
         repo.save(data);
     }
 

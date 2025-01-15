@@ -26,9 +26,9 @@ public class PropertyController {
         return service.getAvailableProperties(true);
     }
 
-    @PostMapping("/property")
-    public void postProperty(@RequestBody Property data) {
-        service.addProperty(data);
+    @PostMapping("/property/{owner}")
+    public void postProperty(@PathVariable String owner,@RequestBody Property data) {
+        service.addProperty(owner,data);
     }
 
     @GetMapping("/ownerproperties/{owner}")
