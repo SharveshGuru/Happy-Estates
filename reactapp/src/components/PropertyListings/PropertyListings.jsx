@@ -6,7 +6,7 @@ const PropertyListings = () =>{
     const [properties,setProperties]=useState([]);
 
     useEffect(()=>{
-        axios.get("http://localhost:8080/propertylistings")
+        axios.get("http://localhost:8080/availableproperties")
         .then((response)=>setProperties(response.data))
         .catch((error)=>console.error(error));
     },[]);
@@ -18,7 +18,7 @@ const PropertyListings = () =>{
                     <div className={styles.listing}>
                         <div className={styles.listingHeader}>
                             <h2>{property.name}</h2>
-                            <h2>Posted By: {property.owner}</h2>
+                            <h2>Posted By: {property.owner.name}</h2>
                         </div>
                         <div className={styles.listingContent}>
                             <div>

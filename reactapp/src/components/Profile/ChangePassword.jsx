@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import styles from './EditProfile.module.css';
 import { UserContext } from '../UserContext';
-
+import axios from 'axios';
 const ChangePassword = () => {
   const {user,setUser}=useContext(UserContext);
   const [formData,setFormData]=useState({currentPassword:"",newPassword:""});
@@ -12,16 +12,29 @@ const ChangePassword = () => {
   function handleChange(e){
     setFormData({...formData, [e.target.name]:e.target.value})
   }
+
+  function putUser(user){
+    axios.put(`http://localhost:8080/user/${user.id}`,user)
+      .then(response=>{
+        setUpdated(!updated);
+      })
+      .catch(error=>{
+        setError("There was a trouble in changing the password!")
+      })
+  }
+
   function handleSubmit(e){
     e.preventDefault();
     if(user && user.password===formData.currentPassword){
       setUser({...user, password:formData.newPassword});
-      setUpdated(!updated);
+      putUser(user);
     }
     else{
       setError("Invalid credentials!")
     }
   };
+
+  
   return (
       <div className={styles.registercontainer}>
          {!updated &&<>

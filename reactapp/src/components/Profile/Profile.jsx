@@ -24,7 +24,7 @@ const Profile = () =>{
                     <div className={styles.content}>
                         <p>Name: {user.name}</p>
                         <p>Email: {user.email}</p>
-                        <p>Phone Number: {user.phoneno}</p>
+                        <p>Phone Number: {user.phone}</p>
                         <p>User Type: {user.userType}</p>
                         <p>Username: {user.username}</p>
                         <div>
