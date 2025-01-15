@@ -25,48 +25,6 @@ const ManageProperties = () =>{
         .catch((error)=>console.error(error));
     },[user.username,open]);
 
-    // const property=[
-    //     {
-    //         name:"Gopal Housing",
-    //         id:"PROP-001",
-    //         type:"Apartment",
-    //         bhk:"3BHK",
-    //         area:"1800 sqft",
-    //         address:"St. Thomas Mount, Chennai, Tamil Nadu",
-    //         tenant:"Dummy Bro",
-    //         price:"₹50000",
-    //     },
-    //     {
-    //         name:"Gopal Housing",
-    //         id:"PROP-002",
-    //         type:"Apartment",
-    //         bhk:"3BHK",
-    //         area:"1800 sqft",
-    //         address:"St. Thomas Mount, Chennai, Tamil Nadu",
-    //         tenant:"",
-    //         price:"₹50000",
-    //     },
-    //     {
-    //         name:"Gopal Housing",
-    //         id:"PROP-003",
-    //         type:"Apartment",
-    //         bhk:"3BHK",
-    //         area:"1800 sqft",
-    //         address:"St. Thomas Mount, Chennai, Tamil Nadu",
-    //         tenant:"Dummy Bro",
-    //         price:"₹50000",
-    //     },
-    //     {
-    //         name:"Gopal Housing",
-    //         id:"PROP-004",
-    //         type:"Apartment",
-    //         bhk:"3BHK",
-    //         area:"1800 sqft",
-    //         address:"St. Thomas Mount, Chennai, Tamil Nadu",
-    //         tenant:"Dummy Bro",
-    //         price:"₹50000",
-    //     },
-    // ];
     return(
         <div className={styles.page}>
             <div className={styles.header}>
