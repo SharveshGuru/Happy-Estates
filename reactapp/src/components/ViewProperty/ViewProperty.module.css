@@ -1,9 +1,13 @@
-.heading{
-    margin-top: 7vh;
-    text-align: center;
-    color: rgb(255, 183, 0);
-    font-size: 3rem;
-    text-shadow: 1px 1px 2px black;
+
+
+.page{
+    background: url("../../../public/assets/images/home_background_image.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction:column;
 }
 
 .container{
@@ -18,6 +22,14 @@
     scrollbar-width: thin;
 }
 
+.heading{
+    margin-top: 7vh;
+    text-align: center;
+    color: rgb(255, 183, 0);
+    font-size: 3rem;
+    text-shadow: 1px 1px 2px black;
+}
+
 .listing{
     margin: 0.5rem;
     background-color: rgb(253, 234, 193);
@@ -29,7 +41,6 @@
 
 .listingHeader{
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -40,10 +51,13 @@
     justify-content: space-between;
 }
 
-.viewButton{
+.ownerContent{
+    text-align: right;
+}
+.requestButton{
     position: absolute;   
-    bottom: 1.2rem;         
-    right: 1rem;          
+    bottom: 0.7rem;         
+    right: 0.7rem;          
     padding: 0.6rem 1rem;   
     background-color: rgb(153, 109, 14); 
     color: white;         
@@ -51,24 +65,9 @@
     cursor: pointer;      
     border-radius: 0.3rem;   
     font-family: 'Jost',serif;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
-.viewButton:hover{  
+.requestButton:hover{  
     background-color: rgb(60, 51, 31);  
-}
-
-.listing:hover{
-    background-color: rgb(246, 210, 139);
-}
-
-.page{
-    background: url("../../../public/assets/images/home_background_image.jpg") no-repeat center center;
-    /* background-repeat: no-repeat; */
-    background-attachment: fixed;
-    background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    flex-direction:column;
-    background-position: center;
 }

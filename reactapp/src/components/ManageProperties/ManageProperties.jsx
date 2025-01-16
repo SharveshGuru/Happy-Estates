@@ -45,7 +45,7 @@ const ManageProperties = () =>{
                                 <p>Plot Area: {data.plotArea}</p>
                                 <p>Address: {data.address}</p>
                                 <p>Posted On: {format(new Date(data.postedOn),'dd MMMM yyyy')}</p>
-                                <p>Price: ₹{data.price}</p>
+                                <p>Price: ₹{data.price}/month</p>
                             </div>
                             <div>
                                 <button className={styles.viewButton}>Manage</button>

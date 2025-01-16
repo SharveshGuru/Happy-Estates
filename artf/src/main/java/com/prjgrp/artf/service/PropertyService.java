@@ -23,6 +23,10 @@ public class PropertyService {
         return repo.findAll();
     }
 
+    public Optional<Property> getPropertyById(Long id){
+        return repo.findById(id);
+    }
+
 
     public void addProperty(String owner,Property data){
         User un=user.findByUsername(owner);

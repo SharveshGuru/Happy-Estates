@@ -72,8 +72,8 @@ const AddProperty = () => {
             <br/>
             <label className={styles.formlabel}>Property Details: </label>
             <textarea className={styles.forminput} onChange={handleChange} name='details' value={formData.details} placeholder='Enter Property Details' required /><br />
-            <label className={styles.formlabel}>Property Price: </label>
-            <input className={styles.forminput} onChange={handleChange} type="number" name='price' value={formData.price} placeholder='Enter Property Price' step="0.01" min="0" required></input>
+            <label className={styles.formlabel}>Property Price(per month): </label>
+            <input className={styles.forminput} onChange={handleChange} type="number" name='price' value={formData.price} placeholder='Enter Property Price per month' step="0.01" min="0" required></input>
             <br/>
             
             <button className={styles.submit} type='submit'>Add Property</button>

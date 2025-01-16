@@ -1,14 +1,21 @@
 /* src/components/App.css */
 .app {
-    /* text-align: center; */
-    font-family: "Jost", serif;
-  }
-  
-
-body{
-  margin: 0;
-  background-color: ghostwhite;
+  /* text-align: center; */
+  font-family: "Jost", serif;
 }
 
 
-  
+/* body{
+margin: 0;
+background-color: ghostwhite;
+} */
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+max-height: 100vh;
+}
+
+
+

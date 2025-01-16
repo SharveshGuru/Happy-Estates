@@ -15,6 +15,7 @@ import Payments from './components/Payments/Payments';
 import ManageProperties from './components/ManageProperties/ManageProperties';
 import ManageTenants from './components/ManageTenants.jsx/ManageTenants';
 import Navbar from './components/Navbar/Navbar';
+import ViewProperty from './components/ViewProperty/ViewProperty';
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
 function AppContent() {
   const location = useLocation(); 
   return (
-    <>
+    <div className={styles.appContent}>
       {!location.pathname.startsWith('/home') && <Navbar />}
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
@@ -45,9 +46,10 @@ function AppContent() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/manage-properties" element={<OwnerRoute><ManageProperties /></OwnerRoute>} />
         <Route path="/manage-tenants" element={<OwnerRoute><ManageTenants /></OwnerRoute>} />
+        <Route path="/viewproperty/:id" element={<ProtectedRoute><ViewProperty /></ProtectedRoute>} />
         <Route path="/temp" element={<Temp />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
