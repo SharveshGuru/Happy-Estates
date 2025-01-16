@@ -35,6 +35,9 @@ public class Lease {
     @Column(nullable = false)
     private Boolean approved = false;
 
+    @Column(nullable = false)
+    private Boolean rejected = false;
+
     @PrePersist
     @PreUpdate
     private void calculateDuration() {
