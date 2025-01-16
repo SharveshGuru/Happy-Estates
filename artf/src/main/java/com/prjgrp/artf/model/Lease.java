@@ -32,6 +32,9 @@ public class Lease {
 
     private Double leaseAmount;
 
+    @Column(nullable = false)
+    private Boolean approved = false;
+
     @PrePersist
     @PreUpdate
     private void calculateDuration() {
