@@ -23,11 +23,13 @@ public class Lease {
     @ManyToOne
     private User tenant;
 
+    @ManyToOne
+    private Property property;
+
     private LocalDate leaseStartDate;
 
     private LocalDate leaseEndDate;
 
-    @Transient
     private Long duration;
 
     private Double leaseAmount;
