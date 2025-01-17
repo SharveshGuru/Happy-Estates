@@ -26,6 +26,8 @@ public class Lease {
     @ManyToOne
     private Property property;
 
+    private LocalDate appliedOn;
+
     private LocalDate leaseStartDate;
 
     private LocalDate leaseEndDate;
@@ -45,6 +47,10 @@ public class Lease {
     private void calculateDuration() {
         if (leaseStartDate != null && leaseEndDate != null) {
             this.duration = ChronoUnit.DAYS.between(leaseStartDate, leaseEndDate);
+        }
+
+        if (appliedOn == null) {
+            this.appliedOn = LocalDate.now();
         }
     }
 }

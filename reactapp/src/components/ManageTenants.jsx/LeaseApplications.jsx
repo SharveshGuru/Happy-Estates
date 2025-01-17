@@ -1,37 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./LeaseApplications.module.css";
 import axios from "axios";
+import { format } from 'date-fns';
+import {UserContext} from "../UserContext";
 const LeaseApplications=()=>{
-    const [tableData,setTableData]=useState([
-        {
-            applicant:"Prasath",
-            property:"Gopal Housing",
-            date:"1 December 2024",
-            phoneno:"9274829310",
-            email:"usp@gmail.com"
-        },
-        {
-            applicant:"Sheegan",
-            property:"Mukesh Housing",
-            date:"26 November 2024",
-            phoneno:"9211193431",
-            email:"sheegone@gmail.com"
-        },
-        {
-            applicant:"Siva",
-            property:"Gopal Housing",
-            date:"1 December 2024",
-            phoneno:"9237542310",
-            email:"smartsiva@gmail.com"
-        },
-    ]);
+    const {user}=useContext(UserContext)
+    const [tableData,setTableData]=useState([]);
 
-
+    useEffect(()=>{
+        axios.get(`http://localhost:8080/pendinglease/${user.username}`)
+        .then((response)=>{
+            setTableData(response.data);
+        })
+        .catch((error)=>{window.alert("There was trouble getting Lease Applications!")})
+    })
     return(
         <div className={styles.container}>
             <h2 className={styles.heading}>Lease Applications</h2>
 
-            <table className={styles.table}>
+            {tableData.length>0 ? (<table className={styles.table}>
                 <thead>
                     <tr className={styles.headerRow}>
                         <th className={styles.th}>Applicant</th>
@@ -45,18 +32,18 @@ const LeaseApplications=()=>{
                 <tbody>
                     {tableData.map((data,index)=>(
                         <tr className={styles.row} key={index}>
-                            <td className={styles.td}>{data.applicant}</td>
-                            <td className={styles.td}>{data.property}</td>
-                            <td className={styles.td}>{data.date}</td>
-                            <td className={styles.td}>{data.phoneno}</td>
-                            <td className={styles.td}>{data.email}</td>
+                            <td className={styles.td}>{data.tenant.name}</td>
+                            <td className={styles.td}>{data.property.name}</td>
+                            <td className={styles.td}>{format(new Date(data.appliedOn),'dd MMMM yyyy')}</td>
+                            <td className={styles.td}>{data.tenant.phone}</td>
+                            <td className={styles.td}>{data.tenant.email}</td>
                             <td className={styles.td+ " "+ styles.buttonRow}>
                                 <button className={styles.actionButton}>View Application</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table>):(<p>No Applications to show</p>)}
 
         </div>
     )
