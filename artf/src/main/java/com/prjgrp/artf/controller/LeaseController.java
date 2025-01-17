@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -46,6 +48,12 @@ public class LeaseController {
     public List<Lease> getPendingLease() {
         return service.getPendingLease();
     }
+
+    @GetMapping("/pendinglease/{username}")
+    public List<Lease> getMethodName(@PathVariable String username) {
+        return service.getPendingLease(username);
+    }
+    
     
     @PostMapping("/lease")
     public void postLease(@RequestBody Lease entity) {

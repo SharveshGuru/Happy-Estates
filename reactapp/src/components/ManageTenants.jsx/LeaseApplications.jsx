@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./LeaseApplications.module.css";
-
+import axios from "axios";
 const LeaseApplications=()=>{
-
-    const tableData=[
+    const [tableData,setTableData]=useState([
         {
             applicant:"Prasath",
             property:"Gopal Housing",
@@ -25,7 +24,9 @@ const LeaseApplications=()=>{
             phoneno:"9237542310",
             email:"smartsiva@gmail.com"
         },
-    ]
+    ]);
+
+
     return(
         <div className={styles.container}>
             <h2 className={styles.heading}>Lease Applications</h2>

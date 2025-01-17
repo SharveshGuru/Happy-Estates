@@ -38,6 +38,10 @@ public class LeaseService {
     public List<Lease> getPendingLease(){
         return repo.findByApprovedFalseAndRejectedFalse();
     }
+
+    public List<Lease> getPendingLease(String username){
+        return repo.findByOwnerUsernameAndApprovedFalseAndRejectedFalse(username);
+    }
     
     public void updateLease(Long id,Lease data){
         Optional<Lease> existingOptional = repo.findById(id);
