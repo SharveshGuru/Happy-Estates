@@ -42,7 +42,7 @@ const ManageProperties = () =>{
                             <div>
                                 <p>Property Type: {data.type}</p>
                                 <p>Number of Rooms: {data.numberOfRooms}</p>
-                                <p>Plot Area: {data.plotArea}</p>
+                                <p>Plot Area: {data.plotArea} sqft</p>
                                 <p>Address: {data.address}</p>
                                 <p>Posted On: {format(new Date(data.postedOn),'dd MMMM yyyy')}</p>
                                 <p>Price: ₹{data.price}/month</p>
