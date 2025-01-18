@@ -48,46 +48,35 @@ public class PropertyService {
         return repo.findByAvailabilityStatus(availabilityStatus);
     }
 
-    public void updateProperty(Long id,Property data){
+    public void updateProperty(Long id, Property data) {
         Optional<Property> existingOptional = repo.findById(id);
-        if(existingOptional.isPresent()){
-            Property existing=existingOptional.get();
-
-            if(data.getAddress()!=null)
-            existing.setAddress(data.getAddress());
-
-            if(data.getName()!=null)
-            existing.setName(data.getName());
-
-            if(data.getNumberOfRooms()!=null)
-            existing.setNumberOfRooms(data.getNumberOfRooms());
-
-            if(data.getPlotArea()!=null)
-            existing.setPlotArea(data.getPlotArea());
-
-            if(data.getPrice()!=null){
-                existing.setPrice(data.getPrice());
-            }
-            
-            if(data.getAvailabilityStatus()==false){
+        if (existingOptional.isPresent()) {
+            Property existing = existingOptional.get();
+            if (data.getAddress() != null) existing.setAddress(data.getAddress());
+            if (data.getName() != null) existing.setName(data.getName());
+            if (data.getNumberOfRooms() != null) existing.setNumberOfRooms(data.getNumberOfRooms());
+            if (data.getPlotArea() != null) existing.setPlotArea(data.getPlotArea());
+            if (data.getPrice() != null) existing.setPrice(data.getPrice());
+    
+            if (data.getAvailabilityStatus() != null) {
                 existing.setAvailabilityStatus(data.getAvailabilityStatus());
-                existing.setTenant(null);
+    
+                // if (data.getAvailabilityStatus() == false) {
+                //     existing.setTenant(null);
+                // }
             }
-
-            if(data.getTenant()!=null){
+    
+            if (data.getTenant() != null) {
                 existing.setTenant(data.getTenant());
-                existing.setAvailabilityStatus(true);
             }
-
-            if(data.getImages()!=null)
-            existing.setImages(data.getImages());
-
-            if (data.getDetails()!=null)
-            existing.setDetails(data.getDetails());
-
-        }
-        else{
-            throw new NoSuchElementException("Propert not found with id"+id);
+    
+            if (data.getImages() != null) existing.setImages(data.getImages());
+            if (data.getDetails() != null) existing.setDetails(data.getDetails());
+    
+            repo.save(existing);
+        } else {
+            throw new NoSuchElementException("Property not found with id " + id);
         }
     }
+    
 }

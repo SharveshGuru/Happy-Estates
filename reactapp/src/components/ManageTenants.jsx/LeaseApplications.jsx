@@ -3,17 +3,22 @@ import styles from "./LeaseApplications.module.css";
 import axios from "axios";
 import { format } from 'date-fns';
 import {UserContext} from "../UserContext";
+import { useNavigate } from "react-router-dom";
 const LeaseApplications=()=>{
     const {user}=useContext(UserContext)
     const [tableData,setTableData]=useState([]);
-
+    const navigate=useNavigate();
     useEffect(()=>{
         axios.get(`http://localhost:8080/pendinglease/${user.username}`)
         .then((response)=>{
             setTableData(response.data);
         })
         .catch((error)=>{window.alert("There was trouble getting Lease Applications!")})
-    })
+    },[user]);
+
+    function handleView(index){
+        navigate(`/viewproperty/${tableData[index].property.id}`)
+    }
     return(
         <div className={styles.container}>
             <h2 className={styles.heading}>Lease Applications</h2>
@@ -38,7 +43,7 @@ const LeaseApplications=()=>{
                             <td className={styles.td}>{data.tenant.phone}</td>
                             <td className={styles.td}>{data.tenant.email}</td>
                             <td className={styles.td+ " "+ styles.buttonRow}>
-                                <button className={styles.actionButton}>View Application</button>
+                                <button className={styles.actionButton} onClick={()=>{handleView(index)}}>View Application</button>
                             </td>
                         </tr>
                     ))}

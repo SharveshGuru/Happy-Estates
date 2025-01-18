@@ -3,6 +3,7 @@ import styles from "./ManageProperties.module.css";
 import Popup from "../Popup/Popup";
 import AddProperty from "./AddProperty";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { format } from 'date-fns';
 
@@ -11,6 +12,12 @@ const ManageProperties = () =>{
     const {user}=useContext(UserContext);
     const [open,setOpen]=useState(false);
     const [property,setProperty]=useState([]);
+
+    const navigate=useNavigate();
+
+    function redirect(id){
+        navigate(`/viewproperty/${id}`)
+    }
 
     function handleAdd(){
         setOpen(!open);
@@ -48,7 +55,7 @@ const ManageProperties = () =>{
                                 <p>Price: ₹{data.price}/month</p>
                             </div>
                             <div>
-                                <button className={styles.viewButton}>Manage</button>
+                                <button onClick={()=>redirect(data.id)} className={styles.viewButton}>Manage</button>
                             </div>
                         </div>
                     </div>

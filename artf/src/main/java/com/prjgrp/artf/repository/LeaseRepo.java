@@ -17,4 +17,6 @@ public interface LeaseRepo extends JpaRepository<Lease, Long> {
 
     List<Lease> findByOwnerUsernameAndApprovedFalseAndRejectedFalse(String username);
 
+    List<Lease> findByOwnerUsernameAndPropertyId(String username,Long id);
+
 }
