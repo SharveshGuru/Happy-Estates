@@ -6,7 +6,8 @@ import { UserContext } from "../UserContext";
 
 const Navbar=()=>{
     
-    const {user,loggedIn}=useContext(UserContext)
+    const {loggedIn}=useContext(UserContext)
+    const user=JSON.parse(localStorage.getItem("user"));
     const location=useLocation();
     const isActive = (path) => location.pathname.startsWith(path);
       
@@ -18,16 +19,16 @@ const Navbar=()=>{
             </div>
             <div className={styles.navbarRight}>
                 <ul className={styles.navbarNav}>
-                    {user.userType==="Tenant" && <li>
+                    {user.role==="ROLE_Tenant" && <li>
                         <Link to="/property-listings" className={isActive("/property-listings")?`${styles.navLink} ${styles.active}`:styles.navLink}>Property Listings</Link>
                     </li>}
-                    {user.userType==="Tenant" && <li>
+                    {user.role==="ROLE_Tenant" && <li>
                         <Link to="/my-property" className={isActive("/my-property")?`${styles.navLink} ${styles.active}`:styles.navLink}>My Property</Link>
                     </li>}
-                    {user.userType==="Owner" && <li>
+                    {user.role==="ROLE_Owner" && <li>
                         <Link to="/manage-properties" className={isActive("/manage-properties")?`${styles.navLink} ${styles.active}`:styles.navLink}>Manage Properties</Link>
                     </li>}
-                    {user.userType==="Owner" && <li>
+                    {user.role==="ROLE_Owner" && <li>
                         <Link to="/manage-tenants" className={isActive("/manage-tenants")?`${styles.navLink} ${styles.active}`:styles.navLink}>Manage Tenants</Link>
                     </li>}
                     <li>

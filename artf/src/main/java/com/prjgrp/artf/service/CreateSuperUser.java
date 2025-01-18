@@ -19,7 +19,7 @@ public class CreateSuperUser implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Check if the user already exists
+
         if (repo.findByUsername("admin") == null) {
             User superUser = new User();
             superUser.setName("Admin");
@@ -27,9 +27,8 @@ public class CreateSuperUser implements CommandLineRunner {
             superUser.setPhone("111");
             superUser.setUserType("Admin");
             superUser.setUsername("admin");
-            superUser.setPassword(pwdencoder.encode("123"));  // Password should be encrypted
+            superUser.setPassword(pwdencoder.encode("123")); 
 
-            // Save the superuser
             repo.save(superUser);
             System.out.println("Superuser created: " + superUser.getUsername());
         } else {

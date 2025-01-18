@@ -39,7 +39,7 @@ public class JwtTokenUtil {
         Key key=Keys.hmacShaKeyFor(secret.getBytes());
         return Jwts.builder()
             .subject(username)
-            .claim("role", role) 
+            .claim("role","ROLE_" +role) 
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + expiration))
             .signWith(key)
@@ -48,7 +48,7 @@ public class JwtTokenUtil {
 
     private Claims getAllClaimsFromToken(String token){
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();   
     }
 
     public <T> T getClaimFromToken(String token,Function <Claims,T> claimsResolver){

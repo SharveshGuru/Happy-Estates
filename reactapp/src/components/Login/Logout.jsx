@@ -1,16 +1,14 @@
 import React from "react";
-import { useContext } from "react";
-import { UserContext } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import styles from './Logout.module.css';
 
 const Logout=(props)=>{
-    const{setUser,setLoggedIn}=useContext(UserContext);
     const navigate=useNavigate();
     const buttonStyle=props && props.bs ? styles[props.bs] : styles.defaultLogout;
     const handleLogout=()=>{
-        setLoggedIn(false);
-        setUser(null);
+        localStorage.setItem('user', null);
+        localStorage.setItem('token', null);
+        localStorage.setItem('loggedIn', false);
         navigate("/home");
     }
     return(

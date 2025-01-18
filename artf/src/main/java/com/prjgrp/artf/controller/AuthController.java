@@ -48,7 +48,7 @@ public class AuthController {
     }
 
     @GetMapping("/user/{username}")
-    public User getUserByUsername(@PathVariable String username) {
-        return service.getUserByUsername(username);
-    }
+public User getUserByUsername(@PathVariable String username) {
+    return service.getUserByUsername(username);
+}
 }

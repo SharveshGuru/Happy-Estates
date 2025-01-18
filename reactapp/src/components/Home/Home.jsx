@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import styles from "./Home.module.css";
 import { UserContext } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -10,12 +10,22 @@ import { TbHelpSquareFilled } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { IoPeopleSharp } from "react-icons/io5";
 import Logout from '../Login/Logout';
-
+import ProfileService from '../../ProfileService';
+import axiosInstance from '../../AxiosService';
 
 const Home = () => {
 
-  const {user}=useContext(UserContext)
+  const [profile,setProfile]=useState({name:""});
+  const user=JSON.parse(localStorage.getItem("user"));
   const navigate=useNavigate();
+
+  useEffect(()=>{
+    axiosInstance.get(`user/${user.sub}`)
+    .then((response)=>{
+      setProfile(response.data);
+    })
+    .catch((error)=>console.log(error));
+  },[user.sub])
 
   function toTitleCase(str) {
     return str
@@ -69,12 +79,12 @@ const Home = () => {
       <div className={styles.homepage}>
         <h1 className={styles.heading}>Happy Estates</h1>
         <div className={styles.welcomeHeader}>
-          <h1 className={styles.name}>Welcome {toTitleCase(user.name)}!</h1>
+          <h1 className={styles.name}>Welcome {toTitleCase(profile.name)}!</h1>
           <Logout bs="homeLogout"/>
         </div>
         <br></br>
         
-        {user.role==="Tenant" && 
+        {user.role==="ROLE_Tenant" && 
         <div className={styles.cards}>
         
           <Card sx={{ 
@@ -179,7 +189,7 @@ const Home = () => {
 
         </div>
         }
-        {user.role==="Owner" && 
+        {user.role==="ROLE_Owner" && 
         <div className={styles.cards}>
         
           <Card sx={{ 

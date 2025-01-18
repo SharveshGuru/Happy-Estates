@@ -73,15 +73,27 @@ public class SecurityConfig {
     }
     
 
+    // @Bean
+    // public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     CorsConfiguration config = new CorsConfiguration();
+    //     config.setAllowCredentials(true);
+    //     config.addAllowedOrigin("http://localhost:3000");  // Allow your frontend's URL (replace with actual frontend URL)
+    //     config.addAllowedHeader("*");  // Allow all headers
+    //     config.addAllowedMethod("*");  // Allow all HTTP methods (GET, POST, etc.)
+    //     source.registerCorsConfiguration("/**", config);  // Apply CORS configuration to all endpoints
+    //     return source;
+    // }
+
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");  // Allow your frontend's URL (replace with actual frontend URL)
-        config.addAllowedHeader("*");  // Allow all headers
-        config.addAllowedMethod("*");  // Allow all HTTP methods (GET, POST, etc.)
-        source.registerCorsConfiguration("/**", config);  // Apply CORS configuration to all endpoints
+        config.addAllowedOriginPattern("*");  
+        config.addAllowedHeader("*");  
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 

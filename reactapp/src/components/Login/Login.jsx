@@ -1,15 +1,12 @@
-import React, { useState,useContext,useEffect } from 'react';
+import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './Login.module.css';
-import { UserContext } from '../UserContext';
 import authServiceInstance from '../../AuthService';
 import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
 
   const [formData,setFormData]=useState({name:"",email:"",phone:"",username:"",password:""});
-  const {setUser}=useContext(UserContext);
-  const {setLoggedIn}=useContext(UserContext);
   const [error,setError]=useState("");
   const navigate=useNavigate()
   function handleChange(e){
@@ -24,15 +21,12 @@ const Login = () => {
       const response = await authServiceInstance.login(creds);
   
       if (response.data !== "Invalid Credentials") {
-        setLoggedIn(true);
         localStorage.setItem('token', response.data);
-  
+        localStorage.setItem('loggedIn', true);
         const userdata = jwtDecode(response.data);
   
         if (userdata) {
-          setUser(userdata);  
           localStorage.setItem('user', JSON.stringify(userdata));  
-          console.log('User state after setUser:', userdata);  
           navigate("/home");
         } else {
           setError("Failed to retrieve user data.");
