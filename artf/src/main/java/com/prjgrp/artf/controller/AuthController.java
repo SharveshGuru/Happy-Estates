@@ -38,7 +38,8 @@ public class AuthController {
         try{
             var authToken=new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
             var auth=authmanager.authenticate(authToken);
-            var jwt=jwtTokenUtil.generateToken(auth.getName());
+            String role=service.getRoleForUser(auth.getName());
+            var jwt=jwtTokenUtil.generateToken(auth.getName(),role);
             return jwt;
         }
         catch(AuthenticationException e){

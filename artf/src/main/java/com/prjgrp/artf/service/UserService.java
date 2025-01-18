@@ -57,4 +57,11 @@ public class UserService {
         return repo.findByUsername(username);
     }
 
+    public String getRoleForUser(String username){
+        User user=getUserByUsername(username);
+        if(user!=null){
+            return user.getUserType();
+        }
+        return "";
+    }
 }

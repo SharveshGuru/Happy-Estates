@@ -32,8 +32,8 @@ const MakePayment = () => {
             </div><br />
             <label className={styles.formlabel}>Description: </label>
             <select className={styles.forminput} value={formData.description} name="description" onChange={handleChange} required >
-                {user.userType==="Tenant" && <option value="Lease Payment">Lease Payment</option>}
-                {user.userType==="Owner" && <option value="Repair & Maintenance">Repair & Maintenance</option>}
+                {user.role==="Tenant" && <option value="Lease Payment">Lease Payment</option>}
+                {user.role==="Owner" && <option value="Repair & Maintenance">Repair & Maintenance</option>}
                 <option value="Others">Others</option>
             </select>
             <br/>

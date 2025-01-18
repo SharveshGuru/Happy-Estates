@@ -2,36 +2,49 @@ import React, { useState,useContext,useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './Login.module.css';
 import { UserContext } from '../UserContext';
-import axios from 'axios';
+import authServiceInstance from '../../AuthService';
+import { jwtDecode } from 'jwt-decode';
+
 const Login = () => {
 
-  const [formData,setFormData]=useState({name:"",email:"",phoneno:"",username:"",password:""});
+  const [formData,setFormData]=useState({name:"",email:"",phone:"",username:"",password:""});
   const {setUser}=useContext(UserContext);
   const {setLoggedIn}=useContext(UserContext);
   const [error,setError]=useState("");
   const navigate=useNavigate()
-  const [validateUser,setValidateUser]=useState(null);
   function handleChange(e){
     setFormData({...formData, [e.target.name]:e.target.value})
     // console.log(formData[e.target.name]);
   }
-  function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault();
-
-    axios.get(`http://localhost:8080/user/${formData.username}`)
-    .then((response)=>{
-      setValidateUser(response.data);
-    })
-    .catch((setError("Invalid credentials!")));
-  };
-
-  useEffect(()=>{
-    if(validateUser && validateUser.username===formData.username && validateUser.password===formData.password){
-      setUser(validateUser);
-      setLoggedIn(true);
-      navigate("/home");
+  
+    try {
+      let creds = { username: formData.username, password: formData.password };
+      const response = await authServiceInstance.login(creds);
+  
+      if (response.data !== "Invalid Credentials") {
+        setLoggedIn(true);
+        localStorage.setItem('token', response.data);
+  
+        const userdata = jwtDecode(response.data);
+  
+        if (userdata) {
+          setUser(userdata);  
+          localStorage.setItem('user', JSON.stringify(userdata));  
+          console.log('User state after setUser:', userdata);  
+          navigate("/home");
+        } else {
+          setError("Failed to retrieve user data.");
+        }
+      } else {
+        setError("Invalid credentials!");
+      }
+    } catch (error) {
+      setError("Invalid credentials!");
     }
-  })
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.logincontainer}>

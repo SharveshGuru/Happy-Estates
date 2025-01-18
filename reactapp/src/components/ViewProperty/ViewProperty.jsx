@@ -141,14 +141,14 @@ const ViewProperty=()=>{
                             <p>Posted On: {format(new Date(property.postedOn),'dd MMMM yyyy')}</p>
 
                         </div>
-                        {user.userType==="Tenant" && <div className={styles.ownerContent}>
+                        {user.role==="Tenant" && <div className={styles.ownerContent}>
                             <h2>Owner Details:</h2><br />
                             <p>Owner Name: {property.owner.name}</p>
                             <p>Email ID: {property.owner.email}</p>
                             <p>Phone Number: {property.owner.phone}</p>
                             <button onClick={handleLeasePopup} className={styles.requestButton}>Apply for Lease</button>
                         </div>}
-                        {user.userType==="Owner" && <div className={styles.ownerContent}>
+                        {user.role==="Owner" && <div className={styles.ownerContent}>
                             <h2>Tenant Details:</h2><br />
                             {property.tenant ? (<><p>Tenant Name: {property.tenant.name}</p>
                             <p>Email ID: {property.tenant.email}</p>
@@ -157,7 +157,7 @@ const ViewProperty=()=>{
                         </div>}
                     </div>
                 </div>
-                {user.userType==="Owner" && <div className={styles.listing}>
+                {user.role==="Owner" && <div className={styles.listing}>
                     <h2>Lease Applications:</h2>
                     
                     {tableData.length>0 ? (<table className={styles.table}>

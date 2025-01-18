@@ -9,10 +9,10 @@ export const ProtectedRoute=({children})=>{
 export const OwnerRoute=({children})=>{
     const {loggedIn}=useContext(UserContext);
     const {user}=useContext(UserContext);
-    return loggedIn?(user.userType==="Owner"?children:<Navigate to="/home" />):<Navigate to="/login" />;
+    return loggedIn?(user.role==="Owner"?children:<Navigate to="/home" />):<Navigate to="/login" />;
 }
 export const TenantRoute=({children})=>{
     const {loggedIn}=useContext(UserContext);
     const {user}=useContext(UserContext);
-    return loggedIn?(user.userType==="Tenant"?children:<Navigate to="/home" />):<Navigate to="/login" />;
+    return loggedIn?(user.role==="Tenant"?children:<Navigate to="/home" />):<Navigate to="/login" />;
 }

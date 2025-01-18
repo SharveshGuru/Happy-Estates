@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './Register.module.css';
 import { UserContext } from '../UserContext';
-import axios from 'axios';
+import authServiceInstance from '../../AuthService';
 const Register = () => {
   
   const [formData,setFormData]=useState({name:"", email:"", phone:"", username:"", password:"", userType:"Tenant"});
@@ -13,20 +13,19 @@ const Register = () => {
     setFormData({...formData, [e.target.name]:e.target.value})
     // console.log(formData[e.target.name]);
   }
-  function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault();
-    axios.post("http://localhost:8080/user",formData)
-    .then(response=>{
+    try {
+      const response = await authServiceInstance.register(formData);
       setUser(formData);
-      window.alert("User Registered Successfully!")
+      window.alert("User Registered Successfully!");
       navigate("/login");
-    })
-    .catch(error=>{
+    } catch (error) {
       // console.log(error);
-      window.alert("There was a trouble in User Registration!")
-    })
-    
-  };
+      window.alert("There was a trouble in User Registration!");
+    }
+  }
+  
   return (
     <div className={styles.page}>
       <div className={styles.registercontainer}>
