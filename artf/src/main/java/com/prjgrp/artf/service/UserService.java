@@ -1,6 +1,7 @@
 package com.prjgrp.artf.service;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.prjgrp.artf.model.User;
@@ -10,12 +11,15 @@ import com.prjgrp.artf.repository.UserRepo;
 public class UserService {
     @Autowired
     UserRepo repo;
+    @Autowired
+    PasswordEncoder pwdencoder;
 
     public List<User> getUsers(){
         return repo.findAll();
     }
 
     public void addUser(User data){
+        data.setPassword(pwdencoder.encode(data.getPassword()));
         repo.save(data);
     }
 
