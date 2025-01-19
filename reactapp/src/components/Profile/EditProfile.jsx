@@ -1,10 +1,9 @@
-import React, { useState,useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './EditProfile.module.css';
-import { UserContext } from '../UserContext';
 import axiosInstance from '../../Api';
 
 const EditProfile = () => {
-  const {user}=useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
   const [updated,setUpdated]=useState(false);
   const [profile,setProfile]=useState({name:"",email:"",phone:null});
   const [formData,setFormData]=useState(profile);

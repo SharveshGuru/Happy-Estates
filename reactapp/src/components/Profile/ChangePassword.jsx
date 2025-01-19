@@ -1,12 +1,10 @@
-import React, { useState,useContext,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import styles from './EditProfile.module.css';
-import { UserContext } from '../UserContext';
-import axios from 'axios';
 import axiosInstance from '../../Api';
 import bcrypt from 'bcryptjs';
 
 const ChangePassword = () => {
-  const {user}=useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
   const [formData,setFormData]=useState({currentPassword:"",newPassword:""});
   const [profile,setProfile]=useState({});
   const [updated,setUpdated]=useState(false);
@@ -20,20 +18,12 @@ const ChangePassword = () => {
     axiosInstance.put(`/user/${data.id}`,data)
     .then((response)=>setUpdated(!updated))
     .catch((error)=>setError("There was a trouble in changing the password!"));
-    // axios.put(`http://localhost:8080/user/${user.id}`,user)
-    //   .then(response=>{
-    //     setUpdated(!updated);
-    //   })
-    //   .catch(error=>{
-    //     setError("There was a trouble in changing the password!")
-    //   })
   }
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
 
     const isMatch=await bcrypt.compare(formData.currentPassword,profile.password);
-    // if(profile && profile.password===bcryptpwd){
     if(profile && isMatch){
       const updatedProfile = { ...profile, password: formData.newPassword };
       putUser(updatedProfile);
