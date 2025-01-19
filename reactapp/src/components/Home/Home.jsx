@@ -1,6 +1,5 @@
-import React,{useContext, useEffect, useState} from 'react';
+import React,{ useEffect, useState} from 'react';
 import styles from "./Home.module.css";
-import { UserContext } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import { BiSolidBuildingHouse } from "react-icons/bi";
@@ -10,8 +9,7 @@ import { TbHelpSquareFilled } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { IoPeopleSharp } from "react-icons/io5";
 import Logout from '../Login/Logout';
-import ProfileService from '../../ProfileService';
-import axiosInstance from '../../AxiosService';
+import axiosInstance from '../../Api';
 
 const Home = () => {
 
@@ -20,12 +18,15 @@ const Home = () => {
   const navigate=useNavigate();
 
   useEffect(()=>{
-    axiosInstance.get(`user/${user.sub}`)
-    .then((response)=>{
-      setProfile(response.data);
-    })
-    .catch((error)=>console.log(error));
-  },[user.sub])
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if(storedUser && storedUser.sub){
+      axiosInstance.get(`user/${storedUser.sub}`)
+      .then((response)=>{
+        setProfile(response.data);
+      })
+      .catch((error)=>console.log(error));
+    }
+  },[]);
 
   function toTitleCase(str) {
     return str
