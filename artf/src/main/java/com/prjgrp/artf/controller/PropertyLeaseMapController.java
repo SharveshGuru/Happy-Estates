@@ -37,6 +37,12 @@ public class PropertyLeaseMapController {
         return service.getMapByOwner(username);
     }
 
+    @GetMapping("/activeleases/{owner}")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
+    public List<PropertyLeaseMap> getActiveLeases(@PathVariable String username) {
+        return service.getActiveLeasesByOwner(username);
+    }
+
     @GetMapping("/plmapprop/{id}")
     @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public PropertyLeaseMap getMapByProperty(@PathVariable Long id) {

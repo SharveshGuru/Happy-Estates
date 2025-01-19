@@ -59,4 +59,9 @@ public class PropertyLeaseMapService {
         }
     }
 
+    public List<PropertyLeaseMap> getActiveLeasesByOwner(String username){
+        User owner=user.findByUsername(username);
+        return repo.findByOwnerAndLeaseIsNotNull(owner);
+    }
+
 }

@@ -16,4 +16,6 @@ public interface PropertyLeaseMapRepo extends JpaRepository<PropertyLeaseMap, Lo
     List<PropertyLeaseMap> findByOwner(User owner);
 
     PropertyLeaseMap findByProperty(Property property);
+
+    List<PropertyLeaseMap> findByOwnerAndLeaseIsNotNull(User owner);
 }
