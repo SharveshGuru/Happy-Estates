@@ -60,5 +60,11 @@ public class PropertyController {
     public void putProperty(@PathVariable Long id, @RequestBody Property data) {
         service.updateProperty(id, data);
     }
+
+    @PutMapping("removetenant/{id}")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner')")
+    public void deleteTenant(@PathVariable Long id) {
+        service.removeTenant(id);
+    }
     
 }

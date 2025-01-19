@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -43,4 +48,8 @@ public class Property {
     private List<String> images;
 
     private String details;
+
+    @OneToOne
+    @JsonManagedReference
+    private Lease currentLease;
 }

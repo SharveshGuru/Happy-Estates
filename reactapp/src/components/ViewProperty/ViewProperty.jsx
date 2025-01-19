@@ -67,8 +67,8 @@ const ViewProperty=()=>{
                 ...property,
                 tenant: propertytenant.tenant, 
                 availabilityStatus: false,
+                currentLease: propertytenant
             };
-
             axiosInstance.put(`/property/${id}`,updatedProperty)
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
             .catch((error)=>window.alert("There was a problem in processing the application!"));
@@ -82,7 +82,7 @@ const ViewProperty=()=>{
         if (updatedLease.tenant) {
             setProperty({
                 ...property,
-                tenant: updatedLease.tenant
+                tenant: updatedLease.tenant,
             });
         } else {
             window.alert("Tenant data is missing!");
@@ -104,6 +104,15 @@ const ViewProperty=()=>{
 
     }
 
+    function handleRemove(){
+        const confirmRemove = window.confirm("Are you sure you want to remove the tenant?");
+        if(confirmRemove){
+            axiosInstance.put(`/removetenant/${id}`)
+            .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
+            .catch((error)=>window.alert("There was a problem in removing the tenant!"));
+        }
+    }
+
     function displayStatus(approved,rejected){
         if(!approved && !rejected)
             return "Pending";
@@ -121,6 +130,7 @@ const ViewProperty=()=>{
                 <div className={styles.listing}>
                     <div className={styles.listingContent}>
                         <div>
+                            {/* {console.log(property)} */}
                             <h2>Property Details:</h2><br />
                             <p>Property Name: {property.name}</p>
                             <p>Address: {property.address}</p>
@@ -142,14 +152,18 @@ const ViewProperty=()=>{
                             <h2>Tenant Details:</h2><br />
                             {property.tenant ? (<><p>Tenant Name: {property.tenant.name}</p>
                             <p>Email ID: {property.tenant.email}</p>
-                            <p>Phone Number: {property.tenant.phone}</p></>) : <p>Property is unoccupied</p>}
+                            <p>Phone Number: {property.tenant.phone}</p>
+                            {property.currentLease && <><p>Start Date: {format(new Date(property.currentLease.leaseStartDate),'dd MMMM yyyy')}</p>
+                            <p>End Date: {format(new Date(property.currentLease.leaseEndDate),'dd MMMM yyyy')}</p></>}
+                            </>) : <p>Property is unoccupied</p>
+                            }
                             <button onClick={handleEditPopup} className={styles.requestButton}>Edit Property Details</button>
+                            {property.tenant && <button onClick={()=>handleRemove()} className={styles.removeButton}>Remove Tenant</button>}
                         </div>}
                     </div>
                 </div>
                 {user.role==="ROLE_Owner" && <div className={styles.listing}>
                     <h2>Lease Applications:</h2>
-                    
                     {tableData.length>0 ? (<table className={styles.table}>
                         <thead>
                             <tr className={styles.headerRow}>
@@ -164,7 +178,7 @@ const ViewProperty=()=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {console.log(tableData)}
+                            {/* {console.log(tableData)} */}
                             {tableData.map((data,index)=>(
                                 <tr className={styles.row} key={index}>
                                     {data.tenant && <><td className={styles.td}>{data.tenant.name}</td>

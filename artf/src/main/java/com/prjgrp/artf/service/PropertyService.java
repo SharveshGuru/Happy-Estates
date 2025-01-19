@@ -79,7 +79,21 @@ public class PropertyService {
     
             if (data.getImages() != null) existing.setImages(data.getImages());
             if (data.getDetails() != null) existing.setDetails(data.getDetails());
+            if (data.getCurrentLease()!=null) existing.setCurrentLease(data.getCurrentLease());
     
+            repo.save(existing);
+        } else {
+            throw new NoSuchElementException("Property not found with id " + id);
+        }
+    }
+
+    public void removeTenant(Long id){
+        Optional<Property> existingOptional = repo.findById(id);
+        if (existingOptional.isPresent()) {
+            Property existing = existingOptional.get();
+            existing.setAvailabilityStatus(true);
+            existing.setTenant(null);
+            existing.setCurrentLease(null);
             repo.save(existing);
         } else {
             throw new NoSuchElementException("Property not found with id " + id);
@@ -95,6 +109,7 @@ public class PropertyService {
             Property p=l.getProperty();
             p.setAvailabilityStatus(true);
             p.setTenant(null);
+            p.setCurrentLease(null);
             repo.save(p);
         }
     }

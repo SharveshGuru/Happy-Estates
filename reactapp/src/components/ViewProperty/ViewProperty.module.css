@@ -56,8 +56,8 @@
 }
 .requestButton{
     position: absolute;   
-    bottom: 0.7rem;         
-    right: 0.7rem;          
+    bottom: 0.7vw;         
+    right: 0.7vw;          
     padding: 0.6rem 1rem;   
     background-color: rgb(153, 109, 14); 
     color: white;         
@@ -156,5 +156,23 @@
 }
 
 .rejectButton:hover{  
+    background-color: red;  
+}
+
+.removeButton{
+    position: absolute;   
+    bottom: 0.7vw;         
+    right: 13vw;          
+    padding: 0.6rem 1rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1rem;
+}
+
+.removeButton:hover{  
     background-color: red;  
 }
