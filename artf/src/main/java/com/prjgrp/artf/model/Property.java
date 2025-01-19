@@ -29,10 +29,10 @@ public class Property {
 
     private Double price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User owner;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User tenant;
 
     private Boolean availabilityStatus = true;

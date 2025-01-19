@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ViewProperty.module.css";
 import axios from "axios";
+import axiosInstance from "../../Api";
 import { format } from 'date-fns';
 import Popup from "../Popup/Popup";
 import ApplyForLease from "./ApplyForLease";
-import { UserContext } from "../UserContext";
 import EditProperty from "../ManageProperties/EditProperty";
 
 const ViewProperty=()=>{
 
     const { id } = useParams();
-    const {user}=useContext(UserContext);
+    const user=JSON.parse(localStorage.getItem("user"));
     const [editOpen,setEditOpen]=useState(false);
     const [leaseOpen,setLeaseOpen]=useState(false);
     const [leaseUpdateTrigger, setLeaseUpdateTrigger] = useState(false); 
@@ -40,20 +40,28 @@ const ViewProperty=()=>{
     });
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/property/${id}`)
-            .then((response) => {
-                setProperty(response.data);
-            })
-            .catch((error) => window.alert(error));
+        // axios.get(`http://localhost:8080/property/${id}`)
+        //     .then((response) => {
+        //         setProperty(response.data);
+        //     })
+        //     .catch((error) => window.alert(error));
+
+        axiosInstance.get(`/property/${id}`)
+        .then((response)=>setProperty(response.data))
+        .catch((error)=>window.alert("Unable to get Property Details!"))
     
-        if (user.userType === "Owner") {
-            axios.get(`http://localhost:8080/pendinglease/${user.username}/${id}`)
-                .then((response) => {
-                    setTableData(response.data);
-                })
-                .catch((error) => { window.alert("There was trouble getting Lease Applications!"); });
+        if (user.role === "ROLE_Owner") {
+            // axios.get(`http://localhost:8080/pendinglease/${user.username}/${id}`)
+            //     .then((response) => {
+            //         setTableData(response.data);
+            //     })
+            //     .catch((error) => { window.alert("There was trouble getting Lease Applications!"); });
+
+            axiosInstance.get(`pendinglease/${user.sub}/${id}`)
+            .then((response)=>setTableData(response.data))
+            .catch((error)=>window.alert("There was a problem getting pending lease applications!"))
         }
-    }, [id, user.userType, user.username, leaseOpen, editOpen, leaseUpdateTrigger]);
+    }, [id, user.role, user.sub, leaseOpen, editOpen, leaseUpdateTrigger]);
     
 
     function handleLeasePopup(){
@@ -71,15 +79,19 @@ const ViewProperty=()=>{
                 tenant: propertytenant.tenant, 
                 availabilityStatus: false,
             };
-            console.log(updatedProperty);
+            // console.log(updatedProperty);
+
+            axiosInstance.put(`/property/${id}`,updatedProperty)
+            .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
+            .catch((error)=>window.alert("There was a problem in approving the application!"));
     
-            axios.put(`http://localhost:8080/property/${id}`, updatedProperty)
-                .then((response) => {
-                    setLeaseUpdateTrigger(!leaseUpdateTrigger);
-                })
-                .catch((error) => {
-                    window.alert("There was a trouble in approving the application!");
-                });
+            // axios.put(`http://localhost:8080/property/${id}`, updatedProperty)
+            //     .then((response) => {
+            //         setLeaseUpdateTrigger(!leaseUpdateTrigger);
+            //     })
+            //     .catch((error) => {
+            //         window.alert("There was a trouble in approving the application!");
+            //     });
         } else {
             window.alert("Tenant data is missing!");
         }
@@ -97,22 +109,31 @@ const ViewProperty=()=>{
             return; 
         }
 
-        axios.put(`http://localhost:8080/lease/${leaseid}`, updatedLease)
-            .then((response) => {
-                setLeaseUpdateTrigger(!leaseUpdateTrigger);
-            })
-            .catch((error) => {
-                window.alert("There was a problem in approving the application!");
-            });
+        axios.put(`/lease/${leaseid}`,updatedLease)
+        .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
+        .catch((error)=>window.alert("There was a problem in approving the application!"));
+
+        // axios.put(`http://localhost:8080/lease/${leaseid}`, updatedLease)
+        //     .then((response) => {
+        //         setLeaseUpdateTrigger(!leaseUpdateTrigger);
+        //     })
+        //     .catch((error) => {
+        //         window.alert("There was a problem in approving the application!");
+        //     });
     
         handlePropertyUpdate(updatedLease);
     }
 
     function handleReject(leaseindex,leaseid){
         const updatedLease = { ...tableData[leaseindex], rejected: true };
-        axios.put(`http://localhost:8080/lease/${leaseid}`,updatedLease)
-        .then((response)=>{setLeaseUpdateTrigger(!leaseUpdateTrigger)})
-        .catch((error)=>window.alert("There was a problem in rejecting the application!"))
+
+        axios.put(`/lease/${leaseid}`,updatedLease)
+        .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
+        .catch((error)=>window.alert("There was a problem in approving the application!"));
+
+        // axios.put(`http://localhost:8080/lease/${leaseid}`,updatedLease)
+        // .then((response)=>{setLeaseUpdateTrigger(!leaseUpdateTrigger)})
+        // .catch((error)=>window.alert("There was a problem in rejecting the application!"))
     }
 
     function displayStatus(approved,rejected){
@@ -141,14 +162,14 @@ const ViewProperty=()=>{
                             <p>Posted On: {format(new Date(property.postedOn),'dd MMMM yyyy')}</p>
 
                         </div>
-                        {user.role==="Tenant" && <div className={styles.ownerContent}>
+                        {user.role==="ROLE_Tenant" && <div className={styles.ownerContent}>
                             <h2>Owner Details:</h2><br />
                             <p>Owner Name: {property.owner.name}</p>
                             <p>Email ID: {property.owner.email}</p>
                             <p>Phone Number: {property.owner.phone}</p>
                             <button onClick={handleLeasePopup} className={styles.requestButton}>Apply for Lease</button>
                         </div>}
-                        {user.role==="Owner" && <div className={styles.ownerContent}>
+                        {user.role==="ROLE_Owner" && <div className={styles.ownerContent}>
                             <h2>Tenant Details:</h2><br />
                             {property.tenant ? (<><p>Tenant Name: {property.tenant.name}</p>
                             <p>Email ID: {property.tenant.email}</p>
@@ -157,7 +178,7 @@ const ViewProperty=()=>{
                         </div>}
                     </div>
                 </div>
-                {user.role==="Owner" && <div className={styles.listing}>
+                {user.role==="ROLE_Owner" && <div className={styles.listing}>
                     <h2>Lease Applications:</h2>
                     
                     {tableData.length>0 ? (<table className={styles.table}>

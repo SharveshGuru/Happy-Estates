@@ -17,13 +17,13 @@ public class Lease {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User owner;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User tenant;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Property property;
 
     private LocalDate appliedOn;

@@ -1,15 +1,14 @@
-import React, { useState,useEffect, useContext } from "react";
+import React, { useState,useEffect } from "react";
 import styles from "./ManageProperties.module.css";
 import Popup from "../Popup/Popup";
 import AddProperty from "./AddProperty";
-import axios from "axios";
+import axiosInstance from "../../Api";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
 import { format } from 'date-fns';
 
 
 const ManageProperties = () =>{
-    const {user}=useContext(UserContext);
+    const user=JSON.parse(localStorage.getItem("user"));
     const [open,setOpen]=useState(false);
     const [property,setProperty]=useState([]);
 
@@ -24,13 +23,12 @@ const ManageProperties = () =>{
     }
 
     useEffect(()=>{
-        axios.get(`http://localhost:8080/ownerproperties/${user.username}`)
-        .then((response)=>{
+        axiosInstance.get(`/ownerproperties/${user.sub}`)
+        .then((response => {
             setProperty(response.data);
-            console.log(response.data);
-        })
-        .catch((error)=>console.error(error));
-    },[user.username,open]);
+        }))
+        .catch((error)=>window.alert("There was a problem in Adding Property!"));
+    },[user.sub,open]);
 
     return(
         <div className={styles.page}>

@@ -2,10 +2,9 @@ import React,{useContext, useState} from "react";
 import styles from "./Requests.module.css";
 import Popup from "../Popup/Popup";
 import CreateRequest from "./CreateRequest";
-import { UserContext } from "../UserContext";
 const Requests = () =>{
     const [open,setOpen]=useState(false);
-    const {user}=useContext(UserContext);
+    const user=JSON.parse(localStorage.getItem("user"));
     const [tableData,setTableData]=
     useState([
         {

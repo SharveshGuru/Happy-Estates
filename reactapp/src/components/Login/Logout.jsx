@@ -6,7 +6,7 @@ const Logout=(props)=>{
     const navigate=useNavigate();
     const buttonStyle=props && props.bs ? styles[props.bs] : styles.defaultLogout;
     const handleLogout=()=>{
-        localStorage.setItem('user', null);
+        localStorage.removeItem('user');
         localStorage.setItem('token', null);
         localStorage.setItem('loggedIn', false);
         navigate("/home");

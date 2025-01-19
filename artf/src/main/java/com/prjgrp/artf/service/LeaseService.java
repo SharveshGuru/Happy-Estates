@@ -10,8 +10,15 @@ import org.springframework.stereotype.Service;
 import com.prjgrp.artf.model.Lease;
 import com.prjgrp.artf.repository.LeaseRepo;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+
 @Service
 public class LeaseService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
     @Autowired
     LeaseRepo repo;
 
@@ -23,7 +30,15 @@ public class LeaseService {
         return repo.findById(id);
     }
 
+    @Transactional
     public void addLease(Lease data){
+        if (data.getOwner() != null && data.getOwner().getId() != null) {
+            data.setOwner(entityManager.merge(data.getOwner()));  // Merge the owner User entity
+        }
+        if (data.getTenant() != null && data.getTenant().getId() != null) {
+            data.setTenant(entityManager.merge(data.getTenant()));  // Merge the tenant User entity
+        }
+
         repo.save(data);
     }
 

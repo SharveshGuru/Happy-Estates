@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import styles from "./PropertyListings.module.css";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../Api";
 const PropertyListings = () =>{
 
     const [properties,setProperties]=useState([]);
     const navigate=useNavigate();
     useEffect(()=>{
-        axios.get("http://localhost:8080/availableproperties")
+        axiosInstance.get(`/availableproperties`)
         .then((response)=>setProperties(response.data))
-        .catch((error)=>console.error());
+        .catch((error)=>window.alert("Unable to fetch Properties!"))
     },[]);
 
     function redirect(id){

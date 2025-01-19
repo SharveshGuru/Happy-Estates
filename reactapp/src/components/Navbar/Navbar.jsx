@@ -1,12 +1,11 @@
-import React,{useContext} from "react";
+import React from "react";
 import { Link,useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import Logout from "../Login/Logout";
-import { UserContext } from "../UserContext";
 
 const Navbar=()=>{
     
-    const {loggedIn}=useContext(UserContext)
+    const loggedIn=JSON.parse(localStorage.getItem("loggedIn"));
     const user=JSON.parse(localStorage.getItem("user"));
     const location=useLocation();
     const isActive = (path) => location.pathname.startsWith(path);

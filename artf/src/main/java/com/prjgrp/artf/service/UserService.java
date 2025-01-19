@@ -44,7 +44,7 @@ public class UserService {
                 existingUser.setUsername(updatedUser.getUsername());
             }
             if (updatedUser.getPassword() != null) {
-                existingUser.setPassword(updatedUser.getPassword());
+                existingUser.setPassword(pwdencoder.encode(updatedUser.getPassword()));
             }
 
             repo.save(existingUser);

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import styles from './AddProperty.module.css';
-import axios from 'axios';
+import axiosInstance from '../../Api';
 import { UserContext } from '../UserContext';
 
 const AddProperty = () => {
@@ -34,15 +34,13 @@ const AddProperty = () => {
     function handleSubmit(e){
         e.preventDefault();
 
-        axios.post(`http://localhost:8080/property/${user.username}`,formData)
-        .then(response=>{
-            // window.alert("Property added successfully!");
-            setUpdated(!updated);
-        })
-        .catch(error=>{
-            window.alert("There was a problem in Adding Property!");
-        })
-    };
+        axiosInstance.post(`/property/${user.sub}`, formData)
+        .then((response => {
+            setUpdated(true);
+        }))
+        .catch((error)=>window.alert("There was a problem in Adding Property!"));
+    }
+
     return (
         <div className={styles.container}>
             {/* {console.log(formData)} */}
@@ -67,7 +65,7 @@ const AddProperty = () => {
             <br/>
             <label className={styles.formlabel}>Number of Rooms: </label>
             <input className={styles.forminput} onChange={handleChange} type="text" name='numberOfRooms' value={formData.numberOfRooms} placeholder='Enter Number of Rooms (Eg: 2BHK)' required></input><br />
-            <label className={styles.formlabel}>Plot Area: </label>
+            <label className={styles.formlabel}>Plot Area (sqft): </label>
             <input className={styles.forminput} onChange={handleChange} type="number" name='plotArea' value={formData.plotArea} placeholder='Enter Plot Area in sqft' step="0.01" min="0" required></input>
             <br/>
             <label className={styles.formlabel}>Property Details: </label>

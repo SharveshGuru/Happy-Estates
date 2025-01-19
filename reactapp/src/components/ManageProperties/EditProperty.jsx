@@ -1,19 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import styles from './AddProperty.module.css';
-import axios from 'axios';
-import { UserContext } from '../UserContext';
+import axiosInstance from '../../Api';
 
 const EditProperty = ({property}) => {
-    const getTodayDate = () => {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, "0");
-        const dd = String(today.getDate()).padStart(2, "0");
-      
-        return `${yyyy}-${mm}-${dd}`;
-    };
-
-    const{user}=useContext(UserContext);
 
     const [formData,setFormData]=useState(property);
     const [updated,setUpdated]=useState(false);
@@ -23,14 +12,11 @@ const EditProperty = ({property}) => {
     }
     function handleSubmit(e){
         e.preventDefault();
-        console.log(formData);
-        axios.put(`http://localhost:8080/property/${property.id}`,formData)
-        .then(response=>{
-            setUpdated(!updated);
-        })
-        .catch(error=>{
-            window.alert("There was a problem in Editing Property Details!");
-        })
+        // console.log(formData);
+        axiosInstance.put(`property/${property.id}`,formData)
+        .then(response=>setUpdated(!updated))
+        .catch((error)=>window.alert("There was a problem in Editing Property Details!"));
+
     };
     return (
         <div className={styles.container}>
@@ -63,7 +49,7 @@ const EditProperty = ({property}) => {
             <textarea className={styles.forminput} onChange={handleChange} name='details' value={formData.details} placeholder='Enter Property Details' required /><br />
             <label className={styles.formlabel}>Property Price(per month): </label>
             <input className={styles.forminput} onChange={handleChange} type="number" name='price' value={formData.price} placeholder='Enter Property Price per month' step="0.01" min="0" required></input>
-            <button className={styles.submit} type='submit'>Add Property</button>
+            <button className={styles.submit} type='submit'>Edit Property</button>
             </form></>}
             {updated && <h2>Property has been edited successfully!</h2>}
         </div>

@@ -1,27 +1,35 @@
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext, useEffect } from 'react';
 import styles from './EditProfile.module.css';
 import { UserContext } from '../UserContext';
-import axios from 'axios';
+import axiosInstance from '../../Api';
+
 const EditProfile = () => {
-  const {user,setUser}=useContext(UserContext);
-  const [formData,setFormData]=useState(user);
+  const {user}=useContext(UserContext);
   const [updated,setUpdated]=useState(false);
+  const [profile,setProfile]=useState({name:"",email:"",phone:null});
+  const [formData,setFormData]=useState(profile);
 
   function handleChange(e){
     setFormData({...formData, [e.target.name]:e.target.value})
   }
   function handleSubmit(e){
     e.preventDefault();
+
+    axiosInstance.put(`/user/${profile.id}`,formData)
+    .then((response)=>setUpdated(!updated))
+    .catch((error)=>window.alert("There was a trouble in updating the Profile!"));
     
-    axios.put(`http://localhost:8080/user/${user.id}`,formData)
-    .then(response=>{
-      setUser(formData);
-      setUpdated(!updated);
-    })
-    .catch(error=>{
-      window.alert("There was a trouble in updating the Profile!")
-    })
   };
+
+  useEffect(()=>{
+    axiosInstance.get(`user/${user.sub}`)
+    .then((response)=>{
+      setProfile(response.data);
+      setFormData(response.data);
+    })
+    .catch((error)=>window.alert("There was a trouble in updating the Profile!"));
+  },[user]);
+  
   return (
       <div className={styles.registercontainer}>
          {!updated &&<>

@@ -11,7 +11,6 @@ import com.prjgrp.artf.model.User;
 import com.prjgrp.artf.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -37,7 +36,7 @@ public class UserController {
     }
     
     @PutMapping("user/{id}")
-    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner')")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
     public void updateUser(@PathVariable Long id, @RequestBody User data) {
         service.updateUser(id, data);
     }

@@ -1,20 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import styles from "./LeaseApplications.module.css";
-import axios from "axios";
 import { format } from 'date-fns';
-import {UserContext} from "../UserContext";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../Api";
 const LeaseApplications=()=>{
-    const {user}=useContext(UserContext)
     const [tableData,setTableData]=useState([]);
     const navigate=useNavigate();
     useEffect(()=>{
-        axios.get(`http://localhost:8080/pendinglease/${user.username}`)
-        .then((response)=>{
-            setTableData(response.data);
-        })
-        .catch((error)=>{window.alert("There was trouble getting Lease Applications!")})
-    },[user]);
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        axiosInstance.get(`/pendinglease/${storedUser.sub}`)
+        .then((response)=>setTableData(response.data))
+        .catch((error)=>window.alert("There was trouble getting Lease Applications!"))
+    },[]);
 
     function handleView(index){
         navigate(`/viewproperty/${tableData[index].property.id}`)

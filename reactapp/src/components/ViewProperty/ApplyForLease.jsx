@@ -2,19 +2,37 @@ import React, { useState, useEffect, useContext } from 'react';
 import styles from './ApplyForLease.module.css';
 import { UserContext } from '../UserContext';
 import axios from 'axios';
+import axiosInstance from '../../Api';
 
 const ApplyForLease = ({id, property}) => {
-    const {user} = useContext(UserContext);
+    const [profile,setProfile]=useState();
     const [currentDate, setCurrentDate] = useState(new Date());
     
     const [updated, setUpdated] = useState(false);
 
     useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if(storedUser && storedUser.sub){
+          axiosInstance.get(`user/${storedUser.sub}`)
+          .then((response)=>{
+            setProfile(response.data);
+          })
+          .catch((error)=>console.log(error));
+        }
         const interval = setInterval(() => {
             setCurrentDate(new Date());
         }, 1000);
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if (profile) {
+          setFormData((prevState) => ({
+            ...prevState,
+            tenant: profile, 
+          }));
+        }
+      }, [profile]);
 
     const getTodayDate = () => {
         const today = new Date();
@@ -28,7 +46,7 @@ const ApplyForLease = ({id, property}) => {
     const [formData, setFormData] = useState({
         property:property,
         owner: property.owner,
-        tenant: user,
+        tenant: profile,
         leaseStartDate: getTodayDate(),
         leaseEndDate: null,
         leaseAmount: property.price,
@@ -70,17 +88,20 @@ const ApplyForLease = ({id, property}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        console.log(formData);
         if (validateDates()) {
 
-            axios.post("http://localhost:8080/lease",formData)
-            .then((response)=>{
-                setUpdated(!updated);
-            })
+            // axios.post("http://localhost:8080/lease",formData)
+            // .then((response)=>{
+            //     setUpdated(!updated);
+            // })
+            // .catch((error)=>window.alert("There was a problem in submitting the lease application!"))
+            axiosInstance.post(`/lease`,formData)
+            .then((response)=>setUpdated(!updated))
             .catch((error)=>window.alert("There was a problem in submitting the lease application!"))
             
         }
-    };
-
+    }
     return (
         <div className={styles.container}>
             {!updated ? (

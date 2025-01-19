@@ -25,55 +25,55 @@ public class LeaseController {
     LeaseService service;
 
     @GetMapping("/lease")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public List<Lease> getAllLease() {
         return service.getAllLeases();
     }
 
     @GetMapping("/lease/{id}")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public Optional<Lease> getLeaseById(@PathVariable Long id) {
         return service.getLeaseById(id);
     }
 
     @GetMapping("/approvedlease")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public List<Lease> getApprovedLease() {
         return service.getApprovedLease();
     }
 
     @GetMapping("/rejectedlease")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public List<Lease> getRejectedLease() {
         return service.getRejectedLease();
     }
 
     @GetMapping("/pendinglease")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public List<Lease> getPendingLease() {
         return service.getPendingLease();
     }
 
     @GetMapping("/pendinglease/{username}")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public List<Lease> getPendingLeaseByOwner(@PathVariable String username) {
         return service.getPendingLease(username);
     }
 
     @GetMapping("/pendinglease/{username}/{id}")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public List<Lease> getPendingLeaseByOwnerAndProperty(@PathVariable String username, @PathVariable Long id) {
         return service.getPendingLease(username,id);
     }
     
     @PostMapping("/lease")
-    @PreAuthorize("hasRole('Owner') or hasRole('Tenant')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Tenant') or hasRole('ROLE_Admin')")
     public void postLease(@RequestBody Lease entity) {
         service.addLease(entity);
     }
 
     @PutMapping("/lease/{id}")
-    @PreAuthorize("hasRole('Owner')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public void putLease(@PathVariable Long id, @RequestBody Lease entity) {
         service.updateLease(id, entity);
     }
