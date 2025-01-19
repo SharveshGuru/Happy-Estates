@@ -1,14 +1,19 @@
 package com.prjgrp.artf.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.prjgrp.artf.model.Lease;
 import com.prjgrp.artf.model.Property;
 import com.prjgrp.artf.model.User;
+import com.prjgrp.artf.repository.LeaseRepo;
 import com.prjgrp.artf.repository.PropertyRepo;
 import com.prjgrp.artf.repository.UserRepo;
 
@@ -18,6 +23,8 @@ public class PropertyService {
     PropertyRepo repo;
     @Autowired
     UserRepo user;
+    @Autowired
+    LeaseRepo lease;
 
     public List<Property> getProperties(){
         return repo.findAll();
@@ -78,5 +85,17 @@ public class PropertyService {
             throw new NoSuchElementException("Property not found with id " + id);
         }
     }
-    
+
+    @Scheduled(cron="0 0 0 * * ?")
+    @Transactional
+    public void updatePropertyAvailability(){
+        LocalDate today=LocalDate.now();
+        List<Lease> leases=lease.findByLeaseEndDateBeforeAndApprovedIsTrue(today);
+        for(Lease l:leases){
+            Property p=l.getProperty();
+            p.setAvailabilityStatus(true);
+            p.setTenant(null);
+            repo.save(p);
+        }
+    }
 }

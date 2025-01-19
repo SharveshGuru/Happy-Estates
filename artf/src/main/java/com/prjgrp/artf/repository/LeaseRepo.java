@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.prjgrp.artf.model.Lease;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -18,5 +20,7 @@ public interface LeaseRepo extends JpaRepository<Lease, Long> {
     List<Lease> findByOwnerUsernameAndApprovedFalseAndRejectedFalse(String username);
 
     List<Lease> findByOwnerUsernameAndPropertyId(String username,Long id);
+
+    List<Lease> findByLeaseEndDateBeforeAndApprovedIsTrue(LocalDate date);
 
 }

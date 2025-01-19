@@ -13,7 +13,7 @@ const AddProperty = () => {
         return `${yyyy}-${mm}-${dd}`;
     };
 
-    const{user}=useContext(UserContext);
+    const user = JSON.parse(localStorage.getItem("user"));
 
     const [formData,setFormData]=useState({
         name:"",

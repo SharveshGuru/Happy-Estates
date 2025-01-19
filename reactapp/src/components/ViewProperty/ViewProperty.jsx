@@ -40,23 +40,12 @@ const ViewProperty=()=>{
     });
 
     useEffect(() => {
-        // axios.get(`http://localhost:8080/property/${id}`)
-        //     .then((response) => {
-        //         setProperty(response.data);
-        //     })
-        //     .catch((error) => window.alert(error));
 
         axiosInstance.get(`/property/${id}`)
         .then((response)=>setProperty(response.data))
         .catch((error)=>window.alert("Unable to get Property Details!"))
     
         if (user.role === "ROLE_Owner") {
-            // axios.get(`http://localhost:8080/pendinglease/${user.username}/${id}`)
-            //     .then((response) => {
-            //         setTableData(response.data);
-            //     })
-            //     .catch((error) => { window.alert("There was trouble getting Lease Applications!"); });
-
             axiosInstance.get(`pendinglease/${user.sub}/${id}`)
             .then((response)=>setTableData(response.data))
             .catch((error)=>window.alert("There was a problem getting pending lease applications!"))
@@ -79,19 +68,10 @@ const ViewProperty=()=>{
                 tenant: propertytenant.tenant, 
                 availabilityStatus: false,
             };
-            // console.log(updatedProperty);
 
             axiosInstance.put(`/property/${id}`,updatedProperty)
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
-            .catch((error)=>window.alert("There was a problem in approving the application!"));
-    
-            // axios.put(`http://localhost:8080/property/${id}`, updatedProperty)
-            //     .then((response) => {
-            //         setLeaseUpdateTrigger(!leaseUpdateTrigger);
-            //     })
-            //     .catch((error) => {
-            //         window.alert("There was a trouble in approving the application!");
-            //     });
+            .catch((error)=>window.alert("There was a problem in processing the application!"));
         } else {
             window.alert("Tenant data is missing!");
         }
@@ -108,18 +88,9 @@ const ViewProperty=()=>{
             window.alert("Tenant data is missing!");
             return; 
         }
-
-        axios.put(`/lease/${leaseid}`,updatedLease)
+        axiosInstance.put(`/lease/${updatedLease.id}`,updatedLease)
         .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
         .catch((error)=>window.alert("There was a problem in approving the application!"));
-
-        // axios.put(`http://localhost:8080/lease/${leaseid}`, updatedLease)
-        //     .then((response) => {
-        //         setLeaseUpdateTrigger(!leaseUpdateTrigger);
-        //     })
-        //     .catch((error) => {
-        //         window.alert("There was a problem in approving the application!");
-        //     });
     
         handlePropertyUpdate(updatedLease);
     }
@@ -127,13 +98,10 @@ const ViewProperty=()=>{
     function handleReject(leaseindex,leaseid){
         const updatedLease = { ...tableData[leaseindex], rejected: true };
 
-        axios.put(`/lease/${leaseid}`,updatedLease)
+        axiosInstance.put(`/lease/${leaseid}`,updatedLease)
         .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
-        .catch((error)=>window.alert("There was a problem in approving the application!"));
+        .catch((error)=>window.alert("There was a problem in rejecting the application!"));
 
-        // axios.put(`http://localhost:8080/lease/${leaseid}`,updatedLease)
-        // .then((response)=>{setLeaseUpdateTrigger(!leaseUpdateTrigger)})
-        // .catch((error)=>window.alert("There was a problem in rejecting the application!"))
     }
 
     function displayStatus(approved,rejected){
@@ -156,6 +124,7 @@ const ViewProperty=()=>{
                             <h2>Property Details:</h2><br />
                             <p>Property Name: {property.name}</p>
                             <p>Address: {property.address}</p>
+                            <p>Number of Rooms: {property.numberOfRooms}</p>
                             <p>Price: ₹{property.price}/month</p>
                             <p>Plot Area: {property.plotArea} sqft</p>
                             <p>Description: {property.details}</p>
@@ -187,17 +156,22 @@ const ViewProperty=()=>{
                                 <th className={styles.th}>Applicant</th>
                                 <th className={styles.th}>Applied On</th>
                                 <th className={styles.th}>Phone Number</th>
+                                <th className={styles.th}>Start Date</th>
+                                <th className={styles.th}>End Date</th>
                                 <th className={styles.th}>Email ID</th>
                                 <th className={styles.th}>Status</th>
                                 <th className={styles.th}>Action</th>                        
                             </tr>
                         </thead>
                         <tbody>
+                            {console.log(tableData)}
                             {tableData.map((data,index)=>(
                                 <tr className={styles.row} key={index}>
                                     {data.tenant && <><td className={styles.td}>{data.tenant.name}</td>
                                     <td className={styles.td}>{format(new Date(data.appliedOn),'dd MMMM yyyy')}</td>
                                     <td className={styles.td}>{data.tenant.phone}</td>
+                                    <td className={styles.td}>{format(new Date(data.leaseStartDate),'dd MMMM yyyy')}</td>
+                                    <td className={styles.td}>{format(new Date(data.leaseEndDate),'dd MMMM yyyy')}</td>
                                     <td className={styles.td}>{data.tenant.email}</td></>}
                                     <td className={styles.td}>{displayStatus(data.approved,data.rejected)}</td>
                                     <td className={styles.td+ " "+ styles.buttonRow}>

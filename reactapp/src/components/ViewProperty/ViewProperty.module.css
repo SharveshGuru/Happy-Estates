@@ -101,7 +101,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: 0;
 }
 .actionButton{         
     /* margin-left: 0.5rem; */
