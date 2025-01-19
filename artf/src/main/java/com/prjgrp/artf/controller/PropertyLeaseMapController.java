@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.prjgrp.artf.model.PropertyLeaseMap;
 import com.prjgrp.artf.service.PropertyLeaseMapService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,8 +38,8 @@ public class PropertyLeaseMapController {
 
     @GetMapping("/activeleases/{owner}")
     @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
-    public List<PropertyLeaseMap> getActiveLeases(@PathVariable String username) {
-        return service.getActiveLeasesByOwner(username);
+    public List<PropertyLeaseMap> getActiveLeases(@PathVariable String owner) {
+        return service.getActiveLeasesByOwner(owner);
     }
 
     @GetMapping("/plmapprop/{id}")
