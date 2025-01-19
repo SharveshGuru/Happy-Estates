@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import Popup from "../Popup/Popup";
 import ApplyForLease from "./ApplyForLease";
 import EditProperty from "../ManageProperties/EditProperty";
-import axios from "axios";
 
 const ViewProperty=()=>{
 
