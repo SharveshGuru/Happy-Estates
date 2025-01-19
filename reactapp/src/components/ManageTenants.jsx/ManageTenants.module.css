@@ -136,3 +136,22 @@
 .leaseApplications:hover{  
     background-color: rgb(60, 51, 31);  
 }
+
+.removeButton{
+    margin-top: 2.7rem;
+    margin-left: 0.5rem;
+    /* margin-bottom: 1rem; */
+    padding: 0.2rem 0.5rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.removeButton:hover{  
+    background-color: red;  
+}

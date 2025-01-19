@@ -7,10 +7,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-
 @Data
 @Entity
 @AllArgsConstructor
@@ -21,14 +17,13 @@ public class Lease {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     private User owner;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     private User tenant;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JsonBackReference
+    @ManyToOne
     private Property property;
 
     private LocalDate appliedOn;

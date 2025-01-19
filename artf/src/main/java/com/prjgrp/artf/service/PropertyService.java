@@ -55,6 +55,10 @@ public class PropertyService {
         return repo.findByAvailabilityStatus(availabilityStatus);
     }
 
+    public List<Property> getUnavailableProperties(Boolean availabilityStatus){
+        return repo.findByAvailabilityStatus(availabilityStatus);
+    }
+
     public void updateProperty(Long id, Property data) {
         Optional<Property> existingOptional = repo.findById(id);
         if (existingOptional.isPresent()) {
@@ -78,9 +82,7 @@ public class PropertyService {
             }
     
             if (data.getImages() != null) existing.setImages(data.getImages());
-            if (data.getDetails() != null) existing.setDetails(data.getDetails());
-            if (data.getCurrentLease()!=null) existing.setCurrentLease(data.getCurrentLease());
-    
+            if (data.getDetails() != null) existing.setDetails(data.getDetails());    
             repo.save(existing);
         } else {
             throw new NoSuchElementException("Property not found with id " + id);
@@ -93,7 +95,6 @@ public class PropertyService {
             Property existing = existingOptional.get();
             existing.setAvailabilityStatus(true);
             existing.setTenant(null);
-            existing.setCurrentLease(null);
             repo.save(existing);
         } else {
             throw new NoSuchElementException("Property not found with id " + id);
@@ -109,7 +110,6 @@ public class PropertyService {
             Property p=l.getProperty();
             p.setAvailabilityStatus(true);
             p.setTenant(null);
-            p.setCurrentLease(null);
             repo.save(p);
         }
     }

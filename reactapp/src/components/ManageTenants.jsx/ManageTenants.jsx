@@ -59,17 +59,17 @@ const ManageTenants = () =>{
                         <div className={styles.tenantListing}>
                             <div className={styles.tenantContent}>
                                 <h3>Tenant: {data.tenant}</h3>
-                                <p>Property Name: {data.name}</p>
+                                <p style={{fontWeight:"bold"}}>Property Name: {data.name}</p>
                                 <p>Address: {data.address}</p>
                                 <p>Lease Amount: {data.price}</p>
                                 <p>Lease Duration: {data.leaseDuration}</p>
                                 <p>Lease Start Date: {data.leaseStartDate}</p>
                                 <p>Lease End Date: {data.leaseEndDate}</p>
                             </div>
-                            <div>
+                            <div className={styles.tenantButtons}>
                                 <button onClick={handlePayments} className={styles.tenantButton}>Payments</button>
-                                <br></br>
                                 <button onClick={handleRequest} className={styles.tenantButton}>Requests</button>
+                                <button onClick={handleRequest} className={styles.removeButton}>Remove</button>
                             </div>
                         </div>                
                     </div>

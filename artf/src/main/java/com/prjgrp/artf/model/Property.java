@@ -7,11 +7,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-
 @Data
 @Entity
 @AllArgsConstructor
@@ -34,10 +29,10 @@ public class Property {
 
     private Double price;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     private User owner;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     private User tenant;
 
     private Boolean availabilityStatus = true;
@@ -48,8 +43,4 @@ public class Property {
     private List<String> images;
 
     private String details;
-
-    @OneToOne
-    @JsonManagedReference
-    private Lease currentLease;
 }

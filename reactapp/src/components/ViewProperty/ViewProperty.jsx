@@ -1,22 +1,24 @@
 import React, {useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ViewProperty.module.css";
-import axios from "axios";
 import axiosInstance from "../../Api";
 import { format } from 'date-fns';
 import Popup from "../Popup/Popup";
 import ApplyForLease from "./ApplyForLease";
 import EditProperty from "../ManageProperties/EditProperty";
+import axios from "axios";
 
 const ViewProperty=()=>{
 
     const { id } = useParams();
+    const [owner,setOwner]=useState({});
+    
     const user=JSON.parse(localStorage.getItem("user"));
     const [editOpen,setEditOpen]=useState(false);
     const [leaseOpen,setLeaseOpen]=useState(false);
     const [leaseUpdateTrigger, setLeaseUpdateTrigger] = useState(false); 
     const [tableData,setTableData]=useState([]);
-    
+    const [ldata,setLdata]=useState({});
     const [property,setProperty]=useState({
         "id": null,
         "name": null,
@@ -49,6 +51,18 @@ const ViewProperty=()=>{
             axiosInstance.get(`pendinglease/${user.sub}/${id}`)
             .then((response)=>setTableData(response.data))
             .catch((error)=>window.alert("There was a problem getting pending lease applications!"))
+
+            axiosInstance.get(`user/${user.sub}`)
+            .then((response)=>{
+                setOwner(response.data);
+            })
+            .catch((error)=>console.log(error));
+        }
+
+        if(property && property.tenant && user.role==="ROLE_Owner"){
+            axiosInstance.get(`plmapprop/${id}`)
+            .then((response)=>setLdata(response.data.lease))
+            .catch((error)=>window.alert("Unable to get Details!"));
         }
     }, [id, user.role, user.sub, leaseOpen, editOpen, leaseUpdateTrigger]);
     
@@ -61,17 +75,21 @@ const ViewProperty=()=>{
         setEditOpen(!editOpen);
     }
 
-    function handlePropertyUpdate(propertytenant) {
-        if (propertytenant && propertytenant.tenant) {
+    function handlePropertyUpdate(lease) {
+        if (lease && lease.tenant) {
             let updatedProperty = { 
                 ...property,
-                tenant: propertytenant.tenant, 
+                tenant: lease.tenant, 
                 availabilityStatus: false,
-                currentLease: propertytenant
             };
             axiosInstance.put(`/property/${id}`,updatedProperty)
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
             .catch((error)=>window.alert("There was a problem in processing the application!"));
+            
+            axiosInstance.post(`/plmap`,{property,owner,lease})
+            .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
+            .catch((error)=>window.alert("There was a problem in processing the application!"));
+            
         } else {
             window.alert("Tenant data is missing!");
         }
@@ -110,6 +128,10 @@ const ViewProperty=()=>{
             axiosInstance.put(`/removetenant/${id}`)
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
             .catch((error)=>window.alert("There was a problem in removing the tenant!"));
+
+            axiosInstance.put(`/plmap/${id}`)
+            .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
+            .catch((error)=>window.alert("There was a problem in removing the tenant!"));
         }
     }
 
@@ -130,7 +152,6 @@ const ViewProperty=()=>{
                 <div className={styles.listing}>
                     <div className={styles.listingContent}>
                         <div>
-                            {/* {console.log(property)} */}
                             <h2>Property Details:</h2><br />
                             <p>Property Name: {property.name}</p>
                             <p>Address: {property.address}</p>
@@ -153,8 +174,8 @@ const ViewProperty=()=>{
                             {property.tenant ? (<><p>Tenant Name: {property.tenant.name}</p>
                             <p>Email ID: {property.tenant.email}</p>
                             <p>Phone Number: {property.tenant.phone}</p>
-                            {property.currentLease && <><p>Start Date: {format(new Date(property.currentLease.leaseStartDate),'dd MMMM yyyy')}</p>
-                            <p>End Date: {format(new Date(property.currentLease.leaseEndDate),'dd MMMM yyyy')}</p></>}
+                            {ldata && ldata.leaseStartDate && ldata.leaseEndDate && <><p>Start Date: {format(new Date(ldata.leaseStartDate),'dd MMMM yyyy')}</p>
+                            <p>End Date: {format(new Date(ldata.leaseEndDate),'dd MMMM yyyy')}</p></>}
                             </>) : <p>Property is unoccupied</p>
                             }
                             <button onClick={handleEditPopup} className={styles.requestButton}>Edit Property Details</button>

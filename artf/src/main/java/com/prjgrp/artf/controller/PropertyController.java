@@ -30,6 +30,12 @@ public class PropertyController {
         return service.getAvailableProperties(true);
     }
 
+    @GetMapping("/unavailableproperties")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
+    public List<Property> getUnavailableProperties() {
+        return service.getAvailableProperties(false);
+    }
+
     @GetMapping("property/{id}")
     @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
     public Optional<Property> getProperty(@PathVariable Long id) {
