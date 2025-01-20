@@ -77,7 +77,7 @@ public class PropertyController {
 
     @GetMapping("/checktenant/{tenant}")
     @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
-    public String getMethodName(@PathVariable String tenant) {
+    public String checkTenant(@PathVariable String tenant) {
         return service.checkTenant(tenant);
     }
     
