@@ -37,6 +37,10 @@ const ManageTenants = () =>{
         navigate("/payments")
     }
 
+    const handleViewProperty=(id)=>{
+        navigate(`/viewproperty/${id}`)
+    }
+
     function handleRemove(data){
         const confirmRemove = window.confirm("Are you sure you want to remove the tenant?");
         if(confirmRemove){
@@ -73,6 +77,8 @@ const ManageTenants = () =>{
                                 <button onClick={handlePayments} className={styles.tenantButton}>Payments</button>
                                 <button onClick={handleRequest} className={styles.tenantButton}>Requests</button>
                                 <button onClick={()=>{handleRemove(data)}} className={styles.removeButton}>Remove</button>
+                                <br></br>
+                                <button onClick={()=>{handleViewProperty(data.property.id)}} className={styles.requestButton}>View Property</button>
                             </div>
                         </div>                
                     </div>
