@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -72,5 +74,12 @@ public class PropertyController {
     public void deleteTenant(@PathVariable Long id) {
         service.removeTenant(id);
     }
+
+    @GetMapping("/checktenant/{tenant}")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
+    public String getMethodName(@PathVariable String tenant) {
+        return service.checkTenant(tenant);
+    }
+    
     
 }

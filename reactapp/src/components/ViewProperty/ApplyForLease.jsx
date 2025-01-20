@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ApplyForLease.module.css';
-import { UserContext } from '../UserContext';
-import axios from 'axios';
 import axiosInstance from '../../Api';
 
-const ApplyForLease = ({id, property}) => {
+const ApplyForLease = ({id, property,rented}) => {
     const [profile,setProfile]=useState();
     const [currentDate, setCurrentDate] = useState(new Date());
     
@@ -63,19 +61,17 @@ const ApplyForLease = ({id, property}) => {
         const endDate = new Date(formData.leaseEndDate);
         const today = new Date();
 
-        // Validate lease start date: should not be in the past
         if (startDate < today) {
             errors.leaseStartDate = "Lease start date should not be older than the current date.";
         }
 
-        // Validate lease end date: should be at least 30 days from the start date
         if (endDate <= startDate || (endDate - startDate) < 30 * 24 * 60 * 60 * 1000) {
             errors.leaseEndDate = "Lease end date should be at least 30 days from the start date.";
         }
 
         setErrors(errors);
 
-        return Object.keys(errors).length === 0; // Returns true if no errors
+        return Object.keys(errors).length === 0; 
     };
 
     const handleChange = (e) => {
@@ -90,12 +86,6 @@ const ApplyForLease = ({id, property}) => {
 
         console.log(formData);
         if (validateDates()) {
-
-            // axios.post("http://localhost:8080/lease",formData)
-            // .then((response)=>{
-            //     setUpdated(!updated);
-            // })
-            // .catch((error)=>window.alert("There was a problem in submitting the lease application!"))
             axiosInstance.post(`/lease`,formData)
             .then((response)=>setUpdated(!updated))
             .catch((error)=>window.alert("There was a problem in submitting the lease application!"))
@@ -104,7 +94,7 @@ const ApplyForLease = ({id, property}) => {
     }
     return (
         <div className={styles.container}>
-            {!updated ? (
+            {!updated ? (rented==="True" ? (
                 <>
                     <h2 className={styles.heading}>Apply for Lease</h2>
                     <form className={styles.form} onSubmit={handleSubmit}>
@@ -138,7 +128,7 @@ const ApplyForLease = ({id, property}) => {
                         <button className={styles.submit} type="submit">Create Request</button>
                     </form>
                 </>
-            ) : (
+            ) : <h2>You have already rented a property! You cannot rent another!</h2>) : (
                 <h2>Lease application has been submitted successfully!</h2>
             )}
         </div>

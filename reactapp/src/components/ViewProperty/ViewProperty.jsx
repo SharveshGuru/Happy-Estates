@@ -18,7 +18,8 @@ const ViewProperty=()=>{
     const [leaseUpdateTrigger, setLeaseUpdateTrigger] = useState(false); 
     const [tableData,setTableData]=useState([]);
     const [ldata,setLdata]=useState({});
-    const[trigger,setTrigger]=useState(false);
+    const [trigger,setTrigger]=useState(false);
+    const [rented,setRented]=useState(false);
     const [property,setProperty]=useState({
         "id": null,
         "name": null,
@@ -57,6 +58,12 @@ const ViewProperty=()=>{
                 setOwner(response.data);
             })
             .catch((error)=>console.log(error));
+        }
+
+        if (user.role==="ROLE_Tenant"){
+            axiosInstance.get(`checktenant/${user.sub}`)
+            .then((response)=>setRented(response.data))
+            .catch((error)=>window.alert("There was a problem in checking tenant status!"));
         }
 
         // if(property && property.tenant && user.role==="ROLE_Owner"){
@@ -244,7 +251,7 @@ const ViewProperty=()=>{
                 </div>
             </div>
             <Popup isOpen={leaseOpen} onClose={handleLeasePopup}>
-                <ApplyForLease id={id} property={property}/>
+                <ApplyForLease rented={rented} id={id} property={property}/>
             </Popup>
 
             <Popup isOpen={editOpen} onClose={handleEditPopup}>

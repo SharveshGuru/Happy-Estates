@@ -34,6 +34,16 @@ public class PropertyService {
         return repo.findById(id);
     }
 
+    public String checkTenant(String tenant){
+        User t=user.findByUsername(tenant);
+        Property p=repo.findByTenant(t);
+        if(p==null){
+            return "True";
+        }
+        else{
+            return "False";
+        }
+    }
 
     public void addProperty(String owner,Property data){
         User un=user.findByUsername(owner);

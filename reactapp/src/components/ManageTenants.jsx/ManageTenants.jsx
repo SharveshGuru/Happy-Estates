@@ -68,7 +68,7 @@ const ManageTenants = () =>{
                                 <h3>Tenant: {data.lease.tenant.name}</h3>
                                 <p style={{fontWeight:"bold"}}>Property: {data.property.name}</p>
                                 <p>Address: {data.property.address}</p>
-                                <p>Lease Amount: {data.property.price}</p>
+                                <p>Lease Amount: ₹{data.property.price}/month</p>
                                 <p>Lease Start Date: {format(new Date(data.lease.leaseStartDate),"dd MMMM yyyy")}</p>
                                 <p>Lease End Date: {format(new Date(data.lease.leaseEndDate),"dd MMMM yyyy")}</p>
                                 <p>Lease Duration: {data.lease.duration} days</p>
