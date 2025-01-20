@@ -18,6 +18,7 @@ const ViewProperty=()=>{
     const [leaseUpdateTrigger, setLeaseUpdateTrigger] = useState(false); 
     const [tableData,setTableData]=useState([]);
     const [ldata,setLdata]=useState({});
+    const[trigger,setTrigger]=useState(false);
     const [property,setProperty]=useState({
         "id": null,
         "name": null,
@@ -58,13 +59,26 @@ const ViewProperty=()=>{
             .catch((error)=>console.log(error));
         }
 
-        if(property && property.tenant && user.role==="ROLE_Owner"){
-            axiosInstance.get(`plmapprop/${id}`)
-            .then((response)=>setLdata(response.data.lease))
-            .catch((error)=>window.alert("Unable to get Details!"));
-        }
+        // if(property && property.tenant && user.role==="ROLE_Owner"){
+        //     axiosInstance.get(`plmapprop/${id}`)
+        //     .then((response)=>{
+        //         setLdata(response.data.lease);
+        //         setTrigger(!trigger);
+        //     })
+        //     .catch((error)=>window.alert("Unable to get Details!"));
+        // }
     }, [id, user.role, user.sub, leaseOpen, editOpen, leaseUpdateTrigger]);
     
+    useEffect(()=>{
+        if(property && property.tenant && user.role==="ROLE_Owner"){
+            axiosInstance.get(`plmapprop/${id}`)
+            .then((response)=>{
+                setLdata(response.data.lease);
+                setTrigger(!trigger);
+            })
+            .catch((error)=>window.alert("Unable to get Details!"));
+        }
+    },[property,user.role,id]);
 
     function handleLeasePopup(){
         setLeaseOpen(!leaseOpen);

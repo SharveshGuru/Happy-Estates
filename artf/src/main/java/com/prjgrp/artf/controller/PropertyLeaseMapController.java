@@ -43,14 +43,14 @@ public class PropertyLeaseMapController {
     }
 
     @GetMapping("/plmapprop/{id}")
-    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin') or hasRole('ROLE_Tenant')")
     public PropertyLeaseMap getMapByProperty(@PathVariable Long id) {
         return service.getMapByProperty(id);
     }
 
     @PostMapping("/plmap")
     @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
-    public void postMethodName(@RequestBody PropertyLeaseMap entity) {
+    public void postMap(@RequestBody PropertyLeaseMap entity) {
         service.addMap(entity);
     }
     
