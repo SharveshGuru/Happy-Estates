@@ -174,6 +174,7 @@ const ViewProperty=()=>{
                         <div>
                             <h2>Property Details:</h2><br />
                             <p>Property Name: {property.name}</p>
+                            <p>Type: {property.type}</p>
                             <p>Address: {property.address}</p>
                             <p>Number of Rooms: {property.numberOfRooms}</p>
                             <p>Price: ₹{property.price}/month</p>
