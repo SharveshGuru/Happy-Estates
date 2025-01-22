@@ -19,7 +19,8 @@ public class Payment {
     @ManyToOne
     private Lease lease;
 
-    private String paymentMadeBy;
+    @ManyToOne
+    private User paymentMadeBy;
 
     private LocalDate paymentDate;
 
@@ -29,8 +30,5 @@ public class Payment {
 
     @ManyToOne
     private Document proof;
-
-    @ManyToOne
-    private Document invoice;
 
 }
