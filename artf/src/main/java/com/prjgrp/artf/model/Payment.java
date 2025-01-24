@@ -20,6 +20,7 @@ public class Payment {
     private Lease lease;
 
     @ManyToOne
+    @JoinColumn(name = "payment_made_by")
     private User paymentMadeBy;
 
     private LocalDate paymentDate;
