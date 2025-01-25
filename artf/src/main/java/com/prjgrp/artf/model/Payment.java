@@ -29,6 +29,8 @@ public class Payment {
 
     private String description;
 
+    private Double amount;
+
     @ManyToOne
     private Document proof;
 

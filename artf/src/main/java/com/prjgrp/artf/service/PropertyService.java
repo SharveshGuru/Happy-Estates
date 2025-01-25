@@ -69,6 +69,10 @@ public class PropertyService {
         return repo.findByAvailabilityStatus(availabilityStatus);
     }
 
+    public List<Property> getLeasedPropertiesByOwner(String username){
+        return repo.findByAvailabilityStatusFalseAndOwnerUsername(username);
+    }
+
     public void updateProperty(Long id, Property data) {
         Optional<Property> existingOptional = repo.findById(id);
         if (existingOptional.isPresent()) {

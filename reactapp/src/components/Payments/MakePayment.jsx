@@ -13,6 +13,7 @@ const MakePayment = () => {
     };
     const user=JSON.parse(localStorage.getItem("user"));
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [trigger,setTrigger]=useState(false);
     const [property, setProperty] = useState({});
     const [properties,setProperties]=useState([]);
     const [formData,setFormData]=useState({
@@ -22,6 +23,7 @@ const MakePayment = () => {
         property:{},
         paymentDate:getTodayDate(), 
         remarks:"",
+        amount:"",
     });
     const [updated,setUpdated]=useState(false);
     
@@ -38,14 +40,14 @@ const MakePayment = () => {
             axiosInstance.get(`/tenantproperty/${user.sub}`)
             .then((res)=>{
                 setProperty(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((err)=>{
                 window.alert("Error getting details!");
             })
         }
         else{
-            axiosInstance.get(`/ownerproperties/${user.sub}`)
+            axiosInstance.get(`/leasedownerproperties/${user.sub}`)
             .then((res)=>{
                 setProperties(res.data);
                 axiosInstance.get(`/plmapprop/${res.data[0].id}`)
@@ -55,7 +57,7 @@ const MakePayment = () => {
                 .catch((err)=>{
                     window.alert("Error getting lease details!");
                 });
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((err)=>{
                 window.alert("Error getting details!");
@@ -74,19 +76,40 @@ const MakePayment = () => {
                 window.alert("Error getting lease details!");
             });
         }
-    },[formData.property,user.role,property.id]);
+    },[user.role,property.id]);
+
+
+    function updateLease(propid,newFormData){
+        axiosInstance.get(`/plmapprop/${propid}`)
+        .then((d)=>{
+            // console.log(d);
+            setFormData({...newFormData, lease:d.data.lease});
+        })
+        .catch((err)=>{
+            window.alert("Error getting lease details!");
+        });
+    }
 
 
     function handleChange(e){
         const { name, value } = e.target;
-        setFormData({
+        const newFormData ={
             ...formData, 
             [name]: name === "property" ? JSON.parse(value) : value
-        });
+        };
+
+        if(name==="property" && user.role==="ROLE_Owner"){
+            const propData=JSON.parse(value);
+            updateLease(propData.id,newFormData);
+        }
+        else{
+            setFormData(newFormData);
+        }
     }
 
     function handleSubmit(e){
         e.preventDefault();
+        console.log(formData);
         axiosInstance.post(`/payments`,formData)
         .then((res)=>{
             setUpdated(!updated);
@@ -111,13 +134,15 @@ const MakePayment = () => {
                     <option key={index} value={JSON.stringify(data)}>{data.name}</option>))}
             </select>
             <br/></>}
-            {console.log(formData)}
+            {/* {console.log(formData)} */}
             <label className={styles.formlabel}>Description: </label>
-            <select className={styles.forminput} value={formData.description} name="description" onChange={handleChange} required >
+            <select className={styles.forminput} value={formData.description} name="description" onChange={handleChange} required > 
                 {user.role==="ROLE_Tenant" && <option value="Lease Payment">Lease Payment</option>}
                 {user.role==="ROLE_Owner" && <option value="Repair & Maintenance">Repair & Maintenance</option>}
                 <option value="Others">Others</option>
-            </select>
+            </select><br/>
+            <label className={styles.formlabel}>Amount Paid: </label>
+            <input className={styles.forminput} onChange={handleChange} type="number" name='amount' value={formData.amount} placeholder='Enter the Amount paid' step="0.01" min="0" required></input>
             <br/>
             <label className={styles.formlabel}>Remarks: </label>
             <input className={styles.forminput} onChange={handleChange} type="text" name='remarks' value={formData.remarks} placeholder='Enter remarks' required></input>

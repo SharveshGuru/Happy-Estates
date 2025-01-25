@@ -11,4 +11,6 @@ import com.prjgrp.artf.model.Payment;
 @Repository
 public interface PaymentRepo extends JpaRepository<Payment, Long> {
     public List<Payment> findByLease(Lease lease);
+
+    public List<Payment> findByLeaseApprovedTrueAndLeaseOwnerUsername(String username);
 }

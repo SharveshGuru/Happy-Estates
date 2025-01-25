@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
+
 @RestController
 @CrossOrigin
 public class PaymentController {
@@ -37,6 +38,18 @@ public class PaymentController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Tenant') or hasRole('ROLE_Owner')")
     public List<Payment> getPaymentsByLease(@PathVariable Long propid){
         return service.getPaymentsByLease(propid);
+    }
+
+    @GetMapping("/tenantpayments/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Tenant')")
+    public List<Payment> gettenantpayments(@PathVariable String username) {
+        return service.getTenantPayments(username);
+    }
+    
+    @GetMapping("/ownerpayments/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Owner')")
+    public List<Payment> getOwnerPayments(@PathVariable String username) {
+        return service.getOwnerPayments(username);
     }
     
 }

@@ -57,6 +57,12 @@ public class PropertyController {
         return service.getPropertiesByOwner(owner);
     }
 
+    @GetMapping("/leasedownerproperties/{owner}")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner')")
+    public List<Property> getLeasedOwnerProperties(@PathVariable String owner) {
+        return service.getLeasedPropertiesByOwner(owner);
+    }
+
     @GetMapping("/tenantproperty/{tenant}")
     @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
     public Property getPropertyByTenant(@PathVariable String tenant) {

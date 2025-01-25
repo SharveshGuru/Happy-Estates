@@ -16,4 +16,5 @@ public interface PropertyRepo extends JpaRepository<Property, Long> {
 
     List<Property> findByAvailabilityStatus(Boolean availabilityStatus);
 
+    List<Property> findByAvailabilityStatusFalseAndOwnerUsername(String username);
 }

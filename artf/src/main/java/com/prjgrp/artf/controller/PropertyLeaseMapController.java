@@ -54,7 +54,7 @@ public class PropertyLeaseMapController {
         service.addMap(entity);
     }
     
-    @PutMapping("plmap/{id}")
+    @PutMapping("/plmap/{id}")
     @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public void removeMap(@PathVariable Long id) {
         service.deleteByProperty(id);
