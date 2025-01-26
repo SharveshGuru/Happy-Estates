@@ -18,10 +18,10 @@ const ManageTenants = () =>{
         axiosInstance.get(`/activeleases/${user.sub}`)
         .then((response)=>{
             setActiveLeases(response.data);
-            console.log(response.data);
+            // console.log(response.data);
         })
         .catch((error)=>{
-            console.error(error);
+            console.error();
         })
     }, [user.sub,trigger]);
 

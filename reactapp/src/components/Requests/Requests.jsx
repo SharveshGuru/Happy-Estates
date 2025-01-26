@@ -14,7 +14,7 @@ const Requests = () =>{
             axiosInstance.get(`/requeststenant/${user.sub}`)
             .then((res)=>{
                 setTableData(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((err)=>{
                 window.alert("Error getting requests!");
@@ -25,7 +25,7 @@ const Requests = () =>{
             axiosInstance.get(`/requestsowner/${user.sub}`)
             .then((res)=>{
                 setTableData(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((err)=>{
                 window.alert("Error getting requests!");

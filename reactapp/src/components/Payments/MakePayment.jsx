@@ -13,7 +13,6 @@ const MakePayment = () => {
     };
     const user=JSON.parse(localStorage.getItem("user"));
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [trigger,setTrigger]=useState(false);
     const [property, setProperty] = useState({});
     const [properties,setProperties]=useState([]);
     const [formData,setFormData]=useState({
@@ -109,7 +108,7 @@ const MakePayment = () => {
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log(formData);
+        // console.log(formData);
         axiosInstance.post(`/payments`,formData)
         .then((res)=>{
             setUpdated(!updated);

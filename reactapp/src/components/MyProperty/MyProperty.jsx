@@ -35,7 +35,7 @@ const MyProperty = () =>{
         axiosInstance.get(`/tenantproperty/${user.sub}`)
         .then((res)=>{
             setProperty(res.data);
-            console.log(res.data);
+            // console.log(res.data);
         })
         .catch((err)=>{
             window.alert("Error getting details!");
@@ -47,7 +47,7 @@ const MyProperty = () =>{
             axiosInstance.get(`plmapprop/${property.id}`)
             .then((res)=>{
                 setLdata(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch((err)=>{
                 window.alert("Error getting details!");

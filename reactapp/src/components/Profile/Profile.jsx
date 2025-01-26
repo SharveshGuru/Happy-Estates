@@ -24,7 +24,7 @@ const Profile = () =>{
           .then((response)=>{
             setProfile(response.data);
           })
-          .catch((error)=>console.log(error));
+          .catch((error)=>console.log());
         }
       },[edit,change]);
 

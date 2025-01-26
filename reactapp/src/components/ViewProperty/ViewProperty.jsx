@@ -57,7 +57,7 @@ const ViewProperty=()=>{
             .then((response)=>{
                 setOwner(response.data);
             })
-            .catch((error)=>console.log(error));
+            .catch((error)=>console.log());
         }
 
         if (user.role==="ROLE_Tenant"){

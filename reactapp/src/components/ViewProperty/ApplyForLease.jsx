@@ -15,7 +15,7 @@ const ApplyForLease = ({id, property,rented}) => {
           .then((response)=>{
             setProfile(response.data);
           })
-          .catch((error)=>console.log(error));
+          .catch((error)=>console.log());
         }
         const interval = setInterval(() => {
             setCurrentDate(new Date());
@@ -84,7 +84,7 @@ const ApplyForLease = ({id, property,rented}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(formData);
+        // console.log(formData);
         if (validateDates()) {
             axiosInstance.post(`/lease`,formData)
             .then((response)=>setUpdated(!updated))

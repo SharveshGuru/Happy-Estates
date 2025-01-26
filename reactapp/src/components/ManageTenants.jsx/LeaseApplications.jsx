@@ -18,7 +18,7 @@ const LeaseApplications=()=>{
     }
     return(
         <div className={styles.container}>
-            {console.log(tableData)}
+            {/* {console.log(tableData)} */}
             <h2 className={styles.heading}>Lease Applications</h2>
 
             {tableData.length>0 ? (<table className={styles.table}>
