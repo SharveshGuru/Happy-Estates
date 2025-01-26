@@ -65,15 +65,6 @@ const ViewProperty=()=>{
             .then((response)=>setRented(response.data))
             .catch((error)=>window.alert("There was a problem in checking tenant status!"));
         }
-
-        // if(property && property.tenant && user.role==="ROLE_Owner"){
-        //     axiosInstance.get(`plmapprop/${id}`)
-        //     .then((response)=>{
-        //         setLdata(response.data.lease);
-        //         setTrigger(!trigger);
-        //     })
-        //     .catch((error)=>window.alert("Unable to get Details!"));
-        // }
     }, [id, user.role, user.sub, leaseOpen, editOpen, leaseUpdateTrigger]);
     
     useEffect(()=>{
