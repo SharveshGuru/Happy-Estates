@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import Popup from "../Popup/Popup";
 import ApplyForLease from "./ApplyForLease";
 import EditProperty from "../ManageProperties/EditProperty";
+import AddDocument from "../ManageProperties/AddDocument";
 
 const ViewProperty=()=>{
 
@@ -15,6 +16,7 @@ const ViewProperty=()=>{
     const user=JSON.parse(localStorage.getItem("user"));
     const [editOpen,setEditOpen]=useState(false);
     const [leaseOpen,setLeaseOpen]=useState(false);
+    const [docOpen,setDocOpen]=useState(false);
     const [leaseUpdateTrigger, setLeaseUpdateTrigger] = useState(false); 
     const [tableData,setTableData]=useState([]);
     const [ldata,setLdata]=useState({});
@@ -84,6 +86,10 @@ const ViewProperty=()=>{
 
     function handleEditPopup(){
         setEditOpen(!editOpen);
+    }
+
+    function handleDocPopup(){
+        setDocOpen(!docOpen);
     }
 
     function handlePropertyUpdate(lease) {
@@ -196,7 +202,9 @@ const ViewProperty=()=>{
                     </div>
                 </div>
                 {user.role==="ROLE_Owner" && <div className={styles.listing}>
-                    <h2>Lease Applications:</h2>
+                    <div className={styles.listingContent}>
+                        <h2>Lease Applications:</h2>
+                    </div>
                     {tableData.length>0 ? (<table className={styles.table}>
                         <thead>
                             <tr className={styles.headerRow}>
@@ -237,7 +245,19 @@ const ViewProperty=()=>{
                     
                 </div>}
                 <div className={styles.listing}>
-                    <h2>Property Images:</h2>
+                    <div className={styles.listingContent}>
+                        <h2>Property Images:</h2>
+                        <button className={styles.addButton}>Add Images</button>
+                    </div>
+                    
+                </div>
+
+                <div className={styles.listing}>
+                    <div className={styles.listingContent}>
+                        <h2>Property Documents:</h2>
+
+                        <button onClick={handleDocPopup} className={styles.addButton}>Add Documents</button>
+                    </div>
                     <br></br>
                     
                 </div>
@@ -248,6 +268,10 @@ const ViewProperty=()=>{
 
             <Popup isOpen={editOpen} onClose={handleEditPopup}>
                 <EditProperty property={property}/>
+            </Popup>
+
+            <Popup isOpen={docOpen} onClose={handleDocPopup}>
+                <AddDocument lease={ldata}/>
             </Popup>
         </div>
     )

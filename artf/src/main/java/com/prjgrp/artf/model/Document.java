@@ -18,6 +18,12 @@ public class Document {
 
     private String documentType;
 
+    private String fileType;
+
+    @ManyToOne
+    @JoinColumn(name = "uploaded_by")
+    private User uploadedBy;
+
     @ManyToOne
     private Lease lease;
 
