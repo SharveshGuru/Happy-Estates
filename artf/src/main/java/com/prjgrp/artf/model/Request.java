@@ -16,9 +16,12 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String requestMadeBy;
+    @ManyToOne
+    @JoinColumn(name = "request_made_by")
+    private User requestMadeBy;
 
     @ManyToOne
+    @JoinColumn(name = "lease_id")
     private Lease lease;
 
     private String description;
@@ -27,6 +30,8 @@ public class Request {
 
     private String remarks;
 
-    @Column(length = 255)
-    private String status;
+    private String madeBy;
+
+    @Column(length = 20)
+    private String status="new";
 }
