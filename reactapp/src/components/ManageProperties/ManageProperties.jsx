@@ -37,7 +37,7 @@ const ManageProperties = () =>{
                 <button onClick={handleAdd} className={styles.addProperty}>Add Property</button>
             </div>
             <div className={styles.container}>
-                {property.map((data,index)=>(
+                {property.length>0 ? (property.map((data,index)=>(
                     <div className={styles.listing}>
                         <div className={styles.listingHeader}>
                             <h2>{data.name}</h2>
@@ -57,7 +57,7 @@ const ManageProperties = () =>{
                             </div>
                         </div>
                     </div>
-                ))}
+                ))):<h3>You haven't added any properties</h3>}
             </div>
 
             <Popup isOpen={open} onClose={handleAdd}>

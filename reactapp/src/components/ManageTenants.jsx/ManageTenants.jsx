@@ -61,7 +61,7 @@ const ManageTenants = () =>{
                 <button onClick={handleOpen} className={styles.leaseApplications}>Lease Applications</button>
             </div>
             <div className={styles.container}>
-                {activeLeases.map((data,index)=>(
+                {activeLeases.length>0 ? (activeLeases.map((data,index)=>(
                     <div className={styles.listing}>
                         <div className={styles.tenantListing}>
                             <div className={styles.tenantContent}>
@@ -82,7 +82,7 @@ const ManageTenants = () =>{
                             </div>
                         </div>                
                     </div>
-                ))}
+                ))):<h3>You have not leased any property therefore there are no tenants!</h3>}
                 
             </div>
 

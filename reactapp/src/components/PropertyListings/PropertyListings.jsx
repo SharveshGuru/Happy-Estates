@@ -19,7 +19,7 @@ const PropertyListings = () =>{
         <div className={styles.page}>
             <h1 className={styles.heading}>Property Listings</h1>
             <div className={styles.container}>
-                {properties.map(property=>(
+                {properties.length>0 ? (properties.map(property=>(
                     <div className={styles.listing}>
                         <div className={styles.listingHeader}>
                             <h2>{property.name}</h2>
@@ -38,7 +38,7 @@ const PropertyListings = () =>{
                             </div>
                         </div>
                     </div>
-                ))}
+                ))):<h3>There are no available properties!</h3>}
             </div>
         </div>
     )
