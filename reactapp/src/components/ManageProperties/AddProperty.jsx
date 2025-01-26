@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styles from './AddProperty.module.css';
 import axiosInstance from '../../Api';
-import { UserContext } from '../UserContext';
 
 const AddProperty = () => {
     const getTodayDate = () => {
