@@ -8,7 +8,6 @@ import PropertyListings from './components/PropertyListings/PropertyListings';
 import MyProperty from './components/MyProperty/MyProperty';
 import RaiseRequest from './components/Requests/Requests';
 import Profile from './components/Profile/Profile';
-import Temp from './components/Temp';
 import { UserProvider } from './components/UserContext';
 import { ProtectedRoute,OwnerRoute,TenantRoute } from './components/ProtectedRoute';
 import Payments from './components/Payments/Payments';
@@ -47,7 +46,6 @@ function AppContent() {
         <Route path="/manage-properties" element={<OwnerRoute><ManageProperties /></OwnerRoute>} />
         <Route path="/manage-tenants" element={<OwnerRoute><ManageTenants /></OwnerRoute>} />
         <Route path="/viewproperty/:id" element={<ProtectedRoute><ViewProperty /></ProtectedRoute>} />
-        <Route path="/temp" element={<Temp />} />
       </Routes>
     </div>
   );
