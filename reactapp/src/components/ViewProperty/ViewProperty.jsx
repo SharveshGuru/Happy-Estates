@@ -7,6 +7,7 @@ import Popup from "../Popup/Popup";
 import ApplyForLease from "./ApplyForLease";
 import EditProperty from "../ManageProperties/EditProperty";
 import AddDocument from "../ManageProperties/AddDocument";
+import FileDisplay from "../FileDisplay";
 
 const ViewProperty=()=>{
 
@@ -22,6 +23,11 @@ const ViewProperty=()=>{
     const [ldata,setLdata]=useState({});
     const [trigger,setTrigger]=useState(false);
     const [rented,setRented]=useState(false);
+    const [documents,setDocuments]=useState([]);
+    const [selectedDocumentName, setSelectedDocumentName] = useState(""); 
+    const [selectedDocument, setSelectedDocument] = useState(null); 
+    const [selectedMimeType, setSelectedMimeType] = useState("");
+    const [isDocViewOpen, setIsDocViewOpen] = useState(false);
     const [property,setProperty]=useState({
         "id": null,
         "name": null,
@@ -80,6 +86,20 @@ const ViewProperty=()=>{
         }
     },[property,user.role,id]);
 
+    useEffect(() => {
+        const fetchDocuments = async () => {
+            try {
+                const response = await axiosInstance.get(`/propertydocs/${ldata.id}`);
+                setDocuments(response.data);
+                console.log(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+            };
+    
+        fetchDocuments();
+      }, [ldata,docOpen]);
+
     function handleLeasePopup(){
         setLeaseOpen(!leaseOpen);
     }
@@ -90,6 +110,10 @@ const ViewProperty=()=>{
 
     function handleDocPopup(){
         setDocOpen(!docOpen);
+    }
+
+    function handleDocViewPopup(){
+        setIsDocViewOpen(!isDocViewOpen);
     }
 
     function handlePropertyUpdate(lease) {
@@ -161,6 +185,12 @@ const ViewProperty=()=>{
             return "Rejected";
     }
 
+    function handleView(document){
+        setSelectedDocument(document.document);
+        setSelectedMimeType(document.fileType);
+        setSelectedDocumentName(document.documentName)
+        setIsDocViewOpen(!isDocViewOpen);
+    }
 
     return(
         <div className={styles.page}>
@@ -229,7 +259,7 @@ const ViewProperty=()=>{
                                     <td className={styles.td}>{format(new Date(data.leaseEndDate),'dd MMMM yyyy')}</td>
                                     <td className={styles.td}>{data.tenant.email}</td></>}
                                     <td className={styles.td}>{displayStatus(data.approved,data.rejected)}</td>
-                                    <td className={styles.td+ " "+ styles.buttonRow}>
+                                    <td className={styles.buttonRow}>
                                         {displayStatus(data.approved,data.rejected)==="Pending" ?
                                         <> 
                                         <button onClick={()=>handleApprove(index,data.id)} className={styles.approveButton}>Approve</button>
@@ -252,15 +282,36 @@ const ViewProperty=()=>{
                     
                 </div>
 
-                <div className={styles.listing}>
+                {user.role==="ROLE_Owner" &&<div className={styles.listing}>
                     <div className={styles.listingContent}>
                         <h2>Property Documents:</h2>
 
                         <button onClick={handleDocPopup} className={styles.addButton}>Add Documents</button>
                     </div>
+                    <div>
+                        {documents.length>0 ? (
+                            <table className={styles.table}>
+                                <thead>
+                                    <tr className={styles.headerRow}>
+                                        <th className={styles.th}>Document Name</th>
+                                        <th className={styles.th}>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {documents.map((doc,index)=>(
+                                        <tr className={styles.row} key={index}>
+                                            <td className={styles.td}>{doc.documentName}</td>
+                                            <td className={styles.docbuttonRow}>
+                                                <button onClick={()=>handleView(doc)} className={styles.actionButton}>View / Download</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ):<p><br />There are no documents added!</p>}
+                    </div>
                     <br></br>
-                    
-                </div>
+                </div>}
             </div>
             <Popup isOpen={leaseOpen} onClose={handleLeasePopup}>
                 <ApplyForLease rented={rented} id={id} property={property}/>
@@ -272,6 +323,10 @@ const ViewProperty=()=>{
 
             <Popup isOpen={docOpen} onClose={handleDocPopup}>
                 <AddDocument lease={ldata}/>
+            </Popup>
+
+            <Popup isOpen={isDocViewOpen} onClose={handleDocViewPopup}>
+                <FileDisplay docname={selectedDocumentName} base64Data={selectedDocument} mimeType={selectedMimeType}/>
             </Popup>
         </div>
     )

@@ -1,6 +1,7 @@
 package com.prjgrp.artf.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,13 @@ public class DocumentService {
         doc.setDocument(file.getBytes());
         doc.setLease(l);
         repo.save(doc);
+    }
+
+    public List<Document> getDocumentsByLeaseId(Long id){
+        return repo.findByLeaseId(id);
+    }
+
+    public List<Document> getDocumentsByLeaseIdDocType(Long id,String doctype){
+        return repo.findByDocumentTypeAndLeaseId(doctype,id);
     }
 }

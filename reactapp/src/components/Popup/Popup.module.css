@@ -20,7 +20,7 @@
     max-width: 60vw;
     max-height: 80vh;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 }
   
 .popupClose {
@@ -32,4 +32,6 @@
     font-size: 1.2rem;
     cursor: pointer;
 }
+
+
   
