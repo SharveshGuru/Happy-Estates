@@ -3,6 +3,9 @@ import styles from "./MyProperty.module.css"
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../Api";
 import { format } from "date-fns";
+import Popup from "../Popup/Popup";
+import FileDisplay from "../FileDisplay";
+
 
 const MyProperty = () =>{
 
@@ -30,6 +33,12 @@ const MyProperty = () =>{
         "details": null
     });
     const [ldata,setLdata]=useState({});
+    const [documents,setDocuments]=useState([]);
+    const [selectedDocumentName, setSelectedDocumentName] = useState(""); 
+    const [selectedDocument, setSelectedDocument] = useState(null); 
+    const [selectedMimeType, setSelectedMimeType] = useState("");
+    const [isDocViewOpen, setIsDocViewOpen] = useState(false);
+    
 
     useEffect(()=>{
         axiosInstance.get(`/tenantproperty/${user.sub}`)
@@ -55,11 +64,35 @@ const MyProperty = () =>{
         }
     },[property]);
 
+    useEffect(() => {
+        const fetchDocuments = async () => {
+            try {
+                const response = await axiosInstance.get(`/propertydocs/${ldata.id}`);
+                setDocuments(response.data);
+                console.log(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+            };
+    
+        fetchDocuments();
+    }, [ldata]);
+
     const handleRequest=()=>{
         navigate("/requests")
     }
 
-    const docurl="../../../public/assets/docs/Beige Floral Page Border.pdf";
+    function handleDocViewPopup(){
+        setIsDocViewOpen(!isDocViewOpen);
+    }
+
+    function handleView(document){
+        setSelectedDocument(document.document);
+        setSelectedMimeType(document.fileType);
+        setSelectedDocumentName(document.documentName)
+        setIsDocViewOpen(!isDocViewOpen);
+    }
+
     return(
         <div className={styles.page}>
             <h1 className={styles.heading}>My Property</h1>
@@ -85,41 +118,35 @@ const MyProperty = () =>{
                     </div>):<h3>You have no property rented</h3>}
                 </div>
                 <div className={styles.listing}>
-                    <h2>Property Documents:</h2>
+                    <h2>Lease Documents:</h2>
                     <br></br>
-                    <table className={styles.table}>
-                        <thead>
-                            <tr className={styles.headerRow}>
-                                <th className={styles.th}>Document Name</th>
-                                <th className={styles.th}>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className={styles.row}>
-                                <td className={styles.td}>Lease Agreement 2025</td>
-                                <td className={styles.td + " "+ styles.buttonRow}>
-                                    <button className={styles.actionButton}>View</button>    
-                                    <button className={styles.actionButton}>Download</button>
-                                </td>
-                            </tr>
-                            <tr className={styles.row}>
-                                <td className={styles.td}>Lease Agreement 2024</td>
-                                <td className={styles.td + " "+ styles.buttonRow}>
-                                    <button className={styles.actionButton}>View</button>    
-                                    <button className={styles.actionButton}>Download</button>
-                                </td>
-                            </tr>
-                            <tr className={styles.row}>
-                                <td className={styles.td}>Lease Agreement 2023</td>
-                                <td className={styles.td + " "+ styles.buttonRow}>
-                                    <button className={styles.actionButton}>View</button>    
-                                    <button className={styles.actionButton}>Download</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div>
+                        {documents.length>0 ? (
+                            <table className={styles.table}>
+                                <thead>
+                                    <tr className={styles.headerRow}>
+                                        <th className={styles.th}>Document Name</th>
+                                        <th className={styles.th}>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {documents.map((doc,index)=>(
+                                        <tr className={styles.row} key={index}>
+                                            <td className={styles.td}>{doc.documentName}</td>
+                                            <td className={styles.docbuttonRow}>
+                                                <button onClick={()=>handleView(doc)} className={styles.actionButton}>View / Download</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ):<p><br />There are no documents added!</p>}
+                    </div>
                 </div>
             </div>
+            <Popup isOpen={isDocViewOpen} onClose={handleDocViewPopup}>
+                <FileDisplay docname={selectedDocumentName} base64Data={selectedDocument} mimeType={selectedMimeType}/>
+            </Popup>
         </div>
     )
 }

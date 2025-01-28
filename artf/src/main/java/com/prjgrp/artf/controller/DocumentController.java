@@ -38,6 +38,7 @@ public class DocumentController {
     }
 
     @GetMapping("/propertydocs/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
     public List<Document> getPropertyDocs(@PathVariable Long id) {
         return service.getDocumentsByLeaseIdDocType(id, "Lease Document");
     }

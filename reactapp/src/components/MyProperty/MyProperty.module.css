@@ -59,7 +59,8 @@
 }
 
 .actionButton{         
-    margin-left: 0.5rem;
+    /* margin-left: 0.5rem; */
+    margin: 0.2rem 0.5rem;
     padding: 0.2rem 0.5rem;   
     background-color: rgb(153, 109, 14); 
     color: white;         
@@ -73,6 +74,11 @@
 
 .actionButton:hover{  
     background-color: rgb(60, 51, 31);  
+}
+
+.docbuttonRow{
+    border-top: 0.095rem solid black;
+    text-align: center;
 }
 
 /* .listing:hover{
