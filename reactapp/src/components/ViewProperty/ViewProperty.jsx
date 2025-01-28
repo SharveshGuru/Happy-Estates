@@ -284,7 +284,7 @@ const ViewProperty=()=>{
 
                 {user.role==="ROLE_Owner" &&<div className={styles.listing}>
                     <div className={styles.listingContent}>
-                        <h2>Property Documents:</h2>
+                        <h2>Lease Documents:</h2>
 
                         <button onClick={handleDocPopup} className={styles.addButton}>Add Documents</button>
                     </div>
