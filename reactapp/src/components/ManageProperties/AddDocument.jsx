@@ -69,7 +69,7 @@ const AddDocument = ({lease}) => {
             <br/>
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
-            <button className={styles.submit} type='submit'>Add Property</button>
+            <button className={styles.submit} type='submit'>Add Document</button>
             </form></>}
             {updated && <h2>Document has been added successfully!</h2>}
         </div>

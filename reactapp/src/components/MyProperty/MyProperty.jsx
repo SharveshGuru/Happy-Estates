@@ -119,7 +119,6 @@ const MyProperty = () =>{
                 </div>
                 <div className={styles.listing}>
                     <h2>Lease Documents:</h2>
-                    <br></br>
                     <div>
                         {documents.length>0 ? (
                             <table className={styles.table}>
