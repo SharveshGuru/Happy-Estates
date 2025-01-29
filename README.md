@@ -11,9 +11,6 @@ A comprehensive real estate management system built with React.js and Spring Boo
 ### Backend Requirements
 - Java OpenJDK 21.0.4 LTS (Eclipse Adoptium)
 - Apache Maven 3.9.9 
-- Operating System: Windows 11 (10.0, amd64)
-- Default locale: en_IN
-- Platform encoding: UTF-8
 
 ## Project Structure
 
