@@ -343,7 +343,7 @@ const ViewProperty=()=>{
                     <div className={styles.listingContent}>
                         <h2>Lease Documents:</h2>
 
-                        <button onClick={handleDocPopup} className={styles.addButton}>Add Documents</button>
+                        {property.tenant && <button onClick={handleDocPopup} className={styles.addButton}>Add Documents</button>}
                     </div>
                     <div>
                         {documents.length>0 ? (
