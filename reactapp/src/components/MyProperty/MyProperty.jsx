@@ -5,7 +5,9 @@ import axiosInstance from "../../Api";
 import { format } from "date-fns";
 import Popup from "../Popup/Popup";
 import FileDisplay from "../FileDisplay";
-
+import {Swiper, SwiperSlide} from "swiper/react";
+import 'swiper/swiper-bundle.css';
+import Viewer from 'react-viewer';
 
 const MyProperty = () =>{
 
@@ -38,7 +40,10 @@ const MyProperty = () =>{
     const [selectedDocument, setSelectedDocument] = useState(null); 
     const [selectedMimeType, setSelectedMimeType] = useState("");
     const [isDocViewOpen, setIsDocViewOpen] = useState(false);
-    
+    const [images,setImages]=useState([]);
+    const [viewerOpen, setViewerOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [imagesForViewer, setImagesForViewer] = useState([]);
 
     useEffect(()=>{
         axiosInstance.get(`/tenantproperty/${user.sub}`)
@@ -71,15 +76,45 @@ const MyProperty = () =>{
                 setDocuments(response.data);
                 console.log(response.data);
             } catch (err) {
-                console.log(err);
+                console.log();
             }
-            };
+        };
     
         fetchDocuments();
     }, [ldata]);
 
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axiosInstance.get(`/propertyimages/${property.id}`);
+                setImages(response.data);
+                console.log(response.data);
+            } catch (err) {
+                console.log();
+            }
+        };
+        if(property.id){
+            fetchImages();
+        }
+    }, [property.id]);
+
+    useEffect(()=>{
+        if(images.length>0){
+            const mappedImages = images.map((img) => ({
+                src: convertBlobToURL(img.document, img.fileType),
+                alt: img.documentName,
+                thumbnail: convertBlobToURL(img.document, img.fileType),
+            }));
+            setImagesForViewer(mappedImages);
+        }
+    },[images]);
+
     const handleRequest=()=>{
         navigate("/requests")
+    }
+
+    function convertBlobToURL(blobData, fileType) {
+        return `data:${fileType};base64,${blobData}`;
     }
 
     function handleDocViewPopup(){
@@ -142,10 +177,45 @@ const MyProperty = () =>{
                         ):<p><br />There are no documents added!</p>}
                     </div>
                 </div>
+                <div className={styles.listing}>
+                    <div className={styles.listingContent}>
+                        <h2>Property Images:</h2>
+                    </div>
+
+                    
+                    {images.length>0?(
+                        <div>
+                            <br/>
+                            <Swiper
+                                spaceBetween={10}
+                                slidesPerView={1}
+                                onSlideChange={(swiper)=>setCurrentImageIndex(swiper.activeIndex)}
+                                className={styles.carousel}
+                            >
+                                {imagesForViewer.map((img,index)=>(
+                                    <SwiperSlide key={index}>
+                                        <img src={img.thumbnail} alt={img.alt} className={styles.thumbnail} onClick={()=>setViewerOpen(true)} />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                            <p>Click the image to view fully; Swipe using mouse to view all</p>
+                        </div>):<p><br />There are no images added!</p>}
+                    
+                </div>
             </div>
             <Popup isOpen={isDocViewOpen} onClose={handleDocViewPopup}>
                 <FileDisplay docname={selectedDocumentName} base64Data={selectedDocument} mimeType={selectedMimeType}/>
             </Popup>
+            <Viewer
+                visible={viewerOpen}
+                onClose={() => setViewerOpen(false)}
+                images={imagesForViewer}
+                activeIndex={currentImageIndex}
+                zoomSpeed={0.2}
+                rotatable={true}
+                scalable={true}
+                draggable={true}
+            />
         </div>
     )
 }
