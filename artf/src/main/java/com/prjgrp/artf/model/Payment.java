@@ -6,11 +6,14 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "payments")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
