@@ -21,6 +21,10 @@ public class Document {
     private String fileType;
 
     @ManyToOne
+    @JoinColumn(name="property_id")
+    private Property property;
+
+    @ManyToOne
     @JoinColumn(name = "uploaded_by")
     private User uploadedBy;
 

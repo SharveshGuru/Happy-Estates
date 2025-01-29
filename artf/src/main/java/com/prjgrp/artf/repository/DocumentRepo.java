@@ -14,4 +14,6 @@ public interface DocumentRepo extends JpaRepository<Document, Long> {
 
     public List<Document> findByDocumentTypeAndLeaseId(String documentType, Long id);
 
+    public List<Document> findByDocumentTypeAndPropertyId(String documentType, Long id);
+
 }

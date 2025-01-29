@@ -31,15 +31,37 @@ public class DocumentController {
         @RequestParam("documentName") String documentName,
         @RequestParam("documentType") String documentType,
         @RequestParam("leaseid") Long leaseid,
+        @RequestParam("propertyid") Long propertyid,
         @RequestParam("uploadedBy") String uploadedBy
     ) throws IOException {
-        service.addDocument(file, documentName, documentType, uploadedBy, leaseid);
+        service.addDocument(file, documentName, documentType, uploadedBy, leaseid, propertyid);
             
     }
+
+    @PostMapping("/images")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Owner')")
+    public void addDocuments(
+        @RequestParam("files") MultipartFile[] files, // Change to array
+        @RequestParam("documentName") String documentName,
+        @RequestParam("documentType") String documentType,
+        @RequestParam("propertyid") Long propertyid,
+        @RequestParam("uploadedBy") String uploadedBy
+    ) throws IOException {
+        for (MultipartFile file : files) {
+            service.addDocument(file, documentName, documentType, uploadedBy,propertyid);
+        }
+    }
+
 
     @GetMapping("/propertydocs/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
     public List<Document> getPropertyDocs(@PathVariable Long id) {
         return service.getDocumentsByLeaseIdDocType(id, "Lease Document");
     }
+
+    @GetMapping("/propertyimages/{id}")
+    public List<Document> getPropertyImages(@PathVariable Long id) {
+        return service.getImagesByProperty(id);
+    }
+    
 }
