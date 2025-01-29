@@ -17,7 +17,7 @@ const AddProperty = () => {
     const [formData,setFormData]=useState({
         name:"",
         type:"Apartment",
-        bhk:"",
+        numberOfRooms:"",
         plotArea:"",
         address:"",
         price:"",
