@@ -60,7 +60,7 @@ const AddDocument = ({lease}) => {
             {!updated &&<>
             <h2 className={styles.heading}>Add Document</h2>
             <br></br>
-            {console.log(lease)}
+            {/* {console.log(lease)} */}
         <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.formlabel}>Document Name: </label>
             <input className={styles.forminput} onChange={(e)=>setDocumentName(e.target.value)} type="text" value={documentName} placeholder='Enter Document Name' required></input><br />

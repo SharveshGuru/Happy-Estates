@@ -36,7 +36,7 @@ const Payments = () =>{
             axiosInstance.get(`/tenantpayments/${user.sub}`)
             .then((res)=>{
                 setPayments(res.data);
-                console.log(res.data);
+                // console.log(res.data);
                 setValid(true);
             })
             .catch((err)=>{

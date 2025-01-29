@@ -74,7 +74,7 @@ const MyProperty = () =>{
             try {
                 const response = await axiosInstance.get(`/propertydocs/${ldata.id}`);
                 setDocuments(response.data);
-                console.log(response.data);
+                // console.log(response.data);
             } catch (err) {
                 console.log();
             }
@@ -88,7 +88,7 @@ const MyProperty = () =>{
             try {
                 const response = await axiosInstance.get(`/propertyimages/${property.id}`);
                 setImages(response.data);
-                console.log(response.data);
+                // console.log(response.data);
             } catch (err) {
                 console.log();
             }

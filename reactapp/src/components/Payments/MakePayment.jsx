@@ -127,7 +127,7 @@ const MakePayment = () => {
         pdata.append("file",file);
         pdata.append("documentName",formData.remarks);
         pdata.append("paymentData",paymentData);
-        console.log(formData);
+        // console.log(formData);
         axiosInstance.post(`/payments`,pdata,{
             headers:{
                 'Content-Type':'multipart/form-data',
