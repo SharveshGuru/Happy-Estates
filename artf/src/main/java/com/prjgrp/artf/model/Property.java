@@ -39,8 +39,5 @@ public class Property {
 
     private LocalDate postedOn;
 
-    @ElementCollection
-    private List<String> images;
-
     private String details;
 }

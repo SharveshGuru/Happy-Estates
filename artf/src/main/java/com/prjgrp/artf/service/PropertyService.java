@@ -50,7 +50,7 @@ public class PropertyService {
         data.setOwner(un);
         repo.save(data);
     }
-
+    
     public List<Property> getPropertiesByOwner(String data){
         User owner=user.findByUsername(data);
         return repo.findByOwner(owner);
@@ -95,7 +95,6 @@ public class PropertyService {
                 existing.setTenant(data.getTenant());
             }
     
-            if (data.getImages() != null) existing.setImages(data.getImages());
             if (data.getDetails() != null) existing.setDetails(data.getDetails());    
             repo.save(existing);
         } else {
