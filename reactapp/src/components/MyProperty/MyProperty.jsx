@@ -113,6 +113,10 @@ const MyProperty = () =>{
         navigate("/requests")
     }
 
+    const handlePayment=()=>{
+        navigate("/payments")
+    }
+
     function convertBlobToURL(blobData, fileType) {
         return `data:${fileType};base64,${blobData}`;
     }
@@ -148,7 +152,8 @@ const MyProperty = () =>{
                             <p>Owner Name: {property.owner.name}</p>
                             <p>Email ID: {property.owner.email}</p>
                             <p>Phone Number: {property.owner.phone}</p>
-                            <button onClick={handleRequest} className={styles.requestButton}>Raise Requests</button>
+                            <button onClick={handleRequest} className={styles.requestButton}>Raise Request</button>
+                            <button onClick={handlePayment} className={styles.paymentButton}>Make Payment</button>
                         </div>
                     </div>):<h3>You have no property rented</h3>}
                 </div>
