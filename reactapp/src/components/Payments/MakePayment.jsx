@@ -19,13 +19,19 @@ const MakePayment = () => {
         paymentMadeBy:{username:user.sub},
         lease:{},
         description:user.role==="ROLE_Tenant"?"Lease Payment":"Repair & Maintenance", 
-        property:{},
         paymentDate:getTodayDate(), 
         remarks:"",
         amount:"",
     });
+    const [file, setFile] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const [updated,setUpdated]=useState(false);
     
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setFile(file);
+    };
 
     useEffect(()=>{
         const interval=setInterval(()=>{
@@ -106,10 +112,27 @@ const MakePayment = () => {
         }
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
-        // console.log(formData);
-        axiosInstance.post(`/payments`,formData)
+
+        if (!file) {
+            setErrorMessage('All fields are required');
+            return;
+        }
+
+        setErrorMessage('');
+
+        let pdata = new FormData();
+        let paymentData=JSON.stringify(formData);
+        pdata.append("file",file);
+        pdata.append("documentName",formData.remarks);
+        pdata.append("paymentData",paymentData);
+        console.log(formData);
+        axiosInstance.post(`/payments`,pdata,{
+            headers:{
+                'Content-Type':'multipart/form-data',
+            }
+        })
         .then((res)=>{
             setUpdated(!updated);
         })
@@ -147,8 +170,9 @@ const MakePayment = () => {
             <input className={styles.forminput} onChange={handleChange} type="text" name='remarks' value={formData.remarks} placeholder='Enter remarks' required></input>
             <br/>
             <label className={styles.formlabel}>Upload Proof: </label>
-            <input className={styles.forminput} type="file" name='fileUpload' required></input>
+            <input className={styles.forminput} type="file" name='fileUpload' onChange={handleFileChange} required></input>
             <br/>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             
             <button className={styles.submit} type='submit'>Update Payment</button>
             </form></>}

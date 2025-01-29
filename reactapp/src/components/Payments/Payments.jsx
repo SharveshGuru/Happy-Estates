@@ -4,14 +4,30 @@ import Popup from "../Popup/Popup";
 import MakePayment from "./MakePayment";
 import axiosInstance from "../../Api";
 import { format } from 'date-fns';
+import FileDisplay from "../FileDisplay";
 
 const Payments = () =>{
     const user=JSON.parse(localStorage.getItem("user"));
     const [open,setOpen]=useState(false);
     const [payments,setPayments]=useState([]);
     const [valid,setValid]=useState(false);
+    const [selectedDocumentName, setSelectedDocumentName] = useState(""); 
+    const [selectedDocument, setSelectedDocument] = useState(null); 
+    const [selectedMimeType, setSelectedMimeType] = useState("");
+    const [isDocViewOpen, setIsDocViewOpen] = useState(false);
     function handlePay(){
         setOpen(!open);
+    }
+
+    function handleDocViewPopup(){
+        setIsDocViewOpen(!isDocViewOpen);
+    }
+
+    function handleView(document){
+        setSelectedDocument(document.document);
+        setSelectedMimeType(document.fileType);
+        setSelectedDocumentName(document.documentName)
+        setIsDocViewOpen(!isDocViewOpen);
     }
 
     useEffect(()=>{
@@ -20,6 +36,7 @@ const Payments = () =>{
             axiosInstance.get(`/tenantpayments/${user.sub}`)
             .then((res)=>{
                 setPayments(res.data);
+                console.log(res.data);
                 setValid(true);
             })
             .catch((err)=>{
@@ -70,9 +87,8 @@ const Payments = () =>{
                                         <td className={styles.td}>₹{payment.amount}</td>
                                         <td className={styles.td}>{format(new Date(payment.paymentDate),"dd MMMM yyyy")}</td>
                                         <td className={styles.td}>{payment.remarks}</td>
-                                        <td className={styles.td + " "+ styles.buttonRow}>
-                                            <button className={styles.actionButton}>View</button>    
-                                            <button className={styles.actionButton}>Download</button>
+                                        <td className={styles.docbuttonRow}>
+                                            <button onClick={()=>handleView(payment.proof)} className={styles.actionButton}>View / Download</button>
                                         </td>
                                 </tr>))}
                             </tbody>
@@ -83,6 +99,10 @@ const Payments = () =>{
 
             <Popup isOpen={open} onClose={handlePay}>
                 <MakePayment />
+            </Popup>
+
+            <Popup isOpen={isDocViewOpen} onClose={handleDocViewPopup}>
+                <FileDisplay docname={selectedDocumentName} base64Data={selectedDocument} mimeType={selectedMimeType}/>
             </Popup>
         </div>
     )
