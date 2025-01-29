@@ -103,7 +103,7 @@ const ViewProperty=()=>{
             })
             .catch((error)=>window.alert("Unable to get Details!"));
         }
-    },[property,user.role,id]);
+    },[property,user.role,id,imgOpen]);
 
     useEffect(() => {
         const fetchDocuments = async () => {

@@ -58,7 +58,7 @@ const Requests = () =>{
                 <div className={styles.listing}>
                     <div className={styles.listingHeader}>
                         <h2>Request History</h2>
-                        <button onClick={handleRequest} className={styles.createRequestButton}>Create Request</button>
+                        {tableData && tableData.lease && <button onClick={handleRequest} className={styles.createRequestButton}>Create Request</button>}
                     </div><br />
                     {tableData.length>0 ? (<table className={styles.table}>
                         <thead>
