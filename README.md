@@ -53,8 +53,8 @@ cd Happy-Estates
 ```
 
 2. Database Setup
-- Install PostgreSQL
-- Create a new database named 'real_estate_db'
+- Install MySQL
+- Create a new database named 'appdb'
 
 3. Running the Backend
 
