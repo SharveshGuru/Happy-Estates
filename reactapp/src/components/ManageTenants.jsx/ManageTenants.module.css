@@ -1,0 +1,157 @@
+.heading{
+    margin-top: 7vh;
+    text-align: center;
+    color: rgb(255, 183, 0);
+    font-size: 3rem;
+    text-shadow: 1px 1px 2px black;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(208, 178, 113);
+    margin:1rem;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    max-height: 78vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.listing{
+    position: relative;
+    margin: 0.5rem;
+    background-color: rgb(253, 234, 193);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgb(208, 178, 113);
+    font-size: 1.2rem;
+}
+
+.listingHeader{
+    display: flex;
+    align-items: center;
+}
+
+.tenantListing{
+    /* margin-top: 1rem; */
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction:row;
+    /* align-items: left; */
+    justify-content: space-between;
+}
+
+.listing:hover{
+    background-color: rgb(246, 210, 139);
+}
+
+.tenantButton{
+    margin-top: 2.7rem;
+    margin-left: 0.5rem;
+    /* margin-bottom: 1rem; */
+    padding: 0.2rem 0.5rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.requestButton{
+    position: absolute;   
+    bottom: 0.7rem;         
+    right: 0.7rem;          
+    padding: 0.6rem 1rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1rem;
+}
+
+.requestButton:hover{  
+    background-color: rgb(60, 51, 31);  
+}
+
+.actionButton{         
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.5rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.actionButton:hover{  
+    background-color: rgb(60, 51, 31);  
+}
+
+.tenantButton:hover{  
+    background-color: rgb(60, 51, 31);  
+}
+
+.page{
+    background: url("../../../public/assets/images/home_background_image.jpg") no-repeat center center;
+    /* background-repeat: no-repeat; */
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction:column;
+    background-position: center;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0rem 1rem 0rem 1rem;
+}
+.leaseApplications{
+    position: absolute;
+    right:0;
+    top:75%;
+    transform: translateY(-50%);
+    padding: 0.6rem 1rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1.1rem;
+}
+
+.leaseApplications:hover{  
+    background-color: rgb(60, 51, 31);  
+}
+
+.removeButton{
+    margin-top: 2.7rem;
+    margin-left: 0.5rem;
+    /* margin-bottom: 1rem; */
+    padding: 0.2rem 0.5rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.removeButton:hover{  
+    background-color: red;  
+}

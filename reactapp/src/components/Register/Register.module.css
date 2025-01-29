@@ -1,0 +1,60 @@
+.page{
+    background: url("../../../public/assets/images/home_background_image.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+}
+.registercontainer{
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(253, 234, 193);
+    border-radius: .25rem;
+    width: 50vw;
+    box-shadow: 0.25rem 0.25rem  rgb(212, 158, 39);
+    padding: 1rem 1rem 2rem 1rem ;
+    
+}
+
+.heading{
+    /* font-size: 1rem; */
+    margin-bottom: 0.25rem;
+}
+
+.form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 1rem;
+}
+
+.forminput{
+    height: 1.7rem;
+    width:100%;
+    padding: .25rem;
+    border-radius: 0.25rem;
+    border-width: 0.05rem;
+}
+
+.submit{
+    background-color: rgb(236, 198, 116);
+    /* width: 5rem;
+    height: 1.5rem; */
+    color: BLACK;
+    border-radius: 0.5rem;
+    /* border-color: rgb(0, 102, 255); */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor:pointer;
+}
+
+.submit:hover{
+    background-color: rgb(212, 158, 39);
+}

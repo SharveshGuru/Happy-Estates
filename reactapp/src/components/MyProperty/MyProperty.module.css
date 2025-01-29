@@ -1,0 +1,163 @@
+.heading{
+    margin-top: 7vh;
+    text-align: center;
+    color: rgb(255, 183, 0);
+    font-size: 3rem;
+    text-shadow: 1px 1px 2px black;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(208, 178, 113);
+    margin:1rem;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    max-height: 78vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.listing{
+    position: relative;
+    margin: 0.5rem;
+    background-color: rgb(253, 234, 193);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgb(208, 178, 113);
+    
+}
+
+.listingHeader{
+    display: flex;
+    align-items: center;
+}
+
+.listingContent{
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.requestButton{
+    position: absolute;   
+    bottom: 0.7vw;         
+    right: 0.7vw;          
+    padding: 0.6rem 1rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1rem;
+}
+
+.requestButton:hover{  
+    background-color: rgb(60, 51, 31);  
+}
+
+.paymentButton{
+    position: absolute;   
+    bottom: 0.7vw;         
+    right: 10vw;          
+    padding: 0.6rem 1rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1rem;
+}
+
+.paymentButton:hover{  
+    background-color: rgb(60, 51, 31);  
+}
+
+.actionButton{         
+    /* margin-left: 0.5rem; */
+    margin: 0.2rem 0.5rem;
+    padding: 0.2rem 0.5rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.actionButton:hover{  
+    background-color: rgb(60, 51, 31);  
+}
+
+.docbuttonRow{
+    border-top: 0.095rem solid black;
+    text-align: center;
+}
+
+/* .listing:hover{
+    background-color: rgb(246, 210, 139);
+} */
+
+.page{
+    background: url("../../../public/assets/images/home_background_image.jpg") no-repeat center center;
+    /* background-repeat: no-repeat; */
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction:column;
+    background-position: center;
+}
+
+.ownerContent{
+    text-align: right;
+}
+
+.table{
+    font-size: 1.2rem;
+    margin: 1rem;
+    border: 0.1rem solid black;
+    /* padding: 0.5rem; */
+    width: 90.5vw;
+    border-collapse: collapse;
+}
+
+.th{
+    border: 0.1rem solid black;
+}
+
+.td{
+    border: 0.095rem solid black;
+    padding: 0.5rem;
+}
+.row:hover{
+    background-color: rgb(246, 210, 139);
+}
+.headerRow{
+    background-color: rgb(87, 71, 37);
+    color: white;
+}
+.buttonRow{
+    text-align: center;
+}
+.carousel {
+    /* width: 100%; */
+    max-height: 80vh;
+    text-align: center;
+}
+
+.thumbnail {
+    /* width: 100%; */
+    height: fit-content;
+    cursor: pointer;
+}
+
+.thumbnail:hover {
+    opacity: 0.8;
+}
+
