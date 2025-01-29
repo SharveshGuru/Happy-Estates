@@ -60,13 +60,13 @@ cd Happy-Estates
 
    Method 1: Using Java directly
    ```bash
-   cd "C:\stuff\real estate\Happy-Estates\artf\src\main\java"
+   cd "artf/src/main/java"
    javac com/prjgrp/artf/ArtfApplication.java
    java com.prjgrp.artf.ArtfApplication
    ```
    Method 2: Using IDE
    1. Open your Java IDE (Eclipse, IntelliJ IDEA, VS Code)
-   2. Navigate to `artf\src\main\java\com\prjgrp\artf\ArtfApplication.java`
+   2. Navigate to `artf/src/main/java/com/prjgrp/artf/ArtfApplication.java`
    3. Right-click on `ArtfApplication.java`
    4. Select "Run As" → "Java Application"
    
