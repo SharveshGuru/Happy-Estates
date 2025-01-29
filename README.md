@@ -1,4 +1,4 @@
-# Happy Estates - Real Estate Management System
+# Happy Estates: Real Estate Management System
 
 A comprehensive real estate management system built with React.js and Spring Boot, designed to streamline property management operations.
 
