@@ -83,7 +83,7 @@ The backend server will start on `http://localhost:8080`
 
 1. Navigate to frontend directory
 ```bash
-cd frontend
+cd reactapp
 ```
 
 2. Install dependencies
