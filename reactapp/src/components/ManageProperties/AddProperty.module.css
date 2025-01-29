@@ -7,6 +7,7 @@
     background-color: rgb(253, 234, 193);
     border-radius: .25rem;
     width: 50vw;
+    max-height: fit-content;
     box-shadow: 0.25rem 0.25rem  rgb(212, 158, 39);
     padding: 1rem 1rem 1rem 1rem;
   }

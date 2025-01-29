@@ -8,6 +8,11 @@ import ApplyForLease from "./ApplyForLease";
 import EditProperty from "../ManageProperties/EditProperty";
 import AddDocument from "../ManageProperties/AddDocument";
 import FileDisplay from "../FileDisplay";
+import AddImages from "../ManageProperties/AddImages";
+import {Swiper, SwiperSlide} from "swiper/react";
+import 'swiper/swiper-bundle.css';
+import Viewer from 'react-viewer';
+
 
 const ViewProperty=()=>{
 
@@ -18,6 +23,7 @@ const ViewProperty=()=>{
     const [editOpen,setEditOpen]=useState(false);
     const [leaseOpen,setLeaseOpen]=useState(false);
     const [docOpen,setDocOpen]=useState(false);
+    const [imgOpen,setImgOpen]=useState(false);
     const [leaseUpdateTrigger, setLeaseUpdateTrigger] = useState(false); 
     const [tableData,setTableData]=useState([]);
     const [ldata,setLdata]=useState({});
@@ -28,6 +34,10 @@ const ViewProperty=()=>{
     const [selectedDocument, setSelectedDocument] = useState(null); 
     const [selectedMimeType, setSelectedMimeType] = useState("");
     const [isDocViewOpen, setIsDocViewOpen] = useState(false);
+    const [images,setImages]=useState([]);
+    const [viewerOpen, setViewerOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [imagesForViewer, setImagesForViewer] = useState([]);
     const [property,setProperty]=useState({
         "id": null,
         "name": null,
@@ -84,6 +94,15 @@ const ViewProperty=()=>{
             })
             .catch((error)=>window.alert("Unable to get Details!"));
         }
+
+        if(property && property.id){
+            axiosInstance.get(`/propertyimages/${property.id}`)
+            .then((response)=>{
+                setImages(response.data);
+                setTrigger(!trigger);
+            })
+            .catch((error)=>window.alert("Unable to get Details!"));
+        }
     },[property,user.role,id]);
 
     useEffect(() => {
@@ -91,14 +110,29 @@ const ViewProperty=()=>{
             try {
                 const response = await axiosInstance.get(`/propertydocs/${ldata.id}`);
                 setDocuments(response.data);
-                console.log(response.data);
             } catch (err) {
-                console.log(err);
+                console.log();
             }
             };
-    
-        fetchDocuments();
-      }, [ldata,docOpen]);
+        if(property.id){
+            fetchDocuments();
+        }
+    }, [ldata,docOpen]);
+
+    useEffect(()=>{
+        if(images.length>0){
+            const mappedImages = images.map((img) => ({
+                src: convertBlobToURL(img.document, img.fileType),
+                alt: img.documentName,
+                thumbnail: convertBlobToURL(img.document, img.fileType),
+            }));
+            setImagesForViewer(mappedImages);
+        }
+    },[images,imgOpen]);
+
+    function convertBlobToURL(blobData, fileType) {
+        return `data:${fileType};base64,${blobData}`;
+    }
 
     function handleLeasePopup(){
         setLeaseOpen(!leaseOpen);
@@ -114,6 +148,10 @@ const ViewProperty=()=>{
 
     function handleDocViewPopup(){
         setIsDocViewOpen(!isDocViewOpen);
+    }
+
+    function handleImgPopup(){
+        setImgOpen(!imgOpen);
     }
 
     function handlePropertyUpdate(lease) {
@@ -277,8 +315,27 @@ const ViewProperty=()=>{
                 <div className={styles.listing}>
                     <div className={styles.listingContent}>
                         <h2>Property Images:</h2>
-                        <button className={styles.addButton}>Add Images</button>
+                        {user.role==="ROLE_Owner" && <button onClick={handleImgPopup} className={styles.addButton}>Add Images</button>}
                     </div>
+
+                    
+                    {images.length>0?(
+                        <div>
+                            <br/>
+                            <Swiper
+                                spaceBetween={10}
+                                slidesPerView={1}
+                                onSlideChange={(swiper)=>setCurrentImageIndex(swiper.activeIndex)}
+                                className={styles.carousel}
+                            >
+                                {imagesForViewer.map((img,index)=>(
+                                    <SwiperSlide key={index}>
+                                        <img src={img.thumbnail} alt={img.alt} className={styles.thumbnail} onClick={()=>setViewerOpen(true)} />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                            <p>Click the image to view fully; Swipe using mouse to view all</p>
+                        </div>):<p><br />There are no images added!</p>}
                     
                 </div>
 
@@ -325,9 +382,24 @@ const ViewProperty=()=>{
                 <AddDocument lease={ldata}/>
             </Popup>
 
+            <Popup isOpen={imgOpen} onClose={handleImgPopup}>
+                <AddImages property={property}/>
+            </Popup>
+
             <Popup isOpen={isDocViewOpen} onClose={handleDocViewPopup}>
                 <FileDisplay docname={selectedDocumentName} base64Data={selectedDocument} mimeType={selectedMimeType}/>
             </Popup>
+
+            <Viewer
+                visible={viewerOpen}
+                onClose={() => setViewerOpen(false)}
+                images={imagesForViewer}
+                activeIndex={currentImageIndex}
+                zoomSpeed={0.2}
+                rotatable={true}
+                scalable={true}
+                draggable={true}
+            />
         </div>
     )
 }

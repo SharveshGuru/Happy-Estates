@@ -23,12 +23,12 @@ const AddDocument = ({lease}) => {
         }
 
         setErrorMessage('');
-
         const formData = new FormData();
         formData.append('file', file);
         formData.append('documentName', documentName);
         formData.append('documentType', "Lease Document");
         formData.append('leaseid', lease.id);
+        formData.append('propertyid',lease.property.id);
         formData.append('uploadedBy', user.sub);
 
         const fileType = file.type; // Get the MIME type of the file
@@ -60,6 +60,7 @@ const AddDocument = ({lease}) => {
             {!updated &&<>
             <h2 className={styles.heading}>Add Document</h2>
             <br></br>
+            {console.log(lease)}
         <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.formlabel}>Document Name: </label>
             <input className={styles.forminput} onChange={(e)=>setDocumentName(e.target.value)} type="text" value={documentName} placeholder='Enter Document Name' required></input><br />

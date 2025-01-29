@@ -198,3 +198,19 @@
     flex-direction: row;
     justify-content: center; */
 }
+
+.carousel {
+    /* width: 100%; */
+    max-height: 80vh;
+    text-align: center;
+}
+
+.thumbnail {
+    /* width: 100%; */
+    height: fit-content;
+    cursor: pointer;
+}
+
+.thumbnail:hover {
+    opacity: 0.8;
+}
