@@ -57,6 +57,7 @@ cd Happy-Estates
 - Create a new database named 'appdb'
 
 3. Running the Backend
+
    Method 1: Using Java directly
    ```bash
    cd "C:\stuff\real estate\Happy-Estates\artf\src\main\java"
