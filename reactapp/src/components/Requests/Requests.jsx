@@ -9,6 +9,7 @@ const Requests = () =>{
     const user=JSON.parse(localStorage.getItem("user"));
     const [tableData,setTableData]=useState([]);
     const [trigger,setTrigger]=useState(false);
+    const [isLeased,setIsLeased]=useState(false)
     useEffect(()=>{
         if(user.role==="ROLE_Tenant"){
             axiosInstance.get(`/requeststenant/${user.sub}`)
@@ -32,6 +33,30 @@ const Requests = () =>{
             })  
         }
     },[user.role,user.sub,open,trigger]);
+
+    useEffect(()=>{
+
+        if(user.role==="ROLE_Tenant"){
+            axiosInstance.get(`/tenantproperty/${user.sub}`)
+            .then((res)=>{
+                if(res.data)
+                setIsLeased(true);
+            })
+            .catch((err)=>{
+                window.alert("Error getting details!");
+            })
+        }
+        else{
+            axiosInstance.get(`/leasedownerproperties/${user.sub}`)
+            .then((res)=>{
+                if(res.data.length>0)
+                setIsLeased(true);
+            })
+            .catch((err)=>{
+                window.alert("Error getting details!");
+            })
+        }
+    },[user.role,user.sub]);
 
     function handleRequest(){
         setOpen(!open);
@@ -58,7 +83,7 @@ const Requests = () =>{
                 <div className={styles.listing}>
                     <div className={styles.listingHeader}>
                         <h2>Request History</h2>
-                        {tableData && tableData.lease && <button onClick={handleRequest} className={styles.createRequestButton}>Create Request</button>}
+                        {isLeased && <button onClick={handleRequest} className={styles.createRequestButton}>Create Request</button>}
                     </div><br />
                     {tableData.length>0 ? (<table className={styles.table}>
                         <thead>
