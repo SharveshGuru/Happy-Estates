@@ -13,6 +13,8 @@ import com.prjgrp.artf.repository.PropertyLeaseMapRepo;
 import com.prjgrp.artf.repository.PropertyRepo;
 import com.prjgrp.artf.repository.UserRepo;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PropertyLeaseMapService {
     @Autowired
@@ -48,15 +50,9 @@ public class PropertyLeaseMapService {
         repo.deleteById(id);
     }
 
+    @Transactional
     public void deleteByProperty(Long id){
-        Optional<Property> p=prop.findById(id);
-        if(p.isPresent()){
-            PropertyLeaseMap plm=repo.findByProperty(p.get());
-            plm.setLease(null);
-            repo.save(plm);
-  
-            
-        }
+        repo.deleteByPropertyId(id);
     }
 
     public List<PropertyLeaseMap> getActiveLeasesByOwner(String username){

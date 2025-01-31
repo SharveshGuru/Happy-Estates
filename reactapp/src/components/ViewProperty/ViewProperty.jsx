@@ -163,11 +163,18 @@ const ViewProperty=()=>{
             };
             axiosInstance.put(`/property/${id}`,updatedProperty)
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
-            .catch((error)=>window.alert("There was a problem in processing the application!"));
+            .catch((error)=>{
+                console.log(error);
+                window.alert("There was a problem in processing the application!")
+
+            });
             
             axiosInstance.post(`/plmap`,{property,owner,lease})
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
-            .catch((error)=>window.alert("There was a problem in processing the application!"));
+            .catch((error)=>{
+                console.log(error);
+                window.alert("There was a problem in processing the application!")
+            });
             
         } else {
             window.alert("Tenant data is missing!");
@@ -187,7 +194,9 @@ const ViewProperty=()=>{
         }
         axiosInstance.put(`/lease/${updatedLease.id}`,updatedLease)
         .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
-        .catch((error)=>window.alert("There was a problem in approving the application!"));
+        .catch((error)=>{
+            window.alert("There was a problem in approving the application!")
+        });
     
         handlePropertyUpdate(updatedLease);
     }
@@ -208,7 +217,7 @@ const ViewProperty=()=>{
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
             .catch((error)=>window.alert("There was a problem in removing the tenant!"));
 
-            axiosInstance.put(`/plmap/${id}`)
+            axiosInstance.delete(`/plmap/${id}`)
             .then((response)=>setLeaseUpdateTrigger(!leaseUpdateTrigger))
             .catch((error)=>window.alert("There was a problem in removing the tenant!"));
         }

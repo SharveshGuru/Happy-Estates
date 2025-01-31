@@ -17,5 +17,11 @@ public interface PropertyLeaseMapRepo extends JpaRepository<PropertyLeaseMap, Lo
 
     PropertyLeaseMap findByProperty(Property property);
 
+    PropertyLeaseMap findByPropertyId(Long id);
+
     List<PropertyLeaseMap> findByOwnerAndLeaseIsNotNull(User owner);
+
+    void deleteByPropertyId(Long id);
+
+    void deleteByProperty(Property data);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prjgrp.artf.model.PropertyLeaseMap;
@@ -57,6 +58,12 @@ public class PropertyLeaseMapController {
     @PutMapping("/plmap/{id}")
     @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
     public void removeMap(@PathVariable Long id) {
+        service.deleteByProperty(id);
+    }
+
+    @DeleteMapping("/plmap/{id}")
+    @PreAuthorize("hasRole('ROLE_Owner') or hasRole('ROLE_Admin')")
+    public void deleteMap(@PathVariable Long id) {
         service.deleteByProperty(id);
     }
 }
