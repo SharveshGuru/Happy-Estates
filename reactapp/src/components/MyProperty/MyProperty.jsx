@@ -135,9 +135,9 @@ const MyProperty = () =>{
     return(
         <div className={styles.page}>
             <h1 className={styles.heading}>My Property</h1>
-            <div className={styles.container}>
+            {(property && ldata.lease) ? (<div className={styles.container}>
                 <div className={styles.listing}>
-                    {(property && ldata.lease) ? (<div className={styles.listingContent}>
+                    <div className={styles.listingContent}>
                         <div>
                             <h2>Property Details:</h2><br />
                             <p>Property Name: {property.name}</p>
@@ -155,7 +155,7 @@ const MyProperty = () =>{
                             <button onClick={handleRequest} className={styles.requestButton}>Raise Request</button>
                             <button onClick={handlePayment} className={styles.paymentButton}>Make Payment</button>
                         </div>
-                    </div>):<h3>You have no property rented</h3>}
+                    </div>
                 </div>
                 <div className={styles.listing}>
                     <h2>Lease Documents:</h2>
@@ -207,7 +207,7 @@ const MyProperty = () =>{
                         </div>):<p><br />There are no images added!</p>}
                     
                 </div>
-            </div>
+            </div>):<div className={styles.container}><h3>You have no property rented</h3></div>}
             <Popup isOpen={isDocViewOpen} onClose={handleDocViewPopup}>
                 <FileDisplay docname={selectedDocumentName} base64Data={selectedDocument} mimeType={selectedMimeType}/>
             </Popup>
