@@ -41,7 +41,7 @@ const ManageProperties = () =>{
                     <div className={styles.listing}>
                         <div className={styles.listingHeader}>
                             <h2>{data.name}</h2>
-                            <h2>Tenant: {data.tenant?data.tenant.username:"Unoccupied"}</h2>
+                            <h2>Tenant: {data.tenant?data.tenant.name:"Unoccupied"}</h2>
                         </div>
                         <div className={styles.listingContent}>
                             <div>
