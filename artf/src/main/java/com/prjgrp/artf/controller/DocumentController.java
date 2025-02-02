@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,7 @@ public class DocumentController {
     DocumentService service;
 
     @PostMapping("/documents")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Owner')")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner')")
     public void addDocument(
         @RequestParam("file") MultipartFile file,
         @RequestParam("documentName") String documentName,
@@ -39,7 +40,7 @@ public class DocumentController {
     }
 
     @PostMapping("/images")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Owner')")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner')")
     public void addDocuments(
         @RequestParam("files") MultipartFile[] files, // Change to array
         @RequestParam("documentName") String documentName,
@@ -54,14 +55,20 @@ public class DocumentController {
 
 
     @GetMapping("/propertydocs/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
     public List<Document> getPropertyDocs(@PathVariable Long id) {
         return service.getDocumentsByLeaseIdDocType(id, "Lease Document");
     }
 
     @GetMapping("/propertyimages/{id}")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner') or hasRole('ROLE_Tenant')")
     public List<Document> getPropertyImages(@PathVariable Long id) {
         return service.getImagesByProperty(id);
     }
-    
+
+    @DeleteMapping("/deleteimage/{id}")
+    @PreAuthorize("hasRole('ROLE_Admin') or hasRole('ROLE_Owner')")
+    public void deleteImage(@PathVariable Long id){
+        service.removeImage(id);
+    }
 }

@@ -71,4 +71,8 @@ public class DocumentService {
     public List<Document> getImagesByProperty(Long id){
         return repo.findByDocumentTypeAndPropertyId("Property Image",id);
     }
+
+    public void removeImage(Long id){
+        repo.deleteById(id);
+    }
 }
