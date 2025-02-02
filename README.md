@@ -9,7 +9,7 @@ A comprehensive real estate management system built with React.js and Spring Boo
 - npm v10.8.2
 
 ### Backend Requirements
-- Java 21
+- Java 17
 - Apache Maven 3.9.9 
 
 ## Project Structure
