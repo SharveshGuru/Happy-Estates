@@ -214,3 +214,29 @@
 .thumbnail:hover {
     opacity: 0.8;
 }
+
+.removeImgButton {
+    /* position: absolute;    */
+    /* bottom: 0.7vw;          */
+    /* top: 0.8vh; */
+    /* right: 10vw;           */
+    height: 5.8vh;
+    padding: 0.6rem 1rem;   
+    background-color: rgb(153, 109, 14); 
+    color: white;         
+    border: none;         
+    cursor: pointer;      
+    border-radius: 0.3rem;   
+    font-family: 'Jost',serif;
+    font-size: 1rem;
+}
+
+.removeImgButton:hover {
+    background-color: red;
+}
+
+.imgContent{
+    display: flex;
+    justify-content: center;
+    gap:0.5vw;
+}

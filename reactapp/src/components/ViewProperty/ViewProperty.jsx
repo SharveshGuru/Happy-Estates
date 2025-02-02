@@ -38,6 +38,7 @@ const ViewProperty=()=>{
     const [viewerOpen, setViewerOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [imagesForViewer, setImagesForViewer] = useState([]);
+    const [imgTrigger,setImgTrigger]=useState(false);
     const [property,setProperty]=useState({
         "id": null,
         "name": null,
@@ -103,7 +104,7 @@ const ViewProperty=()=>{
             })
             .catch((error)=>window.alert("Unable to get Details!"));
         }
-    },[property,user.role,id,imgOpen]);
+    },[property,user.role,id,imgOpen,imgTrigger]);
 
     useEffect(() => {
         const fetchDocuments = async () => {
@@ -122,13 +123,14 @@ const ViewProperty=()=>{
     useEffect(()=>{
         if(images.length>0){
             const mappedImages = images.map((img) => ({
+                id:img.id,
                 src: convertBlobToURL(img.document, img.fileType),
                 alt: img.documentName,
                 thumbnail: convertBlobToURL(img.document, img.fileType),
             }));
             setImagesForViewer(mappedImages);
         }
-    },[images,imgOpen]);
+    },[images,imgOpen,imgTrigger]);
 
     function convertBlobToURL(blobData, fileType) {
         return `data:${fileType};base64,${blobData}`;
@@ -239,6 +241,15 @@ const ViewProperty=()=>{
         setIsDocViewOpen(!isDocViewOpen);
     }
 
+    function deleteImg(id){
+        const confirm=window.confirm("Are you sure you want to delete this image?")
+        if(confirm){
+            axiosInstance.delete(`/deleteimage/${id}`)
+            .then((response)=>setImgTrigger(!imgTrigger))
+            .catch((err)=>window.alert("Error removing the image!"));
+        }
+    }
+
     return(
         <div className={styles.page}>
             <h1 className={styles.heading}>{property.name}</h1>
@@ -339,7 +350,10 @@ const ViewProperty=()=>{
                             >
                                 {imagesForViewer.map((img,index)=>(
                                     <SwiperSlide key={index}>
-                                        <img src={img.thumbnail} alt={img.alt} className={styles.thumbnail} onClick={()=>setViewerOpen(true)} />
+                                        <div className={styles.imgContent}>
+                                            <img src={img.thumbnail} alt={img.alt} className={styles.thumbnail} onClick={()=>setViewerOpen(true)} />
+                                            {user.role==="ROLE_Owner" && <button onClick={()=>deleteImg(img.id)} className={styles.removeImgButton}>Remove Image</button>}
+                                        </div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
