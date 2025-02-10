@@ -16,11 +16,10 @@ A comprehensive real estate management system built with React.js and Spring Boo
 
 ```
 Happy-Estates/
-├── frontend/                # React frontend application
+├── reactapp/                # React frontend application
+│   ├── public/
 │   ├── src/
 │   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
 │   │   └── App.js
 │   ├── package.json
 │   └── README.md
