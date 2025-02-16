@@ -1,6 +1,7 @@
 package com.prjgrp.artf.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -31,6 +32,8 @@ public class SecurityConfig {
     UserService service;
     @Autowired
     JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     @Bean
     public UserDetailsService userDetailsService(){
@@ -73,29 +76,29 @@ public class SecurityConfig {
     }
     
 
-    // @Bean
-    // public UrlBasedCorsConfigurationSource corsConfigurationSource() {
-    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    //     CorsConfiguration config = new CorsConfiguration();
-    //     config.setAllowCredentials(true);
-    //     config.addAllowedOrigin("http://localhost:3000");  // Allow your frontend's URL (replace with actual frontend URL)
-    //     config.addAllowedHeader("*");  // Allow all headers
-    //     config.addAllowedMethod("*");  // Allow all HTTP methods (GET, POST, etc.)
-    //     source.registerCorsConfiguration("/**", config);  // Apply CORS configuration to all endpoints
-    //     return source;
-    // }
-
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*");  
-        config.addAllowedHeader("*");  
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
+        config.addAllowedOrigin(frontendUrl);  // Allow your frontend's URL
+        config.addAllowedHeader("*");  // Allow all headers
+        config.addAllowedMethod("*");  // Allow all HTTP methods (GET, POST, etc.)
+        source.registerCorsConfiguration("/**", config);  // Apply CORS configuration to all endpoints
         return source;
     }
+
+    // @Bean
+    // public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     CorsConfiguration config = new CorsConfiguration();
+    //     config.setAllowCredentials(true);
+    //     config.addAllowedOriginPattern("*");  
+    //     config.addAllowedHeader("*");  
+    //     config.addAllowedMethod("*");
+    //     source.registerCorsConfiguration("/**", config);
+    //     return source;
+    // }
 
 
 }
