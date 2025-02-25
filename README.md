@@ -2,6 +2,8 @@
 
 A comprehensive real estate management system built with React.js and Spring Boot, designed to streamline property management operations.
 
+Visit the hosted application: [Happy Estates](https://happyestates.netlify.app/)
+
 ## System Requirements
 
 ### Frontend Requirements
@@ -10,7 +12,8 @@ A comprehensive real estate management system built with React.js and Spring Boo
 
 ### Backend Requirements
 - Java 17
-- Apache Maven 3.9.9 
+- Apache Maven 3.9.9
+- MySQL 8.0.39
 
 ## Project Structure
 
