@@ -3,6 +3,7 @@
 A comprehensive real estate management system built with React.js and Spring Boot, designed to streamline property management operations.
 
 Visit the hosted application: [Happy Estates](https://happyestates.netlify.app/)
+
 Since it's hosted on a free tier, the initial response time may be delayed by a few minutes.
 
 ## System Requirements
